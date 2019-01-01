@@ -45,19 +45,9 @@ $(document).ready(function () {
     };
 
     function resetGame() {
-        updateSection("luke", "#choose-fighter", "append");
-        updateSection("vader", "#choose-fighter", "append");
-        updateSection("stormtrooper", "#choose-fighter", "append");
-        updateSection("compactor", "#choose-fighter", "append");
-    };
-
-    function assignEnemies() {
-        updateSection("luke", "#choose-enemy", "append");
-    };
-
-    function assignToDefeatedEnemies() {
-        updateSection("luke", "#defeated-enemies", "append");
-
+        for (x = 0; x < Object.keys(characters).length; x++) {
+            updateSection(Object.keys(characters)[x], "#choose-fighter", "append");
+        };
     };
 
     function updateSection(theCharacter, theLocation, appendOrReplace) {
@@ -81,6 +71,7 @@ $(document).ready(function () {
         //move your fighter from your fighter area to attack area
         updateSection(yourFighter, "#attack-area", "append");
         $("#your-fighter").empty();
+        //move the chosen enemy to attack area
         theCurrentEnemy = event.target.id;
         updateSection(theCurrentEnemy, "#attack-area", "append");
         resetChooseEnemy();
