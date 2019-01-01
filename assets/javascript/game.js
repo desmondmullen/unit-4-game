@@ -8,7 +8,7 @@ $(document).ready(function () {
     characters = {
         luke: {
             name: "Luke Skywalker",
-            avatar: "",
+            avatar: "assets/images/luke.jpg",
             healthPoints: 0,
             attackPower: 0,
             counterAttackPower: 0,
@@ -17,7 +17,7 @@ $(document).ready(function () {
         },
         vader: {
             name: "Darth Vader",
-            avatar: "",
+            avatar: "assets/images/vader.jpg",
             healthPoints: 0,
             attackPower: 0,
             counterAttackPower: 0,
@@ -26,7 +26,7 @@ $(document).ready(function () {
         },
         stormtrooper: {
             name: "Stormtrooper",
-            avatar: "",
+            avatar: "assets/images/stormtrooper.jpg",
             healthPoints: 0,
             attackPower: 0,
             counterAttackPower: 0,
@@ -35,7 +35,7 @@ $(document).ready(function () {
         },
         compactor: {
             name: "Trash Compactor",
-            avatar: "",
+            avatar: "assets/images/compactor.jpg",
             healthPoints: 0,
             attackPower: 0,
             counterAttackPower: 0,
@@ -48,10 +48,12 @@ $(document).ready(function () {
         for (x = 0; x < Object.keys(characters).length; x++) {
             updateSection(Object.keys(characters)[x], "#choose-fighter", "append");
         };
+        $("#choose-fighter-heading").text("Choose your fighter");
+
     };
 
     function updateSection(theCharacter, theLocation, appendOrReplace) {
-        theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character" }).html(eval("characters." + theCharacter + ".name")));
+        theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character", }).html(eval("characters." + theCharacter + ".name")));
         if (appendOrReplace == "append") {
             $(theLocation).append(theItemToAppend);
         } else {
@@ -59,11 +61,24 @@ $(document).ready(function () {
         }
     };
 
+    function updateSectionWithFadeIn(theCharacter, theLocation, appendOrReplace) {
+        theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character", "style": "opacity: 0" }).html(eval("characters." + theCharacter + ".name")));
+        if (appendOrReplace == "append") {
+            $(theLocation).append(theItemToAppend);
+
+        } else {
+            $(theLocation).html(theItemToAppend);
+        }
+        eval(theItemToAppend).animate({ opacity: "1" });
+
+    };
+
     $("#choose-fighter").click(function (event) {
         theFighter = event.target.id
         updateSection(theFighter, "#your-fighter", "append");
         resetChooseEnemy()
         $("#choose-fighter").empty();
+        $("#choose-fighter-heading").empty();
     });
 
     $("#choose-enemy").click(function (event) {
@@ -94,9 +109,14 @@ $(document).ready(function () {
 
     $("#attack-button").click(function (event) {
         //do some attacking
-        updateSection(theFighter, "#your-fighter", "replace");
-        updateSection(theCurrentEnemy, "#defeated-enemies", "append");
-        $("#attack-area").empty();
+        let theCharToAnimate = "$(\"#" + theCurrentEnemy + "\")";
+        eval(theCharToAnimate).animate({ width: "0px", height: "0px", "margin-top": "+=150px", opacity: "0" });
+        setTimeout(function () {
+            updateSectionWithFadeIn(theFighter, "#your-fighter", "replace");
+            updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
+            $("#attack-area").empty();
+        }, 500);
+
     });
 
     resetGame();

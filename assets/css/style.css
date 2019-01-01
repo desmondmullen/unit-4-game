@@ -1,15 +1,83 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("../images/background.jpg");
+    /* background-size: auto; */
+}
+
 .display-character {
-    display: inline-block;
-    background-color: lightgray;
-    padding: 20px;
+    display: inline-block;    
+    text-align: center;
+    vertical-align: middle;
+    width: 200px;
+    height: 150px;
     margin: 20px;
+    border: 5px solid white;
+}
+
+#choose-enemy > div{
+    border: 5px solid red;
+}
+
+#attack-area > div{
+    width: 190px;
+    height: 140px;
+    border: 0px;
+    margin-right: 30px;
+    -webkit-animation-name: greenPulse;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-name: greenPulse;
+    -moz-animation-duration: 2s;
+    -moz-animation-iteration-count: infinite;
+    animation-name: greenPulse;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes greenPulse {
+    from {
+        -webkit-box-shadow: 0 0 5px 5px #91bd09;
+        -moz-box-shadow: 0 0 5px 5px #91bd09;
+        box-shadow: 0 0 5px 5px #91bd09;
+    }
+    50% {
+        -webkit-box-shadow: 0 0 5px 10px greenyellow;
+        -moz-box-shadow: 0 0 5px 10px greenyellow;
+        box-shadow: 0 0 5px 10px greenyellow;
+    }
+    to {
+        -webkit-box-shadow: 0 0 5px 5px #91bd09;
+        -moz-box-shadow: 0 0 5px 5px #91bd09;
+        box-shadow: 0 0 5px 5px #91bd09;
+    }
+}
+
+#defeated-enemies > div{
+    border: 5px solid gray;
 }
 
 .display-block {
-    height: 100px;
+    height: 170px;
 }
 
 h1 {
     font-size: x-large;
+    color: white;
     display: block;
+}
+
+#luke {
+    background-image: url("../images/luke.jpg");
+}
+#vader {
+    background-image: url("../images/vader.jpg");
+}
+#stormtrooper {
+    background-image: url("../images/stormtrooper.jpg");
+}
+#compactor {
+    background-image: url("../images/compactor.jpg");
 }
