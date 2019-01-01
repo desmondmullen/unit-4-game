@@ -69,7 +69,7 @@ $(document).ready(function () {
         } else {
             $(theLocation).html(theItemToAppend);
         }
-        eval(theItemToAppend).animate({ opacity: "1" });
+        eval(theItemToAppend).animate({ opacity: "1" }, 1500);
 
     };
 
@@ -107,17 +107,30 @@ $(document).ready(function () {
         };
     };
 
-    $("#attack-button").click(function (event) {
+    $("#attack-button, #attack-area").click(function (event) {
         //do some attacking
+        if (1 === 1) { //if you win
+            clearTheEnemy(); //clears the enemy and the game continues
+        } else {
+            //do a game-over thing
+        };
+    });
+
+    function clearTheEnemy() {
         let theCharToAnimate = "$(\"#" + theCurrentEnemy + "\")";
         eval(theCharToAnimate).animate({ width: "0px", height: "0px", "margin-top": "+=150px", opacity: "0" });
-        setTimeout(function () {
-            updateSectionWithFadeIn(theFighter, "#your-fighter", "replace");
-            updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
-            $("#attack-area").empty();
-        }, 500);
-
-    });
+        theCharToAnimate = "$(\"#" + theFighter + "\")";
+        eval(theCharToAnimate).animate({ opacity: "0" });
+        updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
+        $("#attack-area").empty();
+        updateSectionWithFadeIn(theFighter, "#your-fighter", "replace");
+        if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
+            setTimeout(function () {
+                alert("You won!");
+                //do a big you-won thing
+            }, 1000);
+        };
+    };
 
     resetGame();
 });
