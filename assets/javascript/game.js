@@ -122,7 +122,9 @@ $(document).ready(function () {
         theCharToAnimate = "$(\"#" + theFighter + "\")";
         eval(theCharToAnimate).animate({ opacity: "0" });
         updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
-        $("#attack-area").empty();
+        setTimeout(function () {
+            $("#attack-area").empty();
+        }, 1000);
         updateSectionWithFadeIn(theFighter, "#your-fighter", "replace");
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
             setTimeout(function () {
