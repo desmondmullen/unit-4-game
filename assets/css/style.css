@@ -9,6 +9,19 @@ body {
     font-size: large;
 }
 
+h1 {
+    width: 60%;
+    font-size: xx-large;
+    text-align: center;
+    color: white;
+    display: block;
+}
+
+section {
+    text-align: center;
+    width: 60%;
+}
+
 .display-character {
     display: inline-block;    
     text-align: center;
@@ -64,12 +77,6 @@ body {
 
 .display-block {
     height: 170px;
-}
-
-h1 {
-    font-size: xx-large;
-    color: white;
-    display: block;
 }
 
 #luke {

@@ -75,29 +75,36 @@ $(document).ready(function () {
 
     $("#choose-fighter").click(function (event) {
         theFighter = event.target.id
-        updateSection(theFighter, "#your-fighter", "append");
+        // updateSection(theFighter, "#your-fighter", "append");
         resetChooseEnemy()
         $("#choose-fighter").empty();
         $("#choose-fighter-heading").empty();
-        // $("#choose-enemy-heading").text("Choose enemy");
-        // $("#attack-area-heading").empty();
-        // $("#defeated-enemies-heading").empty();
+        $("#choose-enemy-heading").text("Choose an enemy to fight");
+        $("#attack-area-heading").empty();
+        $("#defeated-enemies-heading").empty();
 
     });
 
     $("#choose-enemy").click(function (event) {
-        let yourFighter = $("#your-fighter > div").attr("id");
         //move your fighter from your fighter area to attack area
-        updateSection(yourFighter, "#attack-area", "append");
+        $("#defeated-enemies > div").attr({ "style": "opacity: 0" });
+        updateSection(theFighter, "#attack-area", "append");
         $("#your-fighter").empty();
         //move the chosen enemy to attack area
         theCurrentEnemy = event.target.id;
         updateSection(theCurrentEnemy, "#attack-area", "append");
         resetChooseEnemy();
+        $("#choose-enemy-heading").empty();
+        $("#choose-enemy").empty();
+        $("#attack-area-heading").text("Attack area");
+        $("#defeated-enemies-heading").empty();
     });
 
     function resetChooseEnemy() {
         $("#choose-enemy").empty();
+        $("#choose-enemy-heading").text("Choose the next enemy to fight");
+        $("#attack-area-heading").empty();
+        // $("#defeated-enemies > div").animate({ opacity: "1" });
         for (x = 0; x < Object.keys(characters).length; x++) {
             let theKey = Object.keys(characters)[x];
             var theIfStatement = "theFighter != theKey && theCurrentEnemy != theKey"
@@ -126,15 +133,21 @@ $(document).ready(function () {
         theCharToAnimate = "$(\"#" + theFighter + "\")";
         eval(theCharToAnimate).animate({ opacity: "0" });
         updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
+        $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
         setTimeout(function () {
             $("#attack-area").empty();
         }, 1000);
-        updateSectionWithFadeIn(theFighter, "#your-fighter", "replace");
+        $("#defeated-enemies-heading").text("Defeated enemies");
+        // updateSectionWithFadeIn(theFighter, "#your-fighter", "replace");
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
+            $("#attack-area-heading").empty();
             setTimeout(function () {
+                $("#choose-enemy").empty();
                 alert("You won!");
                 //do a big you-won thing
             }, 1000);
+        } else {
+            resetChooseEnemy()
         };
     };
 
