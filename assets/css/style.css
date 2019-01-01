@@ -4,12 +4,16 @@
 
 body {
     background-image: url("../images/background.jpg");
-    background-position: right 0px;}
+    background-position: right 0px;
+    font-family: 'Bungee Inline', cursive;
+    font-size: large;
+}
 
 .display-character {
     display: inline-block;    
     text-align: center;
     vertical-align: middle;
+    color: #f4b411;
     width: 200px;
     height: 150px;
     margin: 20px;
@@ -63,7 +67,7 @@ body {
 }
 
 h1 {
-    font-size: x-large;
+    font-size: xx-large;
     color: white;
     display: block;
 }

@@ -79,10 +79,6 @@ $(document).ready(function () {
         resetChooseEnemy()
         $("#choose-fighter").empty();
         $("#choose-fighter-heading").empty();
-        // $("#choose-enemy-heading").text("Choose enemy");
-        // $("#attack-area-heading").empty();
-        // $("#defeated-enemies-heading").empty();
-
     });
 
     $("#choose-enemy").click(function (event) {
@@ -111,7 +107,7 @@ $(document).ready(function () {
         };
     };
 
-    $("#attack-area").click(function (event) {
+    $("#attack-button, #attack-area").click(function (event) {
         //do some attacking
         if (1 === 1) { //if you win
             clearTheEnemy(); //clears the enemy and the game continues
