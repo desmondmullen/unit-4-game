@@ -1,9 +1,3 @@
-//player chooses a character for entirety of game
-
-//player chooses enemy to fight (one at a time until all are gone). Enemy is moved to defender area
-
-//now attack button is clickable/active
-
 //ATTACKING: each click of the button inflicts damage on player and enemy. Each attack increases player's skills/damage inflicted. Enemy's skills do not increase.
 
 //character objects: each has 3 attributes: `Health Points`, `Attack Power` and `Counter Attack Power` Player's attack power is increased by their base amount with each attack. Player uses `Attack Power` and enemy uses `Counter Attack Power`.
@@ -89,18 +83,22 @@ $(document).ready(function () {
         $("#your-fighter").empty();
         theCurrentEnemy = event.target.id;
         updateSection(theCurrentEnemy, "#attack-area", "append");
-        resetChooseEnemy()
+        resetChooseEnemy();
     });
 
     function resetChooseEnemy() {
         $("#choose-enemy").empty();
         for (x = 0; x < Object.keys(characters).length; x++) {
-            let theKey = Object.keys(characters)[x]
-            if (theFighter != theKey && theCurrentEnemy != theKey) {
-                updateSection(Object.keys(characters)[x], "#choose-enemy", "append");
+            let theKey = Object.keys(characters)[x];
+            var theIfStatement = "theFighter != theKey && theCurrentEnemy != theKey"
+            //check if enemy is in defeated-enemies
+            for (y = 0; y < $("#defeated-enemies > div").length; y++) {
+                theIfStatement = theIfStatement + " && \"" + $("#defeated-enemies > div")[y].id + "\" != theKey";
             }
-            //$("#choose-enemy > div")[y].id
-        }
+            if (eval(theIfStatement)) {
+                updateSection(Object.keys(characters)[x], "#choose-enemy", "append");
+            };
+        };
     };
 
     $("#attack-button").click(function (event) {
