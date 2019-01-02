@@ -13,7 +13,7 @@ h1 {
     width: 70%;
     font-size: xx-large;
     text-align: center;
-    color: white;
+    color: #FFC00D;
     display: block;
 }
 
@@ -46,16 +46,33 @@ em {
 }
 
 .display-character {
-    display: inline-block;    
-    text-align: center;
-    vertical-align: middle;
-    color: #FFC00D;
+    display: inline-block;  
+    position: relative;  
     width: 200px;
     height: 150px;
     margin: 20px 10px;
     border: 5px solid white;
 }
 
+.character-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    color: #FFC00D;
+    background-color: black;
+    padding: 2px;
+    width: 100%;
+}
+
+/* a.img-portfolio:hover {
+    opacity: 0.65;
+}
+
+a.img-portfolio:hover .figcaption {
+    background-color: #E89F0C;
+}
+ */
 .display-final-quote {
     font-size: large;
     font-family: "Courier New", Courier, monospace;
@@ -102,7 +119,7 @@ em {
     }
 }
 
-#defeated-enemies {
+#defeated-enemies-heading {
     text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
 }
 

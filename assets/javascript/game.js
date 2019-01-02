@@ -5,6 +5,7 @@
 $(document).ready(function () {
     var theFighter;
     var theCurrentEnemy;
+    var clickCheckString = "";
     characters = {
         luke: {
             name: "Luke Skywalker",
@@ -12,7 +13,7 @@ $(document).ready(function () {
             attackPower: 0,
             counterAttackPower: 0,
             winningPhrase: "\"I’ll never turn to the dark side.\"",
-            losingPhrase: "\"I have a very bad feeling about this.\""
+            losingPhrase: "\"I have a very bad feeling about this.\"",
         },
         vader: {
             name: "Darth Vader",
@@ -20,7 +21,7 @@ $(document).ready(function () {
             attackPower: 0,
             counterAttackPower: 0,
             winningPhrase: "\"Your powers are weak.\"",
-            losingPhrase: "\"The Force is strong with this one.\""
+            losingPhrase: "\"The Force is strong with this one.\"",
         },
         stormtrooper: {
             name: "Stormtrooper",
@@ -28,7 +29,7 @@ $(document).ready(function () {
             attackPower: 0,
             counterAttackPower: 0,
             winningPhrase: "\"Inform Lord Vader we have prisoners.\"",
-            losingPhrase: "\"These aren't the droids we're looking for.\""
+            losingPhrase: "\"These aren't the droids we're looking for.\"",
         },
         compactor: {
             name: "Trash Compactor",
@@ -36,12 +37,19 @@ $(document).ready(function () {
             attackPower: 0,
             counterAttackPower: 0,
             winningPhrase: "[nom nom nom]",
-            losingPhrase: "[sputter pffft]"
+            losingPhrase: "[sputter pffft]",
         }
+    };
+
+    function assembleClickCheckString() {
+        for (x = 0; x < Object.keys(characters).length; x++) {
+            clickCheckString = clickCheckString + Object.keys(characters)[x] + ", ";
+        };
     };
 
     function resetGame() {
         $("#display").empty();
+        assembleClickCheckString();
         for (x = 0; x < Object.keys(characters).length; x++) {
             updateSection(Object.keys(characters)[x], "#display", "append");
         };
@@ -49,8 +57,17 @@ $(document).ready(function () {
 
     };
 
+
+    // <a class="img-portfolio" href="http://desmondmullen.com/unit-4-game"><img class="img-portfolio"
+    //     src="assets/images/starwarsrpg.jpg" alt="Star Wars RPG">
+    //     <section class="figcaption">Star Wars RPG</section>
+    //                     </a>
+
+
+
     function updateSection(theCharacter, theLocation, appendOrReplace) {
-        theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character", }).html(eval("characters." + theCharacter + ".name")));
+        // theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character" }).html(eval("characters." + theCharacter + ".name")));
+        theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character" }).html($("<section>").attr({ "class": "character-info" }).text(eval("characters." + theCharacter + ".name"))));
         if (appendOrReplace == "append") {
             $(theLocation).append(theItemToAppend);
         } else {
@@ -59,7 +76,8 @@ $(document).ready(function () {
     };
 
     function updateSectionWithFadeIn(theCharacter, theLocation, appendOrReplace) {
-        theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character", "style": "opacity: 0" }).html(eval("characters." + theCharacter + ".name")));
+        // theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character", "style": "opacity: 0" }).html(eval("characters." + theCharacter + ".name")));
+        theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character", "style": "opacity: 0" }).html($("<section>").attr({ "class": "character-info" }).text(eval("characters." + theCharacter + ".name"))));
         if (appendOrReplace == "append") {
             $(theLocation).append(theItemToAppend);
 
@@ -71,29 +89,32 @@ $(document).ready(function () {
     };
 
     $("#display").click(function (event) {
-        if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
-            //move your fighter from your fighter area to attack area
-            updateSection(theFighter, "#display", "replace");
-            //move the chosen enemy to attack area
-            theCurrentEnemy = event.target.id;
-            updateSection(theCurrentEnemy, "#display", "append");
-            $("#heading").text("Click your fighter to attack!");
-            $("#display > div").attr({ "class": "attack display-character" });
-        } else {
-            if ($("#heading").text() == "Click your fighter to attack!") {
-                //do some attacking
-                if (1 === 1) { //if you win
-                    clearTheEnemy(); //clears the enemy and the game continues
-                } else {
-                    //do a game-over thing
+        // only accept clicks on character avatars
+        if (clickCheckString.includes(event.target.id)) {
+            if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
+                //move your fighter from your fighter area to attack area
+                updateSection(theFighter, "#display", "replace");
+                //move the chosen enemy to attack area
+                theCurrentEnemy = event.target.id;
+                updateSection(theCurrentEnemy, "#display", "append");
+                $("#heading").text("Click your fighter to attack!");
+                $("#display > div").attr({ "class": "attack display-character" });
+            } else {
+                if ($("#heading").text() == "Click your fighter to attack!") {
+                    //do some attacking
+                    if (1 === 1) { //if you win
+                        clearTheEnemy(); //clears the enemy and the game continues
+                    } else {
+                        //do a game-over thing
+                    };
                 };
             };
-        };
-        if ($("#heading").text() == "Choose your fighter") {
-            theFighter = event.target.id
-            resetChooseEnemy()
-            $("#heading").text("Choose an enemy to fight");
-            $("#display > div").attr({ "class": "choose-enemy display-character" });
+            if ($("#heading").text() == "Choose your fighter") {
+                theFighter = event.target.id
+                resetChooseEnemy()
+                $("#heading").text("Choose an enemy to fight");
+                $("#display > div").attr({ "class": "choose-enemy display-character" });
+            };
         };
     });
 
