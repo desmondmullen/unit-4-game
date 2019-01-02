@@ -139,12 +139,17 @@ $(document).ready(function () {
         let theCurrentEnemyPosition = eval("$(\"#" + theCurrentEnemy + "\")").position();
         eval("$(\"#" + theCurrentEnemy + "\")").css({ top: theCurrentEnemyPosition.top, left: (theCurrentEnemyPosition.left + 120), position: "absolute" });
         let theCharToAnimate = "$(\"#" + theCurrentEnemy + "\")";
-        eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=150px", "left": "+=80px", opacity: "0" });
+        eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=300px", "left": "+=80px", opacity: "0" });
         theCharToAnimate = "$(\"#" + theFighter + "\")";
         // eval(theCharToAnimate).animate({ opacity: "0" });
         updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
-        $("#defeated-enemies-heading").text("Defeated enemies");
+        // make this happen only the first time
+        if ($("#defeated-enemies > div").length === 1) {
+            $("#defeated-enemies-heading").text("Defeated enemies").attr({ "style": "opacity: 0" });
+            $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
+        };
+
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
             $("#heading").html("&nbsp;");
             setTimeout(function () {
