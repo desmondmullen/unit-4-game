@@ -1,7 +1,3 @@
-//ATTACKING: each click of the button inflicts damage on player and enemy. Each attack increases player's skills/damage inflicted. Enemy's skills do not increase.
-
-//character objects: each has 3 attributes: `Health Points`, `Attack Power` and `Counter Attack Power` Player's attack power is increased by their base amount with each attack. Player uses `Attack Power` and enemy uses `Counter Attack Power`.
-
 $(document).ready(function () {
     var theFighter = "";
     var theCurrentEnemy = "";
@@ -62,6 +58,19 @@ $(document).ready(function () {
         return "\nHealth Points: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack: " + eval("characters." + theCharacter + ".attackPower") + "\nCounterattack: " + eval("characters." + theCharacter + ".counterAttackPower");
     };
 
+    function assembleAttackStatsString() {
+        // console.log(theCurrentEnemy);
+        let theFighterGrabString = eval("characters." + theFighter);
+        let theCurrentEnemyGrabString = eval("characters." + theCurrentEnemy);
+        theAttackStatsString = "text";
+        theAttackStatsString = "You have " + theFighterGrabString.healthPoints + " health points. Your attack power is " + theFighterGrabString.counterAttackPower + " points and grows with each attack.";
+
+        if ($("#heading").text() == "Click your fighter to attack!") {
+            theAttackStatsString = theAttackStatsString + "<br>Your enemy has " + theCurrentEnemyGrabString.healthPoints + " health points.";
+        }
+        return theAttackStatsString;
+    };
+
     function updateSection(theCharacter, theLocation, appendOrReplace) {
         let theCharacterName = eval("characters." + theCharacter + ".name");
         let theToolTipText = assembleToolTipText(theCharacter);
@@ -79,7 +88,6 @@ $(document).ready(function () {
         theItemToAppend = $("<div>").attr({ "id": theCharacter, "class": "display-character tooltip", "style": "opacity: 0" }).html("<span class=\"tooltiptext\">" + theToolTipText + "</span><section class=\"character-info\">" + theCharacterName + "</section>");
         if (appendOrReplace == "append") {
             $(theLocation).append(theItemToAppend);
-
         } else {
             $(theLocation).html(theItemToAppend);
         }
@@ -96,10 +104,8 @@ $(document).ready(function () {
         theFighterGrabString.counterAttackPower = theFighterGrabString.counterAttackPower + theFighterGrabString.attackPower;
         // enemy's health = health - theFighter's counter attack power
         theCurrentEnemyGrabString.healthPoints = theCurrentEnemyGrabString.healthPoints - theFighterGrabString.counterAttackPower;
-        console.log("Your health points are: " + theFighterGrabString.healthPoints);
-        console.log("Your attack power has grown to :" + theFighterGrabString.counterAttackPower + " per attack");
-        console.log("Your enemy's health points are: " + theCurrentEnemyGrabString.healthPoints);
         // update stats
+        $("#attack-stats").html(assembleAttackStatsString());
         let theToolTipText = assembleToolTipText(theFighter);
         $("#" + theFighter + " > span").text(theToolTipText);
         theToolTipText = assembleToolTipText(theCurrentEnemy);
@@ -111,17 +117,18 @@ $(document).ready(function () {
         // only accept clicks on character avatars
         if (clickCheckString.includes(event.target.id) && event.target.id !== "") {
             if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
-                //move your fighter from your fighter area to attack area
+                //move your fighter to attack area
                 updateSection(theFighter, "#display", "replace");
                 //move the chosen enemy to attack area
-                theCurrentEnemy = event.target.id;
-                updateSection(theCurrentEnemy, "#display", "append");
                 $("#heading").text("Click your fighter to attack!");
+                theCurrentEnemy = event.target.id;
+                $("#attack-stats").html(assembleAttackStatsString());
+                updateSection(theCurrentEnemy, "#display", "append");
                 $("#display > div").attr({ "class": "attack display-character tooltip" });
             } else {
                 if ($("#heading").text() == "Click your fighter to attack!") {
                     doAttack();
-                    if (eval("characters." + theCurrentEnemy).healthPoints < 1) { //if you win
+                    if (eval("characters." + theCurrentEnemy).healthPoints < 1) { //if you win that round
                         clearTheEnemy(); //clears the enemy and the game continues
                     } else { //if you lose
                         if (eval("characters." + theFighter).healthPoints < 1) {
@@ -143,6 +150,9 @@ $(document).ready(function () {
 
     function resetChooseEnemy() {
         $("#heading").text("Choose the next enemy to fight");
+        if (theCurrentEnemy !== "") {
+            $("#attack-stats").html(assembleAttackStatsString());
+        };
         $("#display").empty();
         for (x = 0; x < Object.keys(characters).length; x++) {
             let theKey = Object.keys(characters)[x];
@@ -159,6 +169,7 @@ $(document).ready(function () {
     };
 
     function clearTheEnemy() {
+        // $("#attack-stats").html("&nbsp;");
         let theFighterPosition = eval("$(\"#" + theFighter + "\")").position();
         eval("$(\"#" + theFighter + "\")").css({ top: theFighterPosition.top, left: theFighterPosition.left, position: "absolute" });
         let theCurrentEnemyPosition = eval("$(\"#" + theCurrentEnemy + "\")").position();
@@ -166,7 +177,7 @@ $(document).ready(function () {
         let theCharToAnimate = "$(\"#" + theCurrentEnemy + "\")";
         eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=300px", "left": "+=80px", opacity: "0" });
         theCharToAnimate = "$(\"#" + theFighter + "\")";
-        // eval(theCharToAnimate).animate({ opacity: "0" });
+        eval(theCharToAnimate).animate({ opacity: "0" }, 1500);
         updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
         // make this happen only the first time

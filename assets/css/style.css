@@ -42,7 +42,15 @@ em {
 }
 
 #display {
-    height: 30vh;
+    height: 180px;
+}
+
+#attack-stats {
+    height: 40px;
+    font-size: medium;
+    font-weight: bold;
+    font-family: "Courier New", Courier, monospace;
+    color: white;
 }
 
 .display-character {
