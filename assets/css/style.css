@@ -73,10 +73,38 @@ a.img-portfolio:hover .figcaption {
     background-color: #E89F0C;
 }
  */
+.tooltip {
+    /* position: relative; */
+    /* display: inline-block; */
+    /* border-bottom: 1px dotted black; */
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 100%;
+    background-color: white;
+    font-size: large;
+    font-family: "Courier New", Courier, monospace;
+    color: black;
+    text-align: left;
+    /* border-radius: 6px; */
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    /* bottom: 60px; */
+    left: 0;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
 .display-final-quote {
     font-size: large;
     font-family: "Courier New", Courier, monospace;
-        text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
+    text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
     font-weight: bold;
     color: white;
 }
