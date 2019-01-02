@@ -8,39 +8,35 @@ $(document).ready(function () {
     characters = {
         luke: {
             name: "Luke Skywalker",
-            avatar: "assets/images/luke.jpg",
             healthPoints: 0,
             attackPower: 0,
             counterAttackPower: 0,
-            winningPhrase: "",
-            losingPhrase: ""
+            winningPhrase: "\"I’ll never turn to the dark side.\"",
+            losingPhrase: "\"I have a very bad feeling about this.\""
         },
         vader: {
             name: "Darth Vader",
-            avatar: "assets/images/vader.jpg",
             healthPoints: 0,
             attackPower: 0,
             counterAttackPower: 0,
-            winningPhrase: "",
-            losingPhrase: ""
+            winningPhrase: "\"Your powers are weak, old man.\"",
+            losingPhrase: "\"The Force is strong with this one.\""
         },
         stormtrooper: {
             name: "Stormtrooper",
-            avatar: "assets/images/stormtrooper.jpg",
             healthPoints: 0,
             attackPower: 0,
             counterAttackPower: 0,
-            winningPhrase: "",
-            losingPhrase: ""
+            winningPhrase: "\"Inform Lord Vader we have prisoners.\"",
+            losingPhrase: "\"These aren't the droids we're looking for.\""
         },
         compactor: {
             name: "Trash Compactor",
-            avatar: "assets/images/compactor.jpg",
             healthPoints: 0,
             attackPower: 0,
             counterAttackPower: 0,
-            winningPhrase: "",
-            losingPhrase: ""
+            winningPhrase: "[nom nom nom]",
+            losingPhrase: "[sputter pffft]"
         }
     };
 
@@ -132,15 +128,18 @@ $(document).ready(function () {
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
             $("#heading").empty();
             setTimeout(function () {
-                alert("You won!");
-                //do a big you-won thing
+                updateSectionWithFadeIn(theFighter, "#display", "replace");
+                $("#heading").html("<em>You have defeated all the enemies!</em>");
+                theItemToAppend = ($("<span>").attr({ "class": "display-final-quote", "style": "opacity: 0" }).html(eval("characters." + theFighter + ".winningPhrase")));
+                $("#display").append(theItemToAppend);
+                eval(theItemToAppend).animate({ opacity: "1" }, 1500);
+
             }, 1000);
         } else {
             setTimeout(function () {
-                resetChooseEnemy()
+                resetChooseEnemy();
             }, 1000);
         };
     };
-
     resetGame();
 });
