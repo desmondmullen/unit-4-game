@@ -57,17 +57,14 @@ $(document).ready(function () {
 
     };
 
-    function assembleToolTipText(theCharacterName, theCharacter) {
-        return theCharacterName + "\nHealth Points: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack Power: " + eval("characters." + theCharacter + ".attackPower") + "\nCounterattack Power: " + eval("characters." + theCharacter + ".counterAttackPower");
+    function assembleToolTipText(theCharacter) {
+        return "\nHealth Points: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack: " + eval("characters." + theCharacter + ".attackPower") + "\nCounterattack: " + eval("characters." + theCharacter + ".counterAttackPower");
     };
 
     function updateSection(theCharacter, theLocation, appendOrReplace) {
         let theCharacterName = eval("characters." + theCharacter + ".name");
-        let theToolTipText = assembleToolTipText(theCharacterName, theCharacter);
-        // let theToolTipText = theCharacterName + "\nHealth Points: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack Power: " + eval("characters." + theCharacter + ".attackPower") + "\nCounterattack Power: " + eval("characters." + theCharacter + ".counterAttackPower");
-
+        let theToolTipText = assembleToolTipText(theCharacter);
         theItemToAppend = $("<div>").attr({ "id": theCharacter, "class": "display-character tooltip" }).html("<span class=\"tooltiptext\">" + theToolTipText + "</span><section class=\"character-info\">" + theCharacterName + "</section>");
-
         if (appendOrReplace == "append") {
             $(theLocation).append(theItemToAppend);
         } else {
@@ -77,9 +74,7 @@ $(document).ready(function () {
 
     function updateSectionWithFadeIn(theCharacter, theLocation, appendOrReplace) {
         let theCharacterName = eval("characters." + theCharacter + ".name");
-        let theToolTipText = assembleToolTipText(theCharacterName, theCharacter);
-
-        // theItemToAppend = ($("<div>").attr({ "id": theCharacter, "class": "display-character", "style": "opacity: 0" }).html(eval("characters." + theCharacter + ".name") + "<span class=\"tooltiptext\">" + theToolTipText + "</span>"));
+        let theToolTipText = assembleToolTipText(theCharacter);
         theItemToAppend = $("<div>").attr({ "id": theCharacter, "class": "display-character tooltip", "style": "opacity: 0" }).html("<span class=\"tooltiptext\">" + theToolTipText + "</span><section class=\"character-info\">" + theCharacterName + "</section>");
         if (appendOrReplace == "append") {
             $(theLocation).append(theItemToAppend);
@@ -93,7 +88,7 @@ $(document).ready(function () {
 
     $("#display").click(function (event) {
         // only accept clicks on character avatars
-        if (clickCheckString.includes(event.target.id)) {
+        if (clickCheckString.includes(event.target.id) && event.target.id !== "") {
             if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
                 //move your fighter from your fighter area to attack area
                 updateSection(theFighter, "#display", "replace");
@@ -139,15 +134,19 @@ $(document).ready(function () {
     };
 
     function clearTheEnemy() {
+        let theFighterPosition = eval("$(\"#" + theFighter + "\")").position();
+        eval("$(\"#" + theFighter + "\")").css({ top: theFighterPosition.top, left: theFighterPosition.left, position: "absolute" });
+        let theCurrentEnemyPosition = eval("$(\"#" + theCurrentEnemy + "\")").position();
+        eval("$(\"#" + theCurrentEnemy + "\")").css({ top: theCurrentEnemyPosition.top, left: (theCurrentEnemyPosition.left + 120), position: "absolute" });
         let theCharToAnimate = "$(\"#" + theCurrentEnemy + "\")";
-        eval(theCharToAnimate).animate({ width: "0px", height: "0px", "margin-top": "+=150px", opacity: "0" });
+        eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=150px", "left": "+=80px", opacity: "0" });
         theCharToAnimate = "$(\"#" + theFighter + "\")";
         // eval(theCharToAnimate).animate({ opacity: "0" });
         updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
         $("#defeated-enemies-heading").text("Defeated enemies");
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
-            $("#heading").empty();
+            $("#heading").html("&nbsp;");
             setTimeout(function () {
                 updateSectionWithFadeIn(theFighter, "#display", "replace");
                 $("#heading").html("<em>You have defeated all the enemies!</em>");
