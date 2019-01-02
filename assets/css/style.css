@@ -87,6 +87,7 @@ section {
 }
 
 #defeated-enemies > div{
+    margin: 20px;
     border: 5px solid gray;
 }
 
