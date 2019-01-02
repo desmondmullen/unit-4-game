@@ -65,20 +65,6 @@ em {
     width: 100%;
 }
 
-/* a.img-portfolio:hover {
-    opacity: 0.65;
-}
-
-a.img-portfolio:hover .figcaption {
-    background-color: #E89F0C;
-}
- */
-.tooltip {
-    /* position: relative; */
-    /* display: inline-block; */
-    /* border-bottom: 1px dotted black; */
-}
-
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 100%;
@@ -92,7 +78,7 @@ a.img-portfolio:hover .figcaption {
 
     /* Position the tooltip */
     position: absolute;
-    /* bottom: 60px; */
+    bottom: -100px;
     left: 0;
     z-index: 1;
 }
@@ -104,7 +90,7 @@ a.img-portfolio:hover .figcaption {
 .display-final-quote {
     font-size: large;
     font-family: "Courier New", Courier, monospace;
-    text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
+    text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
     font-weight: bold;
     color: white;
 }
