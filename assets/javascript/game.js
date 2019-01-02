@@ -19,7 +19,7 @@ $(document).ready(function () {
             healthPoints: 0,
             attackPower: 0,
             counterAttackPower: 0,
-            winningPhrase: "\"Your powers are weak, old man.\"",
+            winningPhrase: "\"Your powers are weak.\"",
             losingPhrase: "\"The Force is strong with this one.\""
         },
         stormtrooper: {
@@ -73,14 +73,12 @@ $(document).ready(function () {
     $("#display").click(function (event) {
         if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
             //move your fighter from your fighter area to attack area
-            // $("#defeated-enemies > div").attr({ "style": "opacity: 0" });
             updateSection(theFighter, "#display", "replace");
             //move the chosen enemy to attack area
             theCurrentEnemy = event.target.id;
             updateSection(theCurrentEnemy, "#display", "append");
             $("#heading").text("Click your fighter to attack!");
             $("#display > div").attr({ "class": "attack display-character" });
-            // $("#defeated-enemies-heading").empty();
         } else {
             if ($("#heading").text() == "Click your fighter to attack!") {
                 //do some attacking
@@ -96,7 +94,6 @@ $(document).ready(function () {
             resetChooseEnemy()
             $("#heading").text("Choose an enemy to fight");
             $("#display > div").attr({ "class": "choose-enemy display-character" });
-            // $("#defeated-enemies-heading").empty();
         };
     });
 
