@@ -45,10 +45,11 @@ $(document).ready(function () {
     };
 
     function resetGame() {
+        $("#display").empty();
         for (x = 0; x < Object.keys(characters).length; x++) {
-            updateSection(Object.keys(characters)[x], "#choose-fighter", "append");
+            updateSection(Object.keys(characters)[x], "#display", "append");
         };
-        $("#choose-fighter-heading").text("Choose your fighter");
+        $("#heading").text("Choose your fighter");
 
     };
 
@@ -73,37 +74,43 @@ $(document).ready(function () {
 
     };
 
-    $("#choose-fighter").click(function (event) {
-        theFighter = event.target.id
-        // updateSection(theFighter, "#your-fighter", "append");
-        resetChooseEnemy()
-        $("#choose-fighter").empty();
-        $("#choose-fighter-heading").empty();
-        $("#choose-enemy-heading").text("Choose an enemy to fight");
-        $("#attack-area-heading").empty();
-        $("#defeated-enemies-heading").empty();
-
-    });
-
-    $("#choose-enemy").click(function (event) {
-        //move your fighter from your fighter area to attack area
-        $("#defeated-enemies > div").attr({ "style": "opacity: 0" });
-        updateSection(theFighter, "#attack-area", "append");
-        $("#your-fighter").empty();
-        //move the chosen enemy to attack area
-        theCurrentEnemy = event.target.id;
-        updateSection(theCurrentEnemy, "#attack-area", "append");
-        resetChooseEnemy();
-        $("#choose-enemy-heading").empty();
-        $("#choose-enemy").empty();
-        $("#attack-area-heading").text("Attack area");
-        $("#defeated-enemies-heading").empty();
+    $("#display").click(function (event) {
+        if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
+            // console.log("choose enemy");
+            //move your fighter from your fighter area to attack area
+            $("#defeated-enemies > div").attr({ "style": "opacity: 0" });
+            updateSection(theFighter, "#display", "replace");
+            //move the chosen enemy to attack area
+            theCurrentEnemy = event.target.id;
+            updateSection(theCurrentEnemy, "#display", "append");
+            $("#heading").text("Attack area");
+            $("#display > div").attr({ "class": "attack display-character" });
+            $("#defeated-enemies-heading").empty();
+        } else {
+            if ($("#heading").text() == "Attack area") {
+                // console.log("attack area");
+                //do some attacking
+                if (1 === 1) { //if you win
+                    clearTheEnemy(); //clears the enemy and the game continues
+                } else {
+                    //do a game-over thing
+                };
+            };
+        };
+        if ($("#heading").text() == "Choose your fighter") {
+            // console.log("choose fighter");
+            theFighter = event.target.id
+            resetChooseEnemy()
+            // $("#display").empty();
+            $("#heading").text("Choose an enemy to fight");
+            $("#display > div").attr({ "class": "choose-enemy display-character" });
+            $("#defeated-enemies-heading").empty();
+        };
     });
 
     function resetChooseEnemy() {
-        $("#choose-enemy").empty();
-        $("#choose-enemy-heading").text("Choose the next enemy to fight");
-        $("#attack-area-heading").empty();
+        $("#heading").text("Choose the next enemy to fight");
+        $("#display").empty();
         // $("#defeated-enemies > div").animate({ opacity: "1" });
         for (x = 0; x < Object.keys(characters).length; x++) {
             let theKey = Object.keys(characters)[x];
@@ -113,19 +120,11 @@ $(document).ready(function () {
                 theIfStatement = theIfStatement + " && \"" + $("#defeated-enemies > div")[y].id + "\" != theKey";
             }
             if (eval(theIfStatement)) {
-                updateSection(Object.keys(characters)[x], "#choose-enemy", "append");
+                updateSection(Object.keys(characters)[x], "#display", "append");
             };
         };
+        $("#display > div").attr({ "class": "choose-enemy display-character" });
     };
-
-    $("#attack-area").click(function (event) {
-        //do some attacking
-        if (1 === 1) { //if you win
-            clearTheEnemy(); //clears the enemy and the game continues
-        } else {
-            //do a game-over thing
-        };
-    });
 
     function clearTheEnemy() {
         let theCharToAnimate = "$(\"#" + theCurrentEnemy + "\")";
@@ -134,20 +133,22 @@ $(document).ready(function () {
         eval(theCharToAnimate).animate({ opacity: "0" });
         updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
-        setTimeout(function () {
-            $("#attack-area").empty();
-        }, 1000);
+        // setTimeout(function () {
+        //     $("#display").empty();
+        // }, 1000);
         $("#defeated-enemies-heading").text("Defeated enemies");
         // updateSectionWithFadeIn(theFighter, "#your-fighter", "replace");
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
-            $("#attack-area-heading").empty();
+            $("#heading").empty();
             setTimeout(function () {
-                $("#choose-enemy").empty();
+                // $("#choose-enemy").empty();
                 alert("You won!");
                 //do a big you-won thing
             }, 1000);
         } else {
-            resetChooseEnemy()
+            setTimeout(function () {
+                resetChooseEnemy()
+            }, 1000);
         };
     };
 
