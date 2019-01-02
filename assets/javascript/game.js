@@ -76,19 +76,17 @@ $(document).ready(function () {
 
     $("#display").click(function (event) {
         if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
-            // console.log("choose enemy");
             //move your fighter from your fighter area to attack area
-            $("#defeated-enemies > div").attr({ "style": "opacity: 0" });
+            // $("#defeated-enemies > div").attr({ "style": "opacity: 0" });
             updateSection(theFighter, "#display", "replace");
             //move the chosen enemy to attack area
             theCurrentEnemy = event.target.id;
             updateSection(theCurrentEnemy, "#display", "append");
-            $("#heading").text("Attack area");
+            $("#heading").text("Click your fighter to attack!");
             $("#display > div").attr({ "class": "attack display-character" });
-            $("#defeated-enemies-heading").empty();
+            // $("#defeated-enemies-heading").empty();
         } else {
-            if ($("#heading").text() == "Attack area") {
-                // console.log("attack area");
+            if ($("#heading").text() == "Click your fighter to attack!") {
                 //do some attacking
                 if (1 === 1) { //if you win
                     clearTheEnemy(); //clears the enemy and the game continues
@@ -98,20 +96,17 @@ $(document).ready(function () {
             };
         };
         if ($("#heading").text() == "Choose your fighter") {
-            // console.log("choose fighter");
             theFighter = event.target.id
             resetChooseEnemy()
-            // $("#display").empty();
             $("#heading").text("Choose an enemy to fight");
             $("#display > div").attr({ "class": "choose-enemy display-character" });
-            $("#defeated-enemies-heading").empty();
+            // $("#defeated-enemies-heading").empty();
         };
     });
 
     function resetChooseEnemy() {
         $("#heading").text("Choose the next enemy to fight");
         $("#display").empty();
-        // $("#defeated-enemies > div").animate({ opacity: "1" });
         for (x = 0; x < Object.keys(characters).length; x++) {
             let theKey = Object.keys(characters)[x];
             var theIfStatement = "theFighter != theKey && theCurrentEnemy != theKey"
@@ -133,15 +128,10 @@ $(document).ready(function () {
         eval(theCharToAnimate).animate({ opacity: "0" });
         updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
-        // setTimeout(function () {
-        //     $("#display").empty();
-        // }, 1000);
         $("#defeated-enemies-heading").text("Defeated enemies");
-        // updateSectionWithFadeIn(theFighter, "#your-fighter", "replace");
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
             $("#heading").empty();
             setTimeout(function () {
-                // $("#choose-enemy").empty();
                 alert("You won!");
                 //do a big you-won thing
             }, 1000);
