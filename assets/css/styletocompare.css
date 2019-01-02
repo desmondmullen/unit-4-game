@@ -143,36 +143,6 @@ em {
     }
 }
 
-.text-pulse{
-    -webkit-animation-name: textPulse;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: 3;
-    -moz-animation-name: textPulse;
-    -moz-animation-duration: 1s;
-    -moz-animation-iteration-count: 3;
-    animation-name: textPulse;
-    animation-duration: 1s;
-    animation-iteration-count: 3;
-}
-
-@-webkit-keyframes textPulse {
-    from {
-        -webkit-color: #FFC00D;
-        -moz-color: #FFC00D;
-        color: #FFC00D;
-    }
-    50% {
-        -webkit-color: black;
-        -moz-color: black;
-        color: black;
-    }
-    to {
-        -webkit-color: #FFC00D;
-        -moz-color: #FFC00D;
-        color: #FFC00D;
-    }
-}
-
 #defeated-enemies-heading {
     text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
 }
