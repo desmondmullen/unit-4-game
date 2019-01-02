@@ -23,17 +23,21 @@ section {
 }
 
 #heading {
-    margin-top: 15%;
+    margin-top: 30vh;
+}
+
+#display {
+    height: 38vh;
 }
 
 #defeated-enemies-heading {
-    position: fixed;
-    bottom: 230px;
+    /* position: fixed;
+    bottom: 230px; */
 }
 
 #defeated-enemies {
-    position: fixed;
-    bottom: 40px;
+    /* position: fixed;
+    bottom: 40px; */
 }
 
 .display-character {
