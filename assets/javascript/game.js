@@ -45,13 +45,13 @@ $(document).ready(function () {
     };
 
     function resetGame() {
+        $("#defeated-enemies-heading").empty();
         $("#display").empty();
         assembleClickCheckString();
         for (x = 0; x < Object.keys(characters).length; x++) {
             updateSection(Object.keys(characters)[x], "#display", "append");
         };
         $("#heading").text("Choose your fighter");
-
     };
 
     function assembleToolTipText(theCharacter) {
@@ -59,7 +59,6 @@ $(document).ready(function () {
     };
 
     function assembleAttackStatsString(includeText) {
-        console.log(includeText);
         let theFighterGrabString = eval("characters." + theFighter);
         theAttackStatsString = "You have " + theFighterGrabString.healthPoints + " health points. ";
         if (includeText === "grows1" || includeText === "grows2" || includeText === "grows3") {
@@ -145,6 +144,10 @@ $(document).ready(function () {
                 $("#heading").text("Choose an enemy to fight");
                 $("#display > div").attr({ "class": "choose-enemy display-character tooltip" });
                 resetChooseEnemy();
+            };
+        } else {
+            if ($("#defeated-enemies-heading").text() === "Click anywhere to play again!") {
+                resetGame();
             };
         };
     });
