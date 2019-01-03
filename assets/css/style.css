@@ -157,6 +157,21 @@ em {
 
 @-webkit-keyframes textPulse {
     from {
+        -webkit-opacity: 1;
+        -moz-opacity: 1;
+        opacity: 1;
+    }
+    50% {
+        -webkit-opacity: 0;
+        -moz-opacity: 0;
+        opacity: 0;
+    }
+    to {
+        -webkit-opacity: 1;
+        -moz-opacity: 1;
+        opacity: 1;
+    }
+    /* from {
         -webkit-color: #FFC00D;
         -moz-color: #FFC00D;
         color: #FFC00D;
@@ -170,7 +185,7 @@ em {
         -webkit-color: #FFC00D;
         -moz-color: #FFC00D;
         color: #FFC00D;
-    }
+    } */
 }
 
 #defeated-enemies-heading {

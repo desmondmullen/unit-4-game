@@ -58,15 +58,17 @@ $(document).ready(function () {
         return "\nHealth Points: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack: " + eval("characters." + theCharacter + ".attackPower") + "\nCounterattack: " + eval("characters." + theCharacter + ".counterAttackPower");
     };
 
-    function assembleAttackStatsString() {
-        // console.log(theCurrentEnemy);
+    function assembleAttackStatsString(includeText) {
+        console.log(includeText);
         let theFighterGrabString = eval("characters." + theFighter);
-        let theCurrentEnemyGrabString = eval("characters." + theCurrentEnemy);
-        theAttackStatsString = "text";
-        theAttackStatsString = "You have " + theFighterGrabString.healthPoints + " health points. Your attack power is " + theFighterGrabString.counterAttackPower + " points and grows with each attack.";
-
+        theAttackStatsString = "You have " + theFighterGrabString.healthPoints + " health points. ";
+        if (includeText === "grows1" || includeText === "grows2" || includeText === "grows3") {
+            theAttackStatsString = theAttackStatsString + "Your attack power is " + theFighterGrabString.counterAttackPower + " points and grows with each attack!";
+        } else {
+            theAttackStatsString = theAttackStatsString + "Your attack power is " + theFighterGrabString.counterAttackPower + " points. ";
+        }
         if ($("#heading").text() == "Click your fighter to attack!") {
-            theAttackStatsString = theAttackStatsString + "<br>Your enemy has " + theCurrentEnemyGrabString.healthPoints + " health points.";
+            theAttackStatsString = theAttackStatsString + "<br>Your enemy has " + eval("characters." + theCurrentEnemy).healthPoints + " health points.";
         }
         return theAttackStatsString;
     };
@@ -105,7 +107,7 @@ $(document).ready(function () {
         // enemy's health = health - theFighter's counter attack power
         theCurrentEnemyGrabString.healthPoints = theCurrentEnemyGrabString.healthPoints - theFighterGrabString.counterAttackPower;
         // update stats
-        $("#attack-stats").html(assembleAttackStatsString());
+        $("#attack-stats").html(assembleAttackStatsString("grows1")); // when you attack
         let theToolTipText = assembleToolTipText(theFighter);
         $("#" + theFighter + " > span").text(theToolTipText);
         theToolTipText = assembleToolTipText(theCurrentEnemy);
@@ -122,9 +124,9 @@ $(document).ready(function () {
                 //move the chosen enemy to attack area
                 $("#heading").text("Click your fighter to attack!");
                 theCurrentEnemy = event.target.id;
-                $("#attack-stats").html(assembleAttackStatsString());
                 updateSection(theCurrentEnemy, "#display", "append");
                 $("#display > div").attr({ "class": "attack display-character tooltip" });
+                $("#attack-stats").html(assembleAttackStatsString("grows2")); //when you choose enemy
             } else {
                 if ($("#heading").text() == "Click your fighter to attack!") {
                     doAttack();
@@ -140,18 +142,15 @@ $(document).ready(function () {
             };
             if ($("#heading").text() == "Choose your fighter") {
                 theFighter = event.target.id;
-                resetChooseEnemy();
                 $("#heading").text("Choose an enemy to fight");
                 $("#display > div").attr({ "class": "choose-enemy display-character tooltip" });
+                resetChooseEnemy();
             };
         };
     });
 
     function resetChooseEnemy() {
         $("#heading").text("Choose the next enemy to fight");
-        if (theCurrentEnemy !== "") {
-            $("#attack-stats").html(assembleAttackStatsString());
-        };
         $("#display").empty();
         for (x = 0; x < Object.keys(characters).length; x++) {
             let theKey = Object.keys(characters)[x];
@@ -165,11 +164,14 @@ $(document).ready(function () {
             };
         };
         $("#display > div").attr({ "class": "choose-enemy display-character tooltip" });
+        $("#attack-stats").html(assembleAttackStatsString("grows3")); //when first choosing enemy and after defeating an enemy
     };
 
     function clearTheEnemy(winOrLoss) {
         clearTheAttackArea(winOrLoss)
-        updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
+        if (winOrLoss !== "loss") {
+            updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
+        };
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
         // make this happen only the first time
         if ($("#defeated-enemies > div").length === 1) {
@@ -179,9 +181,11 @@ $(document).ready(function () {
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
             processTheGameEnd("win");
         } else {
-            setTimeout(function () {
-                resetChooseEnemy();
-            }, 1000);
+            if (winOrLoss !== "loss") {
+                setTimeout(function () {
+                    resetChooseEnemy();
+                }, 1000);
+            };
         };
     };
 
@@ -195,10 +199,7 @@ $(document).ready(function () {
         };
         let theWinnerPosition = eval("$(\"#" + theWinner + "\")").position();
         let theLoserPosition = eval("$(\"#" + theLoser + "\")").position();
-
-        // let theWinnerPosition = eval("$(\"#" + theWinner + "\")").position();
         eval("$(\"#" + theWinner + "\")").css({ top: theWinnerPosition.top, left: theWinnerPosition.left, position: "absolute" });
-        // let theLoserPosition = eval("$(\"#" + theLoser + "\")").position();
         eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "absolute" });
         let theCharToAnimate = "$(\"#" + theLoser + "\")";
         eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=300px", "left": "+=80px", opacity: "0" });
@@ -208,7 +209,7 @@ $(document).ready(function () {
 
     function processTheGameEnd(winOrLoss) {
         $("#heading").html("&nbsp;");
-        $("#attack-stats").html("&nbsp;");
+        $("#attack-stats").html(assembleAttackStatsString("end"));
         setTimeout(function () { // this timeout lets the last enemy get into the defeated enemies section before the fighter and phrase fade in
             updateSectionWithFadeIn(theFighter, "#display", "replace");
             if (winOrLoss === "win") {
@@ -227,7 +228,9 @@ $(document).ready(function () {
         setTimeout(function () {
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
+            $("#attack-stats").animate({ opacity: "0" }, 1500);
             setTimeout(function () {
+                $("#defeated-enemies-heading").attr({ "class": "text-pulse", "style": "top: 20px;" });
                 $("#defeated-enemies-heading").text("Click anywhere to play again!");
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
             }, 2000);
