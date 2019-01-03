@@ -255,9 +255,11 @@ $(document).ready(function () {
             $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
             $("#attack-stats").animate({ opacity: "0" }, 1500);
             setTimeout(function () {
-                $("#defeated-enemies-heading").attr({ "class": "text-pulse", "style": "top: 20px;" });
-                $("#defeated-enemies-heading").text("Click anywhere to play again!");
+                $("#defeated-enemies-heading").attr({ "style": "margin-top: 5%; opacity: 0;" });
+                $("#defeated-enemies-heading").text("Click the button to play again");
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
+                $("#defeated-enemies").html("<button class=\"text-pulse\">Play Again</button>");
+                $("#defeated-enemies").animate({ opacity: "1" }, 1000);
             }, 2000);
         }, 4000);
     };
