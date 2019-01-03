@@ -6,6 +6,7 @@ $(document).ready(function () {
     characters = {
         luke: {
             name: "Luke Skywalker",
+            smallScreenName: "Luke Skywalker",
             healthPoints: 110,
             attackPower: 20,
             counterAttackPower: 0,
@@ -14,6 +15,7 @@ $(document).ready(function () {
         },
         vader: {
             name: "Darth Vader",
+            smallScreenName: "Darth Vader",
             healthPoints: 160,
             attackPower: 50,
             counterAttackPower: 0,
@@ -22,6 +24,7 @@ $(document).ready(function () {
         },
         stormtrooper: {
             name: "Stormtrooper",
+            smallScreenName: "Storm- trooper",
             healthPoints: 80,
             attackPower: 15,
             counterAttackPower: 0,
@@ -30,12 +33,20 @@ $(document).ready(function () {
         },
         compactor: {
             name: "Trash Compactor",
+            smallScreenName: "Trash Compactor",
             healthPoints: 60,
             attackPower: 10,
             counterAttackPower: 0,
             winningPhrase: "[nom nom nom]",
             losingPhrase: "[sputter pffft]",
         }
+    };
+
+    if (window.matchMedia("(max-width: 700px)").matches) {
+        for (x = 0; x < Object.keys(characters).length; x++) {
+            let theCharacterGrabString = eval("characters." + Object.keys(characters)[x])
+            theCharacterGrabString.name = theCharacterGrabString.smallScreenName;
+        };
     };
 
     function resetGame() {
@@ -69,17 +80,22 @@ $(document).ready(function () {
 
     function assembleAttackStatsString(includeText) {
         let theFighterGrabString = eval("characters." + theFighter);
-        theAttackStatsString = "You have " + theFighterGrabString.healthPoints + " health points. ";
+        theAttackStatsString = "Health points: " + theFighterGrabString.healthPoints;
         if (theFighterGrabString.counterAttackPower === 0) {
             theFighterGrabString.counterAttackPower = theFighterGrabString.attackPower
         };
-        if (includeText === "grows1" || includeText === "grows2" || includeText === "grows3") {
-            theAttackStatsString = theAttackStatsString + "Your attack power is " + theFighterGrabString.counterAttackPower + " points and grows with each attack!";
+        if (window.matchMedia("(max-width: 700px)").matches) {
+            theAttackStatsString = theAttackStatsString + "<br>";
         } else {
-            theAttackStatsString = theAttackStatsString + "Your attack power is " + theFighterGrabString.counterAttackPower + " points. ";
+            theAttackStatsString = theAttackStatsString + ", ";
+        };
+        if (includeText === "grows1" || includeText === "grows2" || includeText === "grows3") {
+            theAttackStatsString = theAttackStatsString + "Attack power: " + theFighterGrabString.counterAttackPower + " (grows with each attack)";
+        } else {
+            theAttackStatsString = theAttackStatsString + "Attack power:" + theFighterGrabString.counterAttackPower;
         }
         if ($("#heading").text() == "Click your fighter to attack!") {
-            theAttackStatsString = theAttackStatsString + "<br>Your enemy has " + eval("characters." + theCurrentEnemy).healthPoints + " health points.";
+            theAttackStatsString = theAttackStatsString + "<br>Your enemy's health points: " + eval("characters." + theCurrentEnemy).healthPoints;
         }
         return theAttackStatsString;
     };
