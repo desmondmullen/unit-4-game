@@ -237,12 +237,12 @@ $(document).ready(function () {
             setTimeout(function () {
                 resetChooseEnemy();
                 processTheGameEnd("win");
-            }, 1000);
+            }, 1500); // was 1000
         } else {
             if (winOrLoss !== "loss") {
                 setTimeout(function () {
                     resetChooseEnemy();
-                }, 1000);
+                }, 1500); // was 1000
             };
         };
     };
@@ -261,10 +261,10 @@ $(document).ready(function () {
         eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "static" });
 
         let theCharToAnimate = "$(\"#" + theLoser + "\")";
-        eval(theCharToAnimate).animate({ "width": "0px", "height": "0px", "top": "+=300px", "left": "+=80px", "opacity": "0" }, 1500);
+        eval(theCharToAnimate).animate({ "width": "0px", "height": "0px", "top": "+=300px", "left": "+=80px", "opacity": "0" }, 300);
 
         theCharToAnimate = "$(\"#" + theWinner + "\")";
-        eval(theCharToAnimate).animate({ "opacity": "0" }, 1500);
+        eval(theCharToAnimate).animate({ "opacity": "0" }, 300);
     };
 
     function processTheGameEnd(winOrLoss) {
@@ -282,11 +282,11 @@ $(document).ready(function () {
             }
             $("#heading").html(theHeading).attr({ "style": "opacity: 0" });
             theItemToAppend = ($("<span>").attr({ "class": "display-final-quote", "style": "opacity: 0" }).html(thePhrase));
-            $("#heading").animate({ opacity: "1" }, 1500);
+            $("#heading").animate({ opacity: "1" }, 1000); // was 1500
             $("#display").append(theItemToAppend);
-            eval(theItemToAppend).animate({ opacity: "1" }, 1500);
-            $("#attack-stats").animate({ opacity: "1" }, 1500);
-        }, 1000);
+            eval(theItemToAppend).animate({ opacity: "1" }, 1000); // was 1500
+            $("#attack-stats").animate({ opacity: "1" }, 1000); // was 1500
+        }, 2000); //was 1000
         setTimeout(function () {
             $("#attack-stats").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);
@@ -297,7 +297,7 @@ $(document).ready(function () {
                 $("#defeated-enemies-heading").attr({ "class": "smaller-heading-text" });
                 $("#defeated-enemies-heading").text("Click the button to play again");
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
-            }, 2000);
+            }, 3000); //was 2000
         }, 4000);
     };
 
