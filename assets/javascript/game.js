@@ -269,6 +269,7 @@ $(document).ready(function () {
             setTimeout(function () {
                 $("#defeated-enemies").attr({ "style": "display: none" });
                 $("#play-again").attr({ "class": "button-pulse", "style": "display: inline" });
+                $("#defeated-enemies-heading").attr({ "class": "smaller-heading-text" });
                 $("#defeated-enemies-heading").text("Click the button to play again");
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
             }, 2000);

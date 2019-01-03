@@ -28,8 +28,7 @@ button {
     font-size: x-large;
     font-weight: bold;
     color: white;
-    position: relative;
-    margin-top: 2%;
+    margin-top: 20px;
     border: 0;
     border-radius: 10px;
     background-color: #FF0000;
@@ -53,6 +52,12 @@ em {
     margin-top: 5vh;
     color: #FFC00D;
     text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
+}
+
+.smaller-heading-text {
+    margin-top: 20px;
+    font-size: large;
+    text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
 }
 
 #display {
@@ -203,10 +208,6 @@ em {
 
 #defeated-enemies-heading {
     text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
-}
-
-#defeated-enemies {
-    border: 2px solid red;
 }
 
 #defeated-enemies > div{
