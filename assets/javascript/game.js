@@ -257,12 +257,14 @@ $(document).ready(function () {
         };
         let theWinnerPosition = eval("$(\"#" + theWinner + "\")").position();
         let theLoserPosition = eval("$(\"#" + theLoser + "\")").position();
-        eval("$(\"#" + theWinner + "\")").css({ top: theWinnerPosition.top, left: theWinnerPosition.left, position: "absolute" });
-        eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "absolute" });
+        eval("$(\"#" + theWinner + "\")").css({ top: theWinnerPosition.top, left: theWinnerPosition.left, position: "static" });
+        eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "static" });
+
         let theCharToAnimate = "$(\"#" + theLoser + "\")";
-        eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=300px", "left": "+=80px", opacity: "0" });
+        eval(theCharToAnimate).animate({ "width": "0px", "height": "0px", "top": "+=300px", "left": "+=80px", "opacity": "0" }, 1500);
+
         theCharToAnimate = "$(\"#" + theWinner + "\")";
-        eval(theCharToAnimate).animate({ opacity: "0" }, 1500);
+        eval(theCharToAnimate).animate({ "opacity": "0" }, 1500);
     };
 
     function processTheGameEnd(winOrLoss) {
