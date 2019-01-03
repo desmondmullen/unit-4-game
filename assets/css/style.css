@@ -22,7 +22,9 @@ section {
 }
 
 button {
-    padding: 10px 10px;
+    text-align: center;
+    /* width: 70%; */
+    padding: 10px 20px;
     font-size: x-large;
     font-weight: bold;
     color: white;
@@ -167,12 +169,34 @@ em {
     animation-iteration-count: 2;
 }
 
+.button-pulse{
+    -webkit-animation-name: textPulse;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: 2;
+    -moz-animation-name: textPulse;
+    -moz-animation-duration: 2s;
+    -moz-animation-iteration-count: 2;
+    animation-name: textPulse;
+    animation-duration: 2s;
+    animation-iteration-count: 2;
+}
+
 @-webkit-keyframes textPulse {
     from {
         -webkit-opacity: 1;
         -moz-opacity: 1;
         opacity: 1;
     }
+    /* from {
+        -webkit-opacity: 0;
+        -moz-opacity: 0;
+        opacity: 0;
+    }
+    25% {
+        -webkit-opacity: 1;
+        -moz-opacity: 1;
+        opacity: 1;
+    } */
     50% {
         -webkit-opacity: 0;
         -moz-opacity: 0;
@@ -183,21 +207,6 @@ em {
         -moz-opacity: 1;
         opacity: 1;
     }
-    /* from {
-        -webkit-color: #FFC00D;
-        -moz-color: #FFC00D;
-        color: #FFC00D;
-    }
-    50% {
-        -webkit-color: black;
-        -moz-color: black;
-        color: black;
-    }
-    to {
-        -webkit-color: #FFC00D;
-        -moz-color: #FFC00D;
-        color: #FFC00D;
-    } */
 }
 
 #defeated-enemies-heading {

@@ -63,6 +63,7 @@ $(document).ready(function () {
     function initializeGame() {
         $("#defeated-enemies-heading").empty();
         $("#display").empty();
+        $("#play-again").attr({ "style": "display: none" });
         assembleClickCheckString();
         for (x = 0; x < Object.keys(characters).length; x++) {
             updateSection(Object.keys(characters)[x], "#display", "append");
@@ -267,21 +268,22 @@ $(document).ready(function () {
             eval(theItemToAppend).animate({ opacity: "1" }, 1500);
         }, 1000);
         setTimeout(function () {
+            $("#attack-stats").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
-            $("#attack-stats").animate({ opacity: "0" }, 1500);
             setTimeout(function () {
                 $("#defeated-enemies-heading").attr({ "style": "margin-top: 5%; opacity: 0;" });
+            }, 1510);
+            setTimeout(function () {
+                $("#play-again").attr({ "style": "opacity: 1; display: inline" });
                 $("#defeated-enemies-heading").text("Click the button to play again");
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
-                $("#defeated-enemies").html("<button id=\"play-again\" class=\"text-pulse\">Play Again</button>");
-                $("#defeated-enemies").animate({ opacity: "1" }, 1000);
             }, 2000);
         }, 4000);
     };
 
     $("#play-again").click(function (event) {
-        resetGame()
+        resetGame();
     });
 
     initializeGame();
