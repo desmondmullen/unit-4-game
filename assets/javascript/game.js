@@ -60,7 +60,6 @@ $(document).ready(function () {
     };
 
     function initializeGame() {
-        $("#play-again").attr({ "style": "display: none" });
         $("#defeated-enemies-heading").empty();
         $("#display").empty();
         assembleClickCheckString();
@@ -268,10 +267,8 @@ $(document).ready(function () {
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
             setTimeout(function () {
-                $("#defeated-enemies-heading").attr({ "style": "margin-top: 5%; opacity: 0;" });
-            }, 1510);
-            setTimeout(function () {
-                $("#play-again").attr({ "style": "opacity: 1; display: inline" });
+                $("#defeated-enemies").attr({ "style": "display: none" });
+                $("#play-again").attr({ "class": "button-pulse", "style": "display: inline" });
                 $("#defeated-enemies-heading").text("Click the button to play again");
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
             }, 2000);

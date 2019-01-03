@@ -21,13 +21,14 @@ section {
     width: 70%;
 }
 
+/* the only button is "Play Again" */
 button {
     text-align: center;
-    /* width: 70%; */
     padding: 10px 20px;
     font-size: x-large;
     font-weight: bold;
     color: white;
+    position: relative;
     margin-top: 2%;
     border: 0;
     border-radius: 10px;
@@ -202,6 +203,10 @@ em {
 
 #defeated-enemies-heading {
     text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
+}
+
+#defeated-enemies {
+    border: 2px solid red;
 }
 
 #defeated-enemies > div{
