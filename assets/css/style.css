@@ -75,19 +75,20 @@ em {
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 100%;
+    width: 80%;
+    /* margin: 0 auto; */
     background-color: #d1d1d1;
     font-size: large;
     font-weight: bold;
     font-family: "Courier New", Courier, monospace;
     color: black;
-    text-align: left;
+    text-align: center;
     padding: 5px;
 
     /* Position the tooltip */
     position: absolute;
-    bottom: -70px;
-    left: 0;
+    bottom: -50px;
+    left: 10%;
     z-index: 1;
 }
 

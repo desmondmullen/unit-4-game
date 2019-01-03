@@ -38,13 +38,18 @@ $(document).ready(function () {
         }
     };
 
+    function resetGame() {
+        console.log("resetting");
+        location = location;
+    };
+
     function assembleClickCheckString() {
         for (x = 0; x < Object.keys(characters).length; x++) {
             clickCheckString = clickCheckString + Object.keys(characters)[x] + ", ";
         };
     };
 
-    function resetGame() {
+    function initializeGame() {
         $("#defeated-enemies-heading").empty();
         $("#display").empty();
         assembleClickCheckString();
@@ -55,12 +60,19 @@ $(document).ready(function () {
     };
 
     function assembleToolTipText(theCharacter) {
-        return "\nHealth Points: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack: " + eval("characters." + theCharacter + ".attackPower") + "\nCounterattack: " + eval("characters." + theCharacter + ".counterAttackPower");
+        if (theCharacter === theFighter) {
+            return "\nHealth: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack: " + eval("characters." + theCharacter + ".counterAttackPower");
+        } else {
+            return "\nHealth: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack: " + eval("characters." + theCharacter + ".attackPower");
+        };
     };
 
     function assembleAttackStatsString(includeText) {
         let theFighterGrabString = eval("characters." + theFighter);
         theAttackStatsString = "You have " + theFighterGrabString.healthPoints + " health points. ";
+        if (theFighterGrabString.counterAttackPower === 0) {
+            theFighterGrabString.counterAttackPower = theFighterGrabString.attackPower
+        };
         if (includeText === "grows1" || includeText === "grows2" || includeText === "grows3") {
             theAttackStatsString = theAttackStatsString + "Your attack power is " + theFighterGrabString.counterAttackPower + " points and grows with each attack!";
         } else {
@@ -75,7 +87,7 @@ $(document).ready(function () {
     function updateSection(theCharacter, theLocation, appendOrReplace) {
         let theCharacterName = eval("characters." + theCharacter + ".name");
         let theToolTipText = assembleToolTipText(theCharacter);
-        theItemToAppend = $("<div>").attr({ "id": theCharacter, "class": "display-character tooltip" }).html("<span class=\"tooltiptext\">" + theToolTipText + "</span><section class=\"character-info\">" + theCharacterName + "</section>");
+        theItemToAppend = $("<div>").attr({ "id": theCharacter, "class": "display-character" }).html("<section class=\"character-info tooltip\">" + theCharacterName + "<span class=\"tooltiptext\">" + theToolTipText + "</span></section>");
         if (appendOrReplace == "append") {
             $(theLocation).append(theItemToAppend);
         } else {
@@ -86,7 +98,7 @@ $(document).ready(function () {
     function updateSectionWithFadeIn(theCharacter, theLocation, appendOrReplace) {
         let theCharacterName = eval("characters." + theCharacter + ".name");
         let theToolTipText = assembleToolTipText(theCharacter);
-        theItemToAppend = $("<div>").attr({ "id": theCharacter, "class": "display-character tooltip", "style": "opacity: 0" }).html("<span class=\"tooltiptext\">" + theToolTipText + "</span><section class=\"character-info\">" + theCharacterName + "</section>");
+        theItemToAppend = $("<div>").attr({ "id": theCharacter, "class": "display-character", "style": "opacity: 0" }).html("<section class=\"character-info tooltip\">" + theCharacterName + "<span class=\"tooltiptext\">" + theToolTipText + "</span></section>");
         if (appendOrReplace == "append") {
             $(theLocation).append(theItemToAppend);
         } else {
@@ -108,23 +120,28 @@ $(document).ready(function () {
         // update stats
         $("#attack-stats").html(assembleAttackStatsString("grows1")); // when you attack
         let theToolTipText = assembleToolTipText(theFighter);
-        $("#" + theFighter + " > span").text(theToolTipText);
+        $("#" + theFighter + " span").text(theToolTipText);
         theToolTipText = assembleToolTipText(theCurrentEnemy);
-        $("#" + theCurrentEnemy + " > span").text(theToolTipText);
-
+        $("#" + theCurrentEnemy + " span").text(theToolTipText);
     };
 
     $("#display").click(function (event) {
         // only accept clicks on character avatars
-        if (clickCheckString.includes(event.target.id) && event.target.id !== "") {
+        if (event.target.id === "") {
+            var theEventTarget = event.target.parentNode.id;
+        } else {
+            var theEventTarget = event.target.id;
+        };
+        if (clickCheckString.includes(theEventTarget)) {
+            // if (clickCheckString.includes(event.target.id) && event.target.id !== "") {
             if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
                 //move your fighter to attack area
                 updateSection(theFighter, "#display", "replace");
                 //move the chosen enemy to attack area
                 $("#heading").text("Click your fighter to attack!");
-                theCurrentEnemy = event.target.id;
+                theCurrentEnemy = theEventTarget;
                 updateSection(theCurrentEnemy, "#display", "append");
-                $("#display > div").attr({ "class": "attack display-character tooltip" });
+                $("#display > div").attr({ "class": "attack display-character" });
                 $("#attack-stats").html(assembleAttackStatsString("grows2")); //when you choose enemy
             } else {
                 if ($("#heading").text() == "Click your fighter to attack!") {
@@ -140,15 +157,20 @@ $(document).ready(function () {
                 };
             };
             if ($("#heading").text() == "Choose your fighter") {
-                theFighter = event.target.id;
+                // theFighter = event.target.id;
+                if (event.target.id === "") {
+                    theFighter = event.target.parentNode.id;
+                } else {
+                    theFighter = event.target.id;
+                };
                 $("#heading").text("Choose an enemy to fight");
-                $("#display > div").attr({ "class": "choose-enemy display-character tooltip" });
+                $("#display > div").attr({ "class": "choose-enemy display-character" });
                 resetChooseEnemy();
             };
-        } else {
-            if ($("#defeated-enemies-heading").text() === "Click anywhere to play again!") {
-                resetGame();
-            };
+            // } else {
+            //     if ($("#defeated-enemies-heading").text() === "Click anywhere to play again!") {
+            //         resetGame();
+            //     };
         };
     });
 
@@ -166,7 +188,7 @@ $(document).ready(function () {
                 updateSection(Object.keys(characters)[x], "#display", "append");
             };
         };
-        $("#display > div").attr({ "class": "choose-enemy display-character tooltip" });
+        $("#display > div").attr({ "class": "choose-enemy display-character" });
         $("#attack-stats").html(assembleAttackStatsString("grows3")); //when first choosing enemy and after defeating an enemy
     };
 
@@ -240,5 +262,5 @@ $(document).ready(function () {
         }, 4000);
     };
 
-    resetGame();
+    initializeGame();
 });
