@@ -129,10 +129,11 @@ $(document).ready(function () {
                 if ($("#heading").text() == "Click your fighter to attack!") {
                     doAttack();
                     if (eval("characters." + theCurrentEnemy).healthPoints < 1) { //if you win that round
-                        clearTheEnemy(); //clears the enemy and the game continues
+                        clearTheEnemy("win"); //clears the enemy and the game continues
                     } else { //if you lose
                         if (eval("characters." + theFighter).healthPoints < 1) {
-                            processTheLoss();
+                            clearTheEnemy("loss");
+                            processTheGameEnd("loss");
                         }
                     };
                 };
@@ -166,15 +167,8 @@ $(document).ready(function () {
         $("#display > div").attr({ "class": "choose-enemy display-character tooltip" });
     };
 
-    function clearTheEnemy() {
-        let theFighterPosition = eval("$(\"#" + theFighter + "\")").position();
-        eval("$(\"#" + theFighter + "\")").css({ top: theFighterPosition.top, left: theFighterPosition.left, position: "absolute" });
-        let theCurrentEnemyPosition = eval("$(\"#" + theCurrentEnemy + "\")").position();
-        eval("$(\"#" + theCurrentEnemy + "\")").css({ top: theCurrentEnemyPosition.top, left: (theCurrentEnemyPosition.left + 120), position: "absolute" });
-        let theCharToAnimate = "$(\"#" + theCurrentEnemy + "\")";
-        eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=300px", "left": "+=80px", opacity: "0" });
-        theCharToAnimate = "$(\"#" + theFighter + "\")";
-        eval(theCharToAnimate).animate({ opacity: "0" }, 1500);
+    function clearTheEnemy(winOrLoss) {
+        clearTheAttackArea(winOrLoss)
         updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
         // make this happen only the first time
@@ -183,7 +177,7 @@ $(document).ready(function () {
             $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
         };
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
-            processTheWin();
+            processTheGameEnd("win");
         } else {
             setTimeout(function () {
                 resetChooseEnemy();
@@ -191,30 +185,48 @@ $(document).ready(function () {
         };
     };
 
-    function processTheWin() {
-        $("#heading").html("&nbsp;");
-        $("#attack-stats").html("&nbsp;");
-        setTimeout(function () {
-            updateSectionWithFadeIn(theFighter, "#display", "replace");
-            $("#heading").html("<em>You have defeated all the enemies!</em>").attr({ "style": "opacity: 0" });
-            $("#heading").animate({ opacity: "1" }, 1500);
-            theItemToAppend = ($("<span>").attr({ "class": "display-final-quote", "style": "opacity: 0" }).html(eval("characters." + theFighter + ".winningPhrase")));
-            $("#display").append(theItemToAppend);
-            eval(theItemToAppend).animate({ opacity: "1" }, 1500);
-        }, 1000);
+    function clearTheAttackArea(winOrLoss) {
+        if (winOrLoss === "win") {
+            var theWinner = theFighter;
+            var theLoser = theCurrentEnemy;
+        } else {
+            var theWinner = theCurrentEnemy;
+            var theLoser = theFighter;
+        };
+        let theWinnerPosition = eval("$(\"#" + theWinner + "\")").position();
+        let theLoserPosition = eval("$(\"#" + theLoser + "\")").position();
+
+        // let theWinnerPosition = eval("$(\"#" + theWinner + "\")").position();
+        eval("$(\"#" + theWinner + "\")").css({ top: theWinnerPosition.top, left: theWinnerPosition.left, position: "absolute" });
+        // let theLoserPosition = eval("$(\"#" + theLoser + "\")").position();
+        eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "absolute" });
+        let theCharToAnimate = "$(\"#" + theLoser + "\")";
+        eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=300px", "left": "+=80px", opacity: "0" });
+        theCharToAnimate = "$(\"#" + theWinner + "\")";
+        eval(theCharToAnimate).animate({ opacity: "0" }, 1500);
     };
 
-    function processTheLoss() {
+    function processTheGameEnd(winOrLoss) {
         $("#heading").html("&nbsp;");
         $("#attack-stats").html("&nbsp;");
-        setTimeout(function () {
+        setTimeout(function () { // this timeout lets the last enemy get into the defeated enemies section before the fighter and phrase fade in
             updateSectionWithFadeIn(theFighter, "#display", "replace");
-            $("#heading").html("<em>You have been defeated!</em>").attr({ "style": "opacity: 0" });
+            if (winOrLoss === "win") {
+                var theHeading = "<em>You have defeated all the enemies!</em>";
+                var thePhrase = eval("characters." + theFighter + ".winningPhrase");
+            } else {
+                var theHeading = "<em>You have been defeated!</em>";
+                var thePhrase = eval("characters." + theFighter + ".losingPhrase");
+            }
+            $("#heading").html(theHeading).attr({ "style": "opacity: 0" });
+            theItemToAppend = ($("<span>").attr({ "class": "display-final-quote", "style": "opacity: 0" }).html(thePhrase));
             $("#heading").animate({ opacity: "1" }, 1500);
-            theItemToAppend = ($("<span>").attr({ "class": "display-final-quote", "style": "opacity: 0" }).html(eval("characters." + theFighter + ".losingPhrase")));
             $("#display").append(theItemToAppend);
             eval(theItemToAppend).animate({ opacity: "1" }, 1500);
         }, 1000);
+        // setTimeout(function () {
+        //     alert("play again?");
+        // }, 2000);
     };
 
     resetGame();
