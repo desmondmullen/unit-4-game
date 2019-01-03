@@ -274,11 +274,15 @@ $(document).ready(function () {
                 $("#defeated-enemies-heading").attr({ "style": "margin-top: 5%; opacity: 0;" });
                 $("#defeated-enemies-heading").text("Click the button to play again");
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
-                $("#defeated-enemies").html("<button class=\"text-pulse\">Play Again</button>");
+                $("#defeated-enemies").html("<button id=\"play-again\" class=\"text-pulse\">Play Again</button>");
                 $("#defeated-enemies").animate({ opacity: "1" }, 1000);
             }, 2000);
         }, 4000);
     };
+
+    $("#play-again").click(function (event) {
+        resetGame()
+    });
 
     initializeGame();
 });
