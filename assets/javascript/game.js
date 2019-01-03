@@ -140,6 +140,27 @@ $(document).ready(function () {
         $("#" + theCurrentEnemy + " span").text(theToolTipText);
     };
 
+    function animateAttack(fighter, enemy) {
+        let fighterName = eval("characters." + fighter + ".name");
+        let theToolTipText = assembleToolTipText(fighter);
+        theItemToAppend = $("<div>").attr({ "id": fighter, "class": "attack display-character left-side-fighter" }).html("<section class=\"character-info tooltip\">" + fighterName + "<span class=\"tooltiptext\">" + theToolTipText + "</span></section>");
+        $("#display").html(theItemToAppend);
+        let enemyName = eval("characters." + enemy + ".name");
+        theToolTipText = assembleToolTipText(enemy);
+        theItemToAppend = $("<div>").attr({ "id": enemy, "class": "attack display-character right-side-enemy" }).html("<section class=\"character-info tooltip\">" + enemyName + "<span class=\"tooltiptext\">" + theToolTipText + "</span></section>");
+        $("#display").append(theItemToAppend);
+
+        setTimeout(function () {
+            // $(fighter).attr({ "class": "attack display-character left-side-fighter", "style": "opacity: 0" });
+            // $(enemy).attr({ "class": "attack display-character right-side-enemy", "style": "opacity: 0" });
+            console.log("got here");
+            $(".attack").animate({ "opacity": 1, "left": 0 }, 3000);
+            $(".left-side-fighter").animate({ "opacity": 1, "left": 0 }, 3000);
+            $(".right-side-enemy").animate({ "opacity": 1, "left": 0 }, 3000);
+        }, 1000);
+
+    };
+
     $("#display").click(function (event) {
         // only accept clicks on character avatars
         if (event.target.id === "") {
@@ -155,7 +176,8 @@ $(document).ready(function () {
                 $("#heading").text("Click your fighter to attack!");
                 theCurrentEnemy = theEventTarget;
                 updateSection(theCurrentEnemy, "#display", "append");
-                $("#display > div").attr({ "class": "attack display-character" });
+                animateAttack(theFighter, theCurrentEnemy);
+                // $("#display > div").attr({ "class": "attack display-character" });
                 $("#attack-stats").html(assembleAttackStatsString("grows2")); //when you choose enemy
             } else {
                 if ($("#heading").text() == "Click your fighter to attack!") {

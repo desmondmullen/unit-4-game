@@ -130,6 +130,16 @@ em {
     border: 5px solid #FF0000;
 }
 
+.left-side-fighter {
+    left: -300px;
+    opacity: 0;
+}
+
+.right-side-enemy {
+    left: +300px;
+    opacity: 0;
+}
+
 .attack{
     width: 190px;
     height: 140px;
