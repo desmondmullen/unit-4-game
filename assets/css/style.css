@@ -63,7 +63,8 @@ em {
     font-size: x-large;
     font-weight: bold;
     font-family: "Courier New", Courier, monospace;
-    color: white;
+    color: lightgray;
+    text-shadow: 3px 3px black, -3px -3px black, -3px 3px black, 3px -3px black;
 }
 
 .display-character {
@@ -111,11 +112,11 @@ em {
 
 .display-final-quote {
     position: relative;
-    font-size: large;
+    font-size: x-large;
     font-family: "Courier New", Courier, monospace;
-    text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
+    text-shadow: 3px 3px black, -3px -3px black, -3px 3px black, 3px -3px black;
     font-weight: bold;
-    color: white;
+    color: lightgray;
     top: -90px;
 }
 .choose-enemy{
@@ -171,13 +172,13 @@ em {
 
 .button-pulse{
     -webkit-animation-name: textPulse;
-    -webkit-animation-duration: 2s;
+    -webkit-animation-duration: 1.5s;
     -webkit-animation-iteration-count: 2;
     -moz-animation-name: textPulse;
-    -moz-animation-duration: 2s;
+    -moz-animation-duration: 1.5s;
     -moz-animation-iteration-count: 2;
     animation-name: textPulse;
-    animation-duration: 2s;
+    animation-duration: 1.5s;
     animation-iteration-count: 2;
 }
 
@@ -187,16 +188,6 @@ em {
         -moz-opacity: 1;
         opacity: 1;
     }
-    /* from {
-        -webkit-opacity: 0;
-        -moz-opacity: 0;
-        opacity: 0;
-    }
-    25% {
-        -webkit-opacity: 1;
-        -moz-opacity: 1;
-        opacity: 1;
-    } */
     50% {
         -webkit-opacity: 0;
         -moz-opacity: 0;
