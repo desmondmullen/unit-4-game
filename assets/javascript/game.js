@@ -224,9 +224,14 @@ $(document).ready(function () {
             $("#display").append(theItemToAppend);
             eval(theItemToAppend).animate({ opacity: "1" }, 1500);
         }, 1000);
-        // setTimeout(function () {
-        //     alert("play again?");
-        // }, 2000);
+        setTimeout(function () {
+            $("#defeated-enemies").animate({ opacity: "0" }, 1500);
+            $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
+            setTimeout(function () {
+                $("#defeated-enemies-heading").text("Click anywhere to play again!");
+                $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
+            }, 2000);
+        }, 4000);
     };
 
     resetGame();
