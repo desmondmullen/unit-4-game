@@ -144,6 +144,8 @@ $(document).ready(function () {
         $("#" + theFighter + " span").text(theToolTipText);
         theToolTipText = assembleToolTipText(theCurrentEnemy);
         $("#" + theCurrentEnemy + " span").text(theToolTipText);
+        $("#attack-stats").animate({ "opacity": 0 }, 10);
+        $("#attack-stats").animate({ "opacity": 1 }, 2000);
     };
 
     function animateAttack(fighter, enemy) {
@@ -155,9 +157,8 @@ $(document).ready(function () {
         theToolTipText = assembleToolTipText(enemy);
         theItemToAppend = $("<div>").attr({ "id": enemy, "class": "attack display-character right-side-enemy" }).html("<section class=\"character-info tooltip\">" + enemyName + "<span class=\"tooltiptext\">" + theToolTipText + "</span></section>");
         $("#display").append(theItemToAppend);
-        $(".left-side-fighter").animate({ "opacity": 1, "left": 0 }, 600);
-        $(".right-side-enemy").animate({ "opacity": 1, "left": 0 }, 600);
-
+        $(".left-side-fighter").animate({ "opacity": 1, "left": 0 }, 200);// was 1000
+        $(".right-side-enemy").animate({ "opacity": 1, "left": 0 }, 200);// was 1000
     };
 
     $("#display").click(function (event) {
@@ -205,6 +206,8 @@ $(document).ready(function () {
     });
 
     function resetChooseEnemy() {
+        // console.log("resetChooseEnemy");
+        // setTimeout(function () {
         $("#heading").text("Choose the next enemy to fight");
         $("#display").empty();
         for (x = 0; x < Object.keys(characters).length; x++) {
@@ -220,6 +223,7 @@ $(document).ready(function () {
         };
         $("#display > div").attr({ "class": "choose-enemy display-character" });
         $("#attack-stats").html(assembleAttackStatsString("grows3")); //when first choosing enemy and after defeating an enemy
+        // }, 4000);
     };
 
     function clearTheEnemy(winOrLoss) {
@@ -234,13 +238,16 @@ $(document).ready(function () {
             $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
         };
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
+            console.log("1000 in clearTheEnemy - 1");
             setTimeout(function () {
                 resetChooseEnemy();
                 processTheGameEnd("win");
             }, 1000);
         } else {
             if (winOrLoss !== "loss") {
+                console.log("1000 in clearTheEnemy - 2");
                 setTimeout(function () {
+
                     resetChooseEnemy();
                 }, 1000);
             };
@@ -255,20 +262,23 @@ $(document).ready(function () {
             var theWinner = theCurrentEnemy;
             var theLoser = theFighter;
         };
-        let theWinnerPosition = eval("$(\"#" + theWinner + "\")").position();
-        let theLoserPosition = eval("$(\"#" + theLoser + "\")").position();
-        eval("$(\"#" + theWinner + "\")").css({ top: theWinnerPosition.top, left: theWinnerPosition.left, position: "absolute" });
-        eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "absolute" });
-        let theCharToAnimate = "$(\"#" + theLoser + "\")";
-        eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=300px", "left": "+=80px", opacity: "0" });
-        theCharToAnimate = "$(\"#" + theWinner + "\")";
-        eval(theCharToAnimate).animate({ opacity: "0" }, 1500);
+        console.log("4000 in clearTheAttackArea");
+        setTimeout(function () {
+            let theWinnerPosition = eval("$(\"#" + theWinner + "\")").position();
+            let theLoserPosition = eval("$(\"#" + theLoser + "\")").position();
+            eval("$(\"#" + theWinner + "\")").css({ top: theWinnerPosition.top, left: theWinnerPosition.left, position: "relative" });
+            eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "relative" });
+            let theCharToAnimate = "$(\"#" + theLoser + "\")";
+            eval(theCharToAnimate).animate({ width: "0px", height: "0px", "top": "+=300px", "left": "+=80px", "opacity": "0" }, 400);
+            theCharToAnimate = "$(\"#" + theWinner + "\")";
+            eval(theCharToAnimate).animate({ "opacity": "0" }, 400);
+        }, 4000);
     };
 
     function processTheGameEnd(winOrLoss) {
         $("#heading").html("&nbsp;");
-        $("#attack-stats").attr({ "style": "opacity: 0" });
         $("#attack-stats").html(assembleAttackStatsString("end"));
+        console.log("1000 in processTheGameEnd - 1");
         setTimeout(function () { // this timeout lets the last enemy get into the defeated enemies section before the fighter and phrase fade in
             updateSectionWithFadeIn(theFighter, "#display", "replace");
             if (winOrLoss === "win") {
@@ -283,20 +293,24 @@ $(document).ready(function () {
             $("#heading").animate({ opacity: "1" }, 1500);
             $("#display").append(theItemToAppend);
             eval(theItemToAppend).animate({ opacity: "1" }, 1500);
-            $("#attack-stats").animate({ opacity: "1" }, 1500);
-        }, 1000);
-        setTimeout(function () {
             $("#attack-stats").animate({ opacity: "0" }, 1500);
-            $("#defeated-enemies").animate({ opacity: "0" }, 1500);
-            $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
+        }, 1000); // was 1000
+        console.log("3000 in processTheGameEnd - 2");
+        setTimeout(function () {
+            // $("#attack-stats").animate({ opacity: "0" }, 1500);
+            // $("#defeated-enemies").animate({ opacity: "0" }, 1500);
+            // $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
+            console.log("2000 in processTheGameEnd - 3"); //sending stuff off at very end
             setTimeout(function () {
+                $("#defeated-enemies").animate({ opacity: "0" }, 1500);
+                $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
                 $("#defeated-enemies").attr({ "style": "display: none" });
                 $("#play-again").attr({ "class": "button-pulse", "style": "display: inline" });
                 $("#defeated-enemies-heading").attr({ "class": "smaller-heading-text" });
                 $("#defeated-enemies-heading").text("Click the button to play again");
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
-            }, 2000);
-        }, 4000);
+            }, 2000); // was 2000
+        }, 3000); // was 4000
     };
 
     $("#play-again").click(function (event) {
