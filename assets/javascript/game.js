@@ -224,9 +224,9 @@ $(document).ready(function () {
 
     function clearTheEnemy(winOrLoss) {
         clearTheAttackArea(winOrLoss)
-        // if (winOrLoss !== "loss") {
-        updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
-        // };
+        if (winOrLoss !== "loss") {
+            updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
+        };
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
         // make this happen only the first time
         if ($("#defeated-enemies > div").length === 1) {
