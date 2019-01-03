@@ -125,6 +125,7 @@ em {
     color: lightgray;
     top: -90px;
 }
+
 .choose-enemy{
     margin: 20px;
     border: 5px solid #FF0000;
@@ -258,6 +259,12 @@ em {
     .character-info {
         font-size: small;
     }
+
+    .display-final-quote {
+        font-size: large;
+        text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
+    }
+
     #attack-stats {
         /* height: 40px; */
         font-size: medium;
