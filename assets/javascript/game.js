@@ -229,7 +229,7 @@ $(document).ready(function () {
             updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
         };
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
-        // make this happen only the first time, and *not* at the end game (in case no one was defeated)
+        // make this happen only the first time, but *not* at the end game (in case no one was defeated)
         if ($("#defeated-enemies > div").length === 0 && winOrLoss !== "loss") {
             setTimeout(function () {
                 $("#defeated-enemies-heading").text("Defeated enemies").attr({ "style": "opacity: 0" });
@@ -260,7 +260,6 @@ $(document).ready(function () {
         let theCharToAnimate = "$(\"#" + theCurrentEnemy + "\")";
         eval(theCharToAnimate).animate({ "width": "0px", "height": "0px", "top": "+=100px", "left": "-=60px", "opacity": "0" }, 300);
         setTimeout(function () { //reset so the winner is presentable!
-            console.log("reset the winner");
             $("#" + theFighter).attr({ "class": "display-character winner", "width": "200px", "height": "150px", "top": "0", "left": "0", "style": "opacity: 0" });
         }, 2000);
         theCharToAnimate = "$(\"#" + theFighter + "\")";
@@ -268,13 +267,11 @@ $(document).ready(function () {
     };
 
     function processTheGameEnd(winOrLoss) {
-        console.log("endgame");
         setTimeout(function () {
             $("#heading").animate({ opacity: "0" }, 500);
             $("#attack-stats").animate({ opacity: "0" }, 500);
         }, 1000);
         setTimeout(function () { // this timeout lets the last enemy get into the defeated enemies section before the fighter and phrase fade in
-            console.log("endgame - inside first timeout");
             $("#attack-stats").html(assembleAttackStatsString("end"));
             // updateSectionWithFadeIn(theFighter, "#display", "replace");
             if (winOrLoss === "win") {
@@ -296,7 +293,6 @@ $(document).ready(function () {
         }, 2000);
         setTimeout(function () {
             $("#attack-stats").animate({ opacity: "0" }, 1500);
-            console.log("processTheGameEnd 1")
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
             setTimeout(function () {
@@ -309,10 +305,9 @@ $(document).ready(function () {
                     $("#attack-stats").attr({ "style": "display: none" });
                 };
                 $("#defeated-enemies").attr({ "style": "display: none" });
-                $("#play-again").attr({ "class": "button-pulse", "style": "display: inline" });
+                $("#play-again").attr({ "style": "opacity: 1" });
             }, 3000);
         }, 4000);
-        console.log("end of endgame");
     };
 
     $("#play-again").click(function (event) {
