@@ -300,14 +300,16 @@ $(document).ready(function () {
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
             setTimeout(function () {
+                $("#defeated-enemies-heading").attr({ "class": "smaller-heading-text" });
+                $("#defeated-enemies-heading").text("Click the button to play again");
+                $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
+            }, 2000);
+            setTimeout(function () {
                 if (window.matchMedia("(max-width: 670px)").matches) {
                     $("#attack-stats").attr({ "style": "display: none" });
                 };
                 $("#defeated-enemies").attr({ "style": "display: none" });
                 $("#play-again").attr({ "class": "button-pulse", "style": "display: inline" });
-                $("#defeated-enemies-heading").attr({ "class": "smaller-heading-text" });
-                $("#defeated-enemies-heading").text("Click the button to play again");
-                $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
             }, 3000);
         }, 4000);
         console.log("end of endgame");
