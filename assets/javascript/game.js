@@ -229,10 +229,12 @@ $(document).ready(function () {
         };
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
         // make this happen only the first time
-        if ($("#defeated-enemies > div").length === 1) {
-            $("#defeated-enemies-heading").text("Defeated enemies").attr({ "style": "opacity: 0" });
-            $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
-        };
+        setTimeout(function () {
+            if ($("#defeated-enemies > div").length === 1) {
+                $("#defeated-enemies-heading").text("Defeated enemies").attr({ "style": "opacity: 0" });
+                $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
+            };
+        }, 1000); // was 1000
         if ($("#defeated-enemies > div").length === 3) {//if all the enemies have been defeated then
             setTimeout(function () {
                 resetChooseEnemy();
@@ -257,11 +259,10 @@ $(document).ready(function () {
         };
         let theWinnerPosition = eval("$(\"#" + theWinner + "\")").position();
         let theLoserPosition = eval("$(\"#" + theLoser + "\")").position();
-        eval("$(\"#" + theWinner + "\")").css({ top: theWinnerPosition.top, left: theWinnerPosition.left, position: "static" });
-        eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "static" });
-
+        // eval("$(\"#" + theWinner + "\")").css({ top: theWinnerPosition.top, left: theWinnerPosition.left, position: "static" });
+        // eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "static" });
         let theCharToAnimate = "$(\"#" + theLoser + "\")";
-        eval(theCharToAnimate).animate({ "width": "0px", "height": "0px", "top": "+=300px", "left": "+=80px", "opacity": "0" }, 300);
+        eval(theCharToAnimate).animate({ "width": "0px", "height": "0px", "top": "+=100px", "left": "-=60px", "opacity": "0" }, 300);
 
         theCharToAnimate = "$(\"#" + theWinner + "\")";
         eval(theCharToAnimate).animate({ "opacity": "0" }, 300);
