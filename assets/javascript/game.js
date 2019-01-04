@@ -82,8 +82,9 @@ $(document).ready(function () {
         let theAttackStatsStringRight = "";
         $("#attack-stats").animate({ opacity: "0" }, 200);
         $("#attack-stats").empty();
-        if (includeText === "grows3") { //then it's the first time the attack stats show
-            theAttackStatsString = "<span class=\"hover-for-stats-notice text-pulse\">(Hover over an enemy's name to see Health and Attack)</span><br>Your Health: " + theFighterGrabString.healthPoints;
+        if (includeText === "grows3") {
+            theAttackStatsString = "Your Health: " + theFighterGrabString.healthPoints;
+            // theAttackStatsString = "<span class=\"hover-for-stats-notice text-pulse\">(Hover over an enemy's name to see Health and Attack)</span><br>Your Health: " + theFighterGrabString.healthPoints;
         } else {
             var theCurrentEnemyGrabString = eval("characters." + theCurrentEnemy);
             theAttackStatsString = "Your Health: " + theFighterGrabString.healthPoints;
@@ -96,8 +97,8 @@ $(document).ready(function () {
         } else {
             theAttackStatsString = theAttackStatsString + ", ";
         };
-        if (includeText === "grows3") { //before enemy is selected
-            theAttackStatsString = theAttackStatsString + "Your Attack: " + theFighterGrabString.counterAttackPower + " (grows with each attack)";
+        if (includeText === "grows3") { //don't do this at end of game
+            theAttackStatsString = theAttackStatsString + "Your Attack: " + theFighterGrabString.counterAttackPower + " (grows with each attack)<br><span class=\"hover-for-stats-notice text-pulse\">(Hover over an enemy's name to see Health and Attack)</span>";
         } else { //after enemy is selected, we reformat as a table
             theAttackStatsString = "<section class=\"attack-stats-left\">Health: " + theFighterGrabString.healthPoints + "<br>Attack: " + theFighterGrabString.counterAttackPower + "</section>"
             theAttackStatsStringRight = "<section class=\"attack-stats-left\">Health: " + theCurrentEnemyGrabString.healthPoints + "<br>Attack: " + theCurrentEnemyGrabString.attackPower + "</section>"
@@ -146,8 +147,7 @@ $(document).ready(function () {
         // enemy's health = health - theFighter's counter attack power
         theCurrentEnemyGrabString.healthPoints = theCurrentEnemyGrabString.healthPoints - theFighterGrabString.counterAttackPower;
         // update stats
-        assembleAttackStatsString("grows1"); // when you attack
-        // $("#attack-stats").html(assembleAttackStatsString("grows1")); // when you attack
+        assembleAttackStatsString("grows1"); // loads after an attack
         let theToolTipText = assembleToolTipText(theFighter);
         $("#" + theFighter + " span").text(theToolTipText);
         theToolTipText = assembleToolTipText(theCurrentEnemy);
@@ -188,8 +188,7 @@ $(document).ready(function () {
                     theCurrentEnemy = theEventTarget;
                     updateSection(theCurrentEnemy, "#display", "append");
                     animateAttack(theFighter, theCurrentEnemy);
-                    assembleAttackStatsString("grows2"); //when you choose enemy
-                    // $("#attack-stats").html(assembleAttackStatsString("grows2")); //when you choose enemy
+                    assembleAttackStatsString("grows2"); //when you first choose enemy - before the first attack
                 }, 210);
             } else {
                 if ($("#heading").text() == "Click your fighter to attack!") {
@@ -218,9 +217,13 @@ $(document).ready(function () {
     });
 
     function resetChooseEnemy(emptyDisplayOrNot) {
-        if (emptyDisplayOrNot !== "no") {
+        if (emptyDisplayOrNot === "no") { //we only get "no" when the player wins
+            $("#heading").html("&nbsp");
+            $("#attack-stats").html("&nbsp");
+        } else {
             $("#heading").text("Choose the next enemy to fight");
             $("#display").empty(); // this takes care of a problem when this empties at end of game
+            assembleAttackStatsString("grows3"); //when first choosing enemy and after defeating an enemy
         };
         for (x = 0; x < Object.keys(characters).length; x++) {
             let theKey = Object.keys(characters)[x];
@@ -234,8 +237,7 @@ $(document).ready(function () {
             };
         };
         $("#display > div").attr({ "class": "choose-enemy display-character" });
-        assembleAttackStatsString("grows3"); //when first choosing enemy and after defeating an enemy
-        // $("#attack-stats").html(assembleAttackStatsString("grows3")); //when first choosing enemy and after defeating an enemy
+        // assembleAttackStatsString("grows3"); //when first choosing enemy and after defeating an enemy
     };
 
     function clearTheEnemy(winOrLoss) {
@@ -259,7 +261,7 @@ $(document).ready(function () {
         } else {
             if (winOrLoss !== "loss") {
                 setTimeout(function () {
-                    resetChooseEnemy();
+                    resetChooseEnemy("test");
                 }, 1500);
             };
         };
@@ -288,7 +290,7 @@ $(document).ready(function () {
             $("#attack-stats").animate({ opacity: "0" }, 500);
         }, 1000);
         setTimeout(function () { // this timeout lets the last enemy get into the defeated enemies section before the fighter and phrase fade in
-            assembleAttackStatsString("end");
+            // assembleAttackStatsString("end");
             // $("#attack-stats").html(assembleAttackStatsString("end"));
             // updateSectionWithFadeIn(theFighter, "#display", "replace");
             if (winOrLoss === "win") {
