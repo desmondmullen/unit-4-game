@@ -249,7 +249,7 @@ em {
     }
     #title {
         background-image: url("../images/starwarssmall.png");
-        margin: 10px 0 20px 0;
+        margin: 10px 0 0 0;
         height: 85px;
     }
     #heading, #defeated-enemies-heading {
@@ -261,12 +261,13 @@ em {
     .character-info {
         font-size: small;
     }
-
+    #heading {
+        margin-top: 3vh;
+    }
     .display-final-quote {
         font-size: large;
         text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
     }
-
     #attack-stats {
         /* height: 40px; */
         font-size: medium;
