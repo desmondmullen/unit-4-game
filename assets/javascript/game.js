@@ -110,17 +110,18 @@ $(document).ready(function () {
         }
     };
 
-    function updateSectionWithFadeIn(theCharacter, theLocation, appendOrReplace) {
+    function updateSectionWithFadeIn(theCharacter, theLocation, appendOrReplace, waitTime) {
         let theCharacterName = eval("characters." + theCharacter + ".name");
         let theToolTipText = assembleToolTipText(theCharacter);
         theItemToAppend = $("<div>").attr({ "id": theCharacter, "class": "display-character", "style": "opacity: 0" }).html("<section class=\"character-info tooltip\">" + theCharacterName + "<span class=\"tooltiptext\">" + theToolTipText + "</span></section>");
-        if (appendOrReplace == "append") {
-            $(theLocation).append(theItemToAppend);
-        } else {
-            $(theLocation).html(theItemToAppend);
-        }
-        eval(theItemToAppend).animate({ opacity: "1" }, 1500);
-
+        setTimeout(function () { // waits to reveal characters in defeated enemies
+            if (appendOrReplace == "append") {
+                $(theLocation).append(theItemToAppend);
+            } else {
+                $(theLocation).html(theItemToAppend);
+            }
+            eval(theItemToAppend).animate({ opacity: "1" }, 1500);
+        }, waitTime);
     };
 
     function doAttack() {
@@ -225,7 +226,7 @@ $(document).ready(function () {
     function clearTheEnemy(winOrLoss) {
         clearTheAttackArea(winOrLoss)
         if (winOrLoss !== "loss") {
-            updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
+            updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append", 1000);
         };
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
         // make this happen only the first time
@@ -273,7 +274,7 @@ $(document).ready(function () {
         $("#attack-stats").attr({ "style": "opacity: 0" });
         $("#attack-stats").html(assembleAttackStatsString("end"));
         setTimeout(function () { // this timeout lets the last enemy get into the defeated enemies section before the fighter and phrase fade in
-            updateSectionWithFadeIn(theFighter, "#display", "replace");
+            updateSectionWithFadeIn(theFighter, "#display", "replace", 1000);
             if (winOrLoss === "win") {
                 var theHeading = "<em>You have defeated all the enemies!</em>";
                 var thePhrase = eval("characters." + theFighter + ".winningPhrase");
