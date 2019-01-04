@@ -253,7 +253,7 @@ em {
         height: 85px;
     }
     #heading, #defeated-enemies-heading {
-        font-size: large;
+        font-size: medium;
     }
     .display-character {
         width: 100px;
@@ -265,12 +265,11 @@ em {
         margin-top: 3vh;
     }
     .display-final-quote {
-        font-size: large;
+        font-size: medium;
         text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
     }
     #attack-stats {
-        /* height: 40px; */
-        font-size: medium;
+        font-size: small;
     }
     #luke {
         background-position: -70px;
