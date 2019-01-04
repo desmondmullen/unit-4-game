@@ -19,7 +19,7 @@ $(document).ready(function () {
             healthPoints: 160,
             attackPower: 50,
             counterAttackPower: 0,
-            winningPhrase: "\"Your powers are weak.\"",
+            winningPhrase: "\"Your powers are weak, old man.\"",
             losingPhrase: "\"The Force is strong with this one.\"",
         },
         stormtrooper: {
@@ -167,7 +167,6 @@ $(document).ready(function () {
         if (clickCheckString.includes(theEventTarget)) {
             if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
                 //animate the enemy off to the right
-                console.log("\"" + theEventTarget + "\"");
                 theEnemyToAnimate = "#" + theEventTarget;
                 $(theEnemyToAnimate).animate({ "left": 300, "opacity": 0 }, 400);
                 setTimeout(function () {
@@ -254,19 +253,19 @@ $(document).ready(function () {
     };
 
     function clearTheAttackArea(winOrLoss) {
-        // var theWinner = theFighter;
-        // var theLoser = theCurrentEnemy;
-        // let theWinnerPosition = eval("$(\"#" + theFighter + "\")").position();
-        // let theLoserPosition = eval("$(\"#" + theCurrentEnemy + "\")").position();
-        // eval("$(\"#" + theWinner + "\")").css({ top: theWinnerPosition.top, left: theWinnerPosition.left, position: "static" });
-        // eval("$(\"#" + theLoser + "\")").css({ top: theLoserPosition.top, left: (theLoserPosition.left + 120), position: "static" });
-        let theCharToAnimate = "$(\"#" + theCurrentEnemy + "\")";
-        eval(theCharToAnimate).animate({ "width": "0px", "height": "0px", "top": "+=100px", "left": "-=60px", "opacity": "0" }, 300);
+        if (winOrLoss === "loss") { //then we switch them around so the animation is right
+            let theFighterTemp = theCurrentEnemy;
+            theCurrentEnemy = theFighter;
+            theFighter = theFighterTemp;
+            $("#" + theFighter).animate({ "left": "+=200", "opacity": "0" }, 300);
+        } else {
+            $("#" + theFighter).animate({ "left": "-=200", "opacity": "0" }, 300);
+        };
+        $("#" + theCurrentEnemy).animate({ "width": "0px", "height": "0px", "top": "+=200", "left": "-=60", "opacity": "0" }, 300);
         setTimeout(function () { //reset so the winner is presentable!
             $("#" + theFighter).attr({ "class": "display-character winner", "width": "200px", "height": "150px", "top": "0", "left": "0", "style": "opacity: 0" });
         }, 2000);
-        theCharToAnimate = "$(\"#" + theFighter + "\")";
-        eval(theCharToAnimate).animate({ "opacity": "0" }, 300);
+        $("#" + theFighter).animate({ "opacity": "0" }, 300);
     };
 
     function processTheGameEnd(winOrLoss) {
