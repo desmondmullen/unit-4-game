@@ -275,10 +275,13 @@ em {
     .display-character {
         width: 100px;
     }
+    .attack-stats-left, .attack-stats-right {
+        width: 100px; /*must be same as display-character*/
+    }
     .character-info {
         font-size: small;
     }
-    .choose-enemy{
+    .choose-enemy{ /*really small margin for iPhone in portrait*/
         margin: 20px 1px;
     }
     #heading {
