@@ -166,14 +166,20 @@ $(document).ready(function () {
         };
         if (clickCheckString.includes(theEventTarget)) {
             if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
-                //move your fighter to attack area
-                updateSection(theFighter, "#display", "replace");
-                //move the chosen enemy to attack area
-                $("#heading").text("Click your fighter to attack!");
-                theCurrentEnemy = theEventTarget;
-                updateSection(theCurrentEnemy, "#display", "append");
-                animateAttack(theFighter, theCurrentEnemy);
-                $("#attack-stats").html(assembleAttackStatsString("grows2")); //when you choose enemy
+                //animate the enemy off to the right
+                console.log("\"" + theEventTarget + "\"");
+                theEnemyToAnimate = "#" + theEventTarget;
+                $(theEnemyToAnimate).animate({ "left": 300, "opacity": 0 }, 400);
+                setTimeout(function () {
+                    //move your fighter to attack area
+                    updateSection(theFighter, "#display", "replace");
+                    //move the chosen enemy to attack area
+                    $("#heading").text("Click your fighter to attack!");
+                    theCurrentEnemy = theEventTarget;
+                    updateSection(theCurrentEnemy, "#display", "append");
+                    animateAttack(theFighter, theCurrentEnemy);
+                    $("#attack-stats").html(assembleAttackStatsString("grows2")); //when you choose enemy
+                }, 210);
             } else {
                 if ($("#heading").text() == "Click your fighter to attack!") {
                     doAttack();
@@ -204,9 +210,6 @@ $(document).ready(function () {
         if (emptyDisplayOrNot !== "no") {
             $("#heading").text("Choose the next enemy to fight");
             $("#display").empty(); // this takes care of a problem when this empties at end of game
-            // } else {
-            //     $("#heading").animate({ opacity: "0" }, 500);
-            //     $("#display").animate({ opacity: "0" }, 500);
         };
         for (x = 0; x < Object.keys(characters).length; x++) {
             let theKey = Object.keys(characters)[x];
