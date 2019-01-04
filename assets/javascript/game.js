@@ -201,9 +201,12 @@ $(document).ready(function () {
     });
 
     function resetChooseEnemy(emptyDisplayOrNot) {
-        $("#heading").text("Choose the next enemy to fight");
         if (emptyDisplayOrNot !== "no") {
+            $("#heading").text("Choose the next enemy to fight");
             $("#display").empty(); // this takes care of a problem when this empties at end of game
+            // } else {
+            //     $("#heading").animate({ opacity: "0" }, 500);
+            //     $("#display").animate({ opacity: "0" }, 500);
         };
         for (x = 0; x < Object.keys(characters).length; x++) {
             let theKey = Object.keys(characters)[x];
@@ -226,8 +229,8 @@ $(document).ready(function () {
             updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
         };
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
-        // make this happen only the first time
-        if ($("#defeated-enemies > div").length === 0) {
+        // make this happen only the first time, and *not* at the end game (in case no one was defeated)
+        if ($("#defeated-enemies > div").length === 0 && winOrLoss !== "loss") {
             setTimeout(function () {
                 $("#defeated-enemies-heading").text("Defeated enemies").attr({ "style": "opacity: 0" });
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
@@ -266,10 +269,12 @@ $(document).ready(function () {
 
     function processTheGameEnd(winOrLoss) {
         console.log("endgame");
+        setTimeout(function () {
+            $("#heading").animate({ opacity: "0" }, 500);
+            $("#attack-stats").animate({ opacity: "0" }, 500);
+        }, 1000);
         setTimeout(function () { // this timeout lets the last enemy get into the defeated enemies section before the fighter and phrase fade in
             console.log("endgame - inside first timeout");
-            $("#heading").html("&nbsp;");
-            $("#attack-stats").attr({ "style": "opacity: 0" });
             $("#attack-stats").html(assembleAttackStatsString("end"));
             // updateSectionWithFadeIn(theFighter, "#display", "replace");
             if (winOrLoss === "win") {
