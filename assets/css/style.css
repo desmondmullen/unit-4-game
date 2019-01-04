@@ -73,10 +73,18 @@ em {
     text-shadow: 3px 3px black, -3px -3px black, -3px 3px black, 3px -3px black;
 }
 
+.attack-stats-left, .attack-stats-right {
+    width: 200px; /*must be same as display-character*/
+    margin: 0 20px; /*left and right must be same as display-character and include border-times-two*/
+    text-align: left;
+    display: inline-block;  
+    position: relative;
+    padding-left: 25px;
+}
+
 .hover-for-stats-notice {
     font-style: italic;
     color: greenyellow;
-    /* color: #91bd09; */
 }
 
 .display-character {

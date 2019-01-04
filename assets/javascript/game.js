@@ -79,9 +79,12 @@ $(document).ready(function () {
 
     function assembleAttackStatsString(includeText) {
         let theFighterGrabString = eval("characters." + theFighter);
+        let theAttackStatsStringRight = "";
+        $("#attack-stats").empty();
         if (includeText === "grows3") { //then it's the first time the attack stats show
             theAttackStatsString = "<span class=\"hover-for-stats-notice text-pulse\">(Hover over an enemy's name to see Health and Attack)</span><br>Your Health: " + theFighterGrabString.healthPoints;
         } else {
+            var theCurrentEnemyGrabString = eval("characters." + theCurrentEnemy);
             theAttackStatsString = "Your Health: " + theFighterGrabString.healthPoints;
         };
         if (theFighterGrabString.counterAttackPower === 0) {
@@ -92,16 +95,17 @@ $(document).ready(function () {
         } else {
             theAttackStatsString = theAttackStatsString + ", ";
         };
-        if (includeText === "grows3") {
+        if (includeText === "grows3") { //before enemy is selected
             // if (includeText === "grows1" || includeText === "grows2" || includeText === "grows3") {
             theAttackStatsString = theAttackStatsString + "Your Attack: " + theFighterGrabString.counterAttackPower + " (grows with each attack)";
-        } else {
-            theAttackStatsString = theAttackStatsString + "Your Attack: " + theFighterGrabString.counterAttackPower;
+        } else { //after enemy is selected, we reformat as a table
+            // theAttackStatsString = "Health: " + theFighterGrabString.healthPoints + " Health: " + theCurrentEnemyGrabString.healthPoints + "<br>Attack: " + theFighterGrabString.counterAttackPower + " Attack: " + theCurrentEnemyGrabString.attackPower;
+            // *** comment-out above once below is done ***
+            theAttackStatsString = "<section class=\"attack-stats-left\">Health: " + theFighterGrabString.healthPoints + "<br>Attack: " + theFighterGrabString.counterAttackPower + "</section>"
+            theAttackStatsStringRight = "<section class=\"attack-stats-left\">Health: " + theCurrentEnemyGrabString.healthPoints + "<br>Attack: " + theCurrentEnemyGrabString.attackPower + "</section>"
         }
-        if ($("#heading").text() == "Click your fighter to attack!") {
-            theAttackStatsString = theAttackStatsString + "<br>Enemy Health: " + eval("characters." + theCurrentEnemy).healthPoints + ", Enemy Attack: " + eval("characters." + theCurrentEnemy).attackPower;
-        }
-        return theAttackStatsString;
+        $("#attack-stats").append(theAttackStatsString);
+        $("#attack-stats").append(theAttackStatsStringRight);
     };
 
     function updateSection(theCharacter, theLocation, appendOrReplace) {
@@ -141,7 +145,8 @@ $(document).ready(function () {
         // enemy's health = health - theFighter's counter attack power
         theCurrentEnemyGrabString.healthPoints = theCurrentEnemyGrabString.healthPoints - theFighterGrabString.counterAttackPower;
         // update stats
-        $("#attack-stats").html(assembleAttackStatsString("grows1")); // when you attack
+        assembleAttackStatsString("grows1"); // when you attack
+        // $("#attack-stats").html(assembleAttackStatsString("grows1")); // when you attack
         let theToolTipText = assembleToolTipText(theFighter);
         $("#" + theFighter + " span").text(theToolTipText);
         theToolTipText = assembleToolTipText(theCurrentEnemy);
@@ -182,7 +187,8 @@ $(document).ready(function () {
                     theCurrentEnemy = theEventTarget;
                     updateSection(theCurrentEnemy, "#display", "append");
                     animateAttack(theFighter, theCurrentEnemy);
-                    $("#attack-stats").html(assembleAttackStatsString("grows2")); //when you choose enemy
+                    assembleAttackStatsString("grows2"); //when you choose enemy
+                    // $("#attack-stats").html(assembleAttackStatsString("grows2")); //when you choose enemy
                 }, 210);
             } else {
                 if ($("#heading").text() == "Click your fighter to attack!") {
@@ -227,7 +233,8 @@ $(document).ready(function () {
             };
         };
         $("#display > div").attr({ "class": "choose-enemy display-character" });
-        $("#attack-stats").html(assembleAttackStatsString("grows3")); //when first choosing enemy and after defeating an enemy
+        assembleAttackStatsString("grows3"); //when first choosing enemy and after defeating an enemy
+        // $("#attack-stats").html(assembleAttackStatsString("grows3")); //when first choosing enemy and after defeating an enemy
     };
 
     function clearTheEnemy(winOrLoss) {
@@ -280,7 +287,8 @@ $(document).ready(function () {
             $("#attack-stats").animate({ opacity: "0" }, 500);
         }, 1000);
         setTimeout(function () { // this timeout lets the last enemy get into the defeated enemies section before the fighter and phrase fade in
-            $("#attack-stats").html(assembleAttackStatsString("end"));
+            assembleAttackStatsString("end");
+            // $("#attack-stats").html(assembleAttackStatsString("end"));
             // updateSectionWithFadeIn(theFighter, "#display", "replace");
             if (winOrLoss === "win") {
                 var theHeading = "<em>You have defeated all the enemies!</em>";
@@ -297,10 +305,8 @@ $(document).ready(function () {
             $("#display").append(theItemToAppend);
             $(".attack").animate({ opacity: "1" }, 1000);
             eval(theItemToAppend).animate({ opacity: "1" }, 1000);
-            $("#attack-stats").animate({ opacity: "1" }, 1000);
         }, 2000);
         setTimeout(function () {
-            $("#attack-stats").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
             setTimeout(function () {
