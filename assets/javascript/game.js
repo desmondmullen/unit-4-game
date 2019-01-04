@@ -276,8 +276,9 @@ $(document).ready(function () {
             } else {
                 var theHeading = "<em>You have been defeated!</em>";
                 var thePhrase = eval("characters." + theFighter + ".losingPhrase");
-                $("#" + theCurrentEnemy).attr({ "class": "display-character", "style": "visibility: hidden" });
+                // $("#" + theCurrentEnemy).attr({ "class": "display-character", "style": "display: none" });
             }
+            $("#" + theCurrentEnemy).attr({ "class": "display-character", "style": "display: none" });
             $("#heading").html(theHeading).attr({ "style": "opacity: 0" });
             theItemToAppend = ($("<span>").attr({ "class": "display-final-quote", "style": "opacity: 0" }).html(thePhrase));
             $("#heading").animate({ opacity: "1" }, 1000);
