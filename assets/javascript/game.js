@@ -254,18 +254,32 @@ $(document).ready(function () {
 
     function clearTheAttackArea(winOrLoss) {
         if (winOrLoss === "loss") { //then we switch them around so the animation is right
-            let theFighterTemp = theCurrentEnemy;
-            theCurrentEnemy = theFighter;
-            theFighter = theFighterTemp;
-            $("#" + theFighter).animate({ "left": "+=200", "opacity": "0" }, 300);
+            theWinner = theCurrentEnemy;
+            theLoser = theFighter;
+            $("#" + theWinner).animate({ "left": "+=200", "opacity": "0" }, 300); //off to the right
         } else {
-            $("#" + theFighter).animate({ "left": "-=200", "opacity": "0" }, 300);
+            theWinner = theFighter;
+            theLoser = theCurrentEnemy;
+            $("#" + theWinner).animate({ "left": "-=200", "opacity": "0" }, 300); //off to the left
         };
-        $("#" + theCurrentEnemy).animate({ "width": "0px", "height": "0px", "top": "+=200", "left": "-=60", "opacity": "0" }, 300);
-        setTimeout(function () { //reset so the winner is presentable!
+        $("#" + theLoser).animate({ "width": "0px", "height": "0px", "top": "+=200", "left": "-=60", "opacity": "0" }, 300); //shrivel away
+        setTimeout(function () { //reset so the fighter (the player) is presentable!
             $("#" + theFighter).attr({ "class": "display-character winner", "width": "200px", "height": "150px", "top": "0", "left": "0", "style": "opacity: 0" });
         }, 2000);
-        $("#" + theFighter).animate({ "opacity": "0" }, 300);
+        $("#" + theWinner).animate({ "opacity": "0" }, 300);
+        // if (winOrLoss === "loss") { //then we switch them around so the animation is right
+        //     let theFighterTemp = theCurrentEnemy;
+        //     theCurrentEnemy = theFighter;
+        //     theFighter = theFighterTemp;
+        //     $("#" + theFighter).animate({ "left": "+=200", "opacity": "0" }, 300);
+        // } else {
+        //     $("#" + theFighter).animate({ "left": "-=200", "opacity": "0" }, 300);
+        // };
+        // $("#" + theCurrentEnemy).animate({ "width": "0px", "height": "0px", "top": "+=200", "left": "-=60", "opacity": "0" }, 300);
+        // setTimeout(function () { //reset so the winner is presentable!
+        //     $("#" + theFighter).attr({ "class": "display-character winner", "width": "200px", "height": "150px", "top": "0", "left": "0", "style": "opacity: 0" });
+        // }, 2000);
+        // $("#" + theFighter).animate({ "opacity": "0" }, 300);
     };
 
     function processTheGameEnd(winOrLoss) {
