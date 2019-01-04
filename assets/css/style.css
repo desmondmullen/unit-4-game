@@ -278,6 +278,7 @@ em {
     .display-character {
         width: 100px;
         height: 100px;
+        margin: 10px 10px;
     }
     .attack-stats-left, .attack-stats-right {
         width: 110px; /*must be same as display-character plus (margin times two)*/
