@@ -42,7 +42,7 @@ $(document).ready(function () {
         }
     };
 
-    if (window.matchMedia("(max-width: 700px)").matches) {
+    if (window.matchMedia("(max-width: 670px)").matches) {
         for (x = 0; x < Object.keys(characters).length; x++) {
             let theCharacterGrabString = eval("characters." + Object.keys(characters)[x])
             theCharacterGrabString.name = theCharacterGrabString.smallScreenName;
@@ -83,7 +83,7 @@ $(document).ready(function () {
         if (theFighterGrabString.counterAttackPower === 0) {
             theFighterGrabString.counterAttackPower = theFighterGrabString.attackPower
         };
-        if (window.matchMedia("(max-width: 700px)").matches) {
+        if (window.matchMedia("(max-width: 670px)").matches) {
             theAttackStatsString = theAttackStatsString + "<br>";
         } else {
             theAttackStatsString = theAttackStatsString + ", ";
@@ -292,6 +292,9 @@ $(document).ready(function () {
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);
             $("#defeated-enemies-heading").animate({ opacity: "0" }, 1500);
             setTimeout(function () {
+                if (window.matchMedia("(max-width: 670px)").matches) {
+                    $("#attack-stats").attr({ "style": "display: none" });
+                };
                 $("#defeated-enemies").attr({ "style": "display: none" });
                 $("#play-again").attr({ "class": "button-pulse", "style": "display: inline" });
                 $("#defeated-enemies-heading").attr({ "class": "smaller-heading-text" });
