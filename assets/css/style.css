@@ -269,20 +269,25 @@ em {
     #heading, #defeated-enemies-heading {
         font-size: medium;
     }
-    #defeated-enemies > div{
-        margin: 20px 1px;
+    #display {
+    height: 135px;
+}
+    #defeated-enemies > div{ /*really small margin for iPhone in portrait is below*/
+        margin: 20px 3px;
     }
     .display-character {
         width: 100px;
+        height: 100px;
     }
     .attack-stats-left, .attack-stats-right {
-        width: 100px; /*must be same as display-character*/
+        width: 110px; /*must be same as display-character plus (margin times two)*/
+    padding-left: 15px;
     }
     .character-info {
         font-size: small;
     }
-    .choose-enemy{ /*really small margin for iPhone in portrait*/
-        margin: 20px 1px;
+    .choose-enemy{ /*really small margin for iPhone in portrait is below*/
+        margin: 20px 3px;
     }
     #heading {
         margin-top: 3vh;
@@ -295,12 +300,23 @@ em {
         font-size: small;
     }
     #luke {
-        background-position: -70px;
+        background-position: -70px -15px;
     }
     #vader {
         background-position: -35px;
     }
+#stormtrooper {
+        background-position: 0 -7px;
+}
     #compactor {
         background-position: -35px;
+    }
+}
+@media only screen and (max-width: 400px) {/*really small margins for better layout on mobile in portrait*/
+        #defeated-enemies > div{
+        margin: 20px 1px;
+    }
+    .choose-enemy{
+        margin: 20px 1px;
     }
 }
