@@ -79,7 +79,11 @@ $(document).ready(function () {
 
     function assembleAttackStatsString(includeText) {
         let theFighterGrabString = eval("characters." + theFighter);
-        theAttackStatsString = "Health points: " + theFighterGrabString.healthPoints;
+        if (includeText === "grows3") { //then it's the first time the attack stats show
+            theAttackStatsString = "<span class=\"hover-for-stats-notice text-pulse\">(Hover over an enemy's name to see Health and Attack)</span><br>Your Health: " + theFighterGrabString.healthPoints;
+        } else {
+            theAttackStatsString = "Your Health: " + theFighterGrabString.healthPoints;
+        };
         if (theFighterGrabString.counterAttackPower === 0) {
             theFighterGrabString.counterAttackPower = theFighterGrabString.attackPower
         };
@@ -88,13 +92,14 @@ $(document).ready(function () {
         } else {
             theAttackStatsString = theAttackStatsString + ", ";
         };
-        if (includeText === "grows1" || includeText === "grows2" || includeText === "grows3") {
-            theAttackStatsString = theAttackStatsString + "Attack power: " + theFighterGrabString.counterAttackPower + " (grows with each attack)";
+        if (includeText === "grows3") {
+            // if (includeText === "grows1" || includeText === "grows2" || includeText === "grows3") {
+            theAttackStatsString = theAttackStatsString + "Your Attack: " + theFighterGrabString.counterAttackPower + " (grows with each attack)";
         } else {
-            theAttackStatsString = theAttackStatsString + "Attack power:" + theFighterGrabString.counterAttackPower;
+            theAttackStatsString = theAttackStatsString + "Your Attack: " + theFighterGrabString.counterAttackPower;
         }
         if ($("#heading").text() == "Click your fighter to attack!") {
-            theAttackStatsString = theAttackStatsString + "<br>Your enemy's health points: " + eval("characters." + theCurrentEnemy).healthPoints;
+            theAttackStatsString = theAttackStatsString + "<br>Enemy Health: " + eval("characters." + theCurrentEnemy).healthPoints + ", Enemy Attack: " + eval("characters." + theCurrentEnemy).attackPower;
         }
         return theAttackStatsString;
     };
@@ -267,19 +272,6 @@ $(document).ready(function () {
             $("#" + theFighter).attr({ "class": "display-character winner", "width": "200px", "height": "150px", "top": "0", "left": "0", "style": "opacity: 0" });
         }, 2000);
         $("#" + theWinner).animate({ "opacity": "0" }, 300);
-        // if (winOrLoss === "loss") { //then we switch them around so the animation is right
-        //     let theFighterTemp = theCurrentEnemy;
-        //     theCurrentEnemy = theFighter;
-        //     theFighter = theFighterTemp;
-        //     $("#" + theFighter).animate({ "left": "+=200", "opacity": "0" }, 300);
-        // } else {
-        //     $("#" + theFighter).animate({ "left": "-=200", "opacity": "0" }, 300);
-        // };
-        // $("#" + theCurrentEnemy).animate({ "width": "0px", "height": "0px", "top": "+=200", "left": "-=60", "opacity": "0" }, 300);
-        // setTimeout(function () { //reset so the winner is presentable!
-        //     $("#" + theFighter).attr({ "class": "display-character winner", "width": "200px", "height": "150px", "top": "0", "left": "0", "style": "opacity: 0" });
-        // }, 2000);
-        // $("#" + theFighter).animate({ "opacity": "0" }, 300);
     };
 
     function processTheGameEnd(winOrLoss) {
