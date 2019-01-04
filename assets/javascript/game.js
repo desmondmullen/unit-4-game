@@ -80,6 +80,7 @@ $(document).ready(function () {
     function assembleAttackStatsString(includeText) {
         let theFighterGrabString = eval("characters." + theFighter);
         let theAttackStatsStringRight = "";
+        $("#attack-stats").animate({ opacity: "0" }, 200);
         $("#attack-stats").empty();
         if (includeText === "grows3") { //then it's the first time the attack stats show
             theAttackStatsString = "<span class=\"hover-for-stats-notice text-pulse\">(Hover over an enemy's name to see Health and Attack)</span><br>Your Health: " + theFighterGrabString.healthPoints;
@@ -96,16 +97,16 @@ $(document).ready(function () {
             theAttackStatsString = theAttackStatsString + ", ";
         };
         if (includeText === "grows3") { //before enemy is selected
-            // if (includeText === "grows1" || includeText === "grows2" || includeText === "grows3") {
             theAttackStatsString = theAttackStatsString + "Your Attack: " + theFighterGrabString.counterAttackPower + " (grows with each attack)";
         } else { //after enemy is selected, we reformat as a table
-            // theAttackStatsString = "Health: " + theFighterGrabString.healthPoints + " Health: " + theCurrentEnemyGrabString.healthPoints + "<br>Attack: " + theFighterGrabString.counterAttackPower + " Attack: " + theCurrentEnemyGrabString.attackPower;
-            // *** comment-out above once below is done ***
             theAttackStatsString = "<section class=\"attack-stats-left\">Health: " + theFighterGrabString.healthPoints + "<br>Attack: " + theFighterGrabString.counterAttackPower + "</section>"
             theAttackStatsStringRight = "<section class=\"attack-stats-left\">Health: " + theCurrentEnemyGrabString.healthPoints + "<br>Attack: " + theCurrentEnemyGrabString.attackPower + "</section>"
         }
-        $("#attack-stats").append(theAttackStatsString);
-        $("#attack-stats").append(theAttackStatsStringRight);
+        setTimeout(function () {
+            $("#attack-stats").html(theAttackStatsString);
+            $("#attack-stats").append(theAttackStatsStringRight);
+            $("#attack-stats").animate({ opacity: "1" }, 500);
+        }, 500);
     };
 
     function updateSection(theCharacter, theLocation, appendOrReplace) {
