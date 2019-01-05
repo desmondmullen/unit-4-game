@@ -131,13 +131,15 @@ em {
 }
 
 .display-final-quote {
+    display: inline;
+    top: -90px;
+    text-align: left;
     position: relative;
     font-size: x-large;
     font-family: "Courier New", Courier, monospace;
     text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
     font-weight: bold;
     color: lightgray;
-    top: -90px;
 }
 
 .choose-enemy{
@@ -318,8 +320,8 @@ a { /* copyright is the only link*/
         margin-top: 3vh;
     }
     .display-final-quote {
+        top: -50px;
         font-size: medium;
-        text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
     }
     #attack-stats {
         font-size: small;
