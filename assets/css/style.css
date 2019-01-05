@@ -285,9 +285,8 @@ em {
 }
     .attack-stats-left, .attack-stats-right {
         width: 100px; /*must be same as display-character plus (margin times two)*/
-margin: 0 25px;
-        padding-left: 5px;
-        /* border: 2px solid red; */
+        margin: 0 25px;
+        padding-left: 8px;
     }
     .character-info {
         font-size: small;
