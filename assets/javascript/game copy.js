@@ -3,7 +3,6 @@ $(document).ready(function () {
     var theCurrentEnemy = "";
     var clickCheckString = "";
     var zIndexNumber = 0;
-    var gameIsOver = "";
 
     characters = {
         luke: {
@@ -211,13 +210,21 @@ $(document).ready(function () {
                         doAttack();
                         if (eval("characters." + theCurrentEnemy).healthPoints < 1) { //if you win that round
                             clearTheEnemy("win"); //clears the enemy and the game continues
-                        } else { //if you lose
-                            if (eval("characters." + theFighter).healthPoints < 1) {
-                                clearTheEnemy("loss");
-                                processTheGameEnd("loss");
-                                gameIsOver = "loss";
-                            }
+                        }
+                        // setTimeout(function () {
+                        if (eval("characters." + theFighter).healthPoints < 1) { //if you lose
+                            clearTheEnemy("loss", "end");
+                            processTheGameEnd("loss");
                         };
+                        // }, 1000);
+                        // if (eval("characters." + theCurrentEnemy).healthPoints < 1) { //if you win that round
+                        //     clearTheEnemy("win"); //clears the enemy and the game continues
+                        // } else { //if you lose
+                        //     if (eval("characters." + theFighter).healthPoints < 1) {
+                        //         clearTheEnemy("loss");
+                        //         processTheGameEnd("loss");
+                        //     }
+                        // };
                     };
                 };
                 if ($("#heading").text() == "Choose your fighter") {
@@ -227,7 +234,7 @@ $(document).ready(function () {
                         theFighter = event.target.id;
                     };
                     $("#display > div").attr({ "class": "choose-enemy display-character" });
-                    resetChooseEnemy();
+                    resetChooseEnemy("chooseyourfighter");
                     $("#heading").text("Choose an enemy to fight");
                 };
             };
@@ -235,30 +242,38 @@ $(document).ready(function () {
     });
 
     function resetChooseEnemy(emptyDisplayOrNot) {
+        console.log(emptyDisplayOrNot);
         if (emptyDisplayOrNot === "no") { //we only get "no" when the player wins
             $("#heading").html("&nbsp");
             $("#attack-stats").html("&nbsp");
         } else {
-            $("#heading").text("Choose the next enemy to fight");
-            $("#display").empty(); // this takes care of a problem when this empties at end of game
+            if (emptyDisplayOrNot !== "diedAfterDefeatingEnemy") { //player died while defeating enemy
+                $("#heading").text("Choose the next enemy to fight");
+                $("#display").empty(); // this takes care of a problem when this empties at end of game
+            };
             assembleAttackStatsString("grows3"); //when first choosing enemy and after defeating an enemy
         };
-        for (x = 0; x < Object.keys(characters).length; x++) {
-            let theKey = Object.keys(characters)[x];
-            var theIfStatement = "theFighter != theKey && theCurrentEnemy != theKey"
-            //check if enemy is in defeated-enemies
-            for (y = 0; y < $("#defeated-enemies > div").length; y++) {
-                theIfStatement = theIfStatement + " && \"" + $("#defeated-enemies > div")[y].id + "\" != theKey";
-            }
-            if (eval(theIfStatement)) {
-                updateSection(Object.keys(characters)[x], "#display", "append");
+        if (emptyDisplayOrNot === "diedAfterDefeatingEnemy") {
+            console.log("emptyDisplay = diedafter");
+        } else {
+            for (x = 0; x < Object.keys(characters).length; x++) {
+                console.log("here");
+                let theKey = Object.keys(characters)[x];
+                var theIfStatement = "theFighter != theKey && theCurrentEnemy != theKey"
+                //check if enemy is in defeated-enemies
+                for (y = 0; y < $("#defeated-enemies > div").length; y++) {
+                    theIfStatement = theIfStatement + " && \"" + $("#defeated-enemies > div")[y].id + "\" != theKey";
+                }
+                if (eval(theIfStatement)) {
+                    updateSection(Object.keys(characters)[x], "#display", "append");
+                };
             };
+            $("#display > div").attr({ "class": "choose-enemy display-character" });
         };
-        $("#display > div").attr({ "class": "choose-enemy display-character" });
-        // assembleAttackStatsString("grows3"); //when first choosing enemy and after defeating an enemy
     };
 
-    function clearTheEnemy(winOrLoss) {
+    function clearTheEnemy(winOrLoss, endOfGame) {
+        console.log("endOfGame " + endOfGame);
         clearTheAttackArea(winOrLoss)
         if (winOrLoss !== "loss") {
             updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
@@ -274,20 +289,24 @@ $(document).ready(function () {
         if ($("#defeated-enemies > div").length === 2) {// if all the enemies have been defeated then
             setTimeout(function () {
                 resetChooseEnemy("no");
-                if (eval("characters." + theFighter).healthPoints < 1) {
-                    gameIsOver = "loss";
-                }
                 processTheGameEnd("win");
             }, 1500);
         } else {
             if (winOrLoss !== "loss") {
-                setTimeout(function () {
-                    resetChooseEnemy("test");
-                }, 1500);
+                console.log("got here");
+                if (endOfGame === "end") {
+                    resetChooseEnemy("diedAfterDefeatingEnemy");
+                } else {
+                    setTimeout(function () {
+                        console.log("got there");
+
+                        console.log("got everywhere");
+                        resetChooseEnemy("loss");
+                    }, 1500);
+                };
             };
         };
     };
-
     function clearTheAttackArea(winOrLoss) {
         if (winOrLoss === "loss") { //then we switch them around so the animation is right
             theWinner = theCurrentEnemy;
@@ -314,12 +333,12 @@ $(document).ready(function () {
             // assembleAttackStatsString("end");
             // $("#attack-stats").html(assembleAttackStatsString("end"));
             // updateSectionWithFadeIn(theFighter, "#display", "replace");
-            if (gameIsOver === "loss") {
-                var theHeading = "<em>You have been defeated!</em>";
-                var thePhrase = eval("characters." + theFighter + ".losingPhrase");
-            } else {
+            if (winOrLoss === "win") {
                 var theHeading = "<em>You have defeated all the enemies!</em>";
                 var thePhrase = eval("characters." + theFighter + ".winningPhrase");
+            } else {
+                var theHeading = "<em>You have been defeated!</em>";
+                var thePhrase = eval("characters." + theFighter + ".losingPhrase");
             }
             $("#" + theCurrentEnemy).attr({ "class": "display-character", "style": "display: none" });
             $("#heading").html(theHeading).attr({ "style": "opacity: 0" });
