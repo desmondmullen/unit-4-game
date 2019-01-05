@@ -85,7 +85,6 @@ $(document).ready(function () {
         $("#attack-stats").empty();
         if (includeText === "grows3") {
             theAttackStatsString = "Your Health: " + theFighterGrabString.healthPoints;
-            // theAttackStatsString = "<span class=\"hover-for-stats-notice text-pulse\">(Hover over an enemy's name to see Health and Attack)</span><br>Your Health: " + theFighterGrabString.healthPoints;
         } else {
             var theCurrentEnemyGrabString = eval("characters." + theCurrentEnemy);
             theAttackStatsString = "Your Health: " + theFighterGrabString.healthPoints;
@@ -101,14 +100,30 @@ $(document).ready(function () {
         if (includeText === "grows3") { //don't do this at end of game
             theAttackStatsString = theAttackStatsString + "Your Attack: " + theFighterGrabString.counterAttackPower + " (grows with each attack)<br><span class=\"hover-for-stats-notice text-pulse\">(Hover over an enemy's name to see Health and Attack)</span>";
         } else { //after enemy is selected, we reformat as a table
-            theAttackStatsString = "<section class=\"attack-stats-left\">Health: " + theFighterGrabString.healthPoints + "<br>Attack: " + theFighterGrabString.counterAttackPower + "</section>"
-            theAttackStatsStringRight = "<section class=\"attack-stats-left\">Health: " + theCurrentEnemyGrabString.healthPoints + "<br>Attack: " + theCurrentEnemyGrabString.attackPower + "</section>"
+            theAttackStatsString = "<section class=\"attack-stats-left\">Health: " + processNumberToStandardLengthString(theFighterGrabString.healthPoints) + "<br>Attack: " + processNumberToStandardLengthString(theFighterGrabString.counterAttackPower) + "</section>"
+            theAttackStatsStringRight = "<section class=\"attack-stats-right\">Health: " + processNumberToStandardLengthString(theCurrentEnemyGrabString.healthPoints) + "<br>Attack: " + processNumberToStandardLengthString(theCurrentEnemyGrabString.attackPower) + "</section>"
         }
+        console.log(includeText);
         setTimeout(function () {
             $("#attack-stats").html(theAttackStatsString);
             $("#attack-stats").append(theAttackStatsStringRight);
             $("#attack-stats").animate({ opacity: "1" }, 500);
         }, 500);
+    };
+
+    function processNumberToStandardLengthString(theNumber) {
+        theNumberToReturn = parseInt(theNumber);
+        let theSpacesToAdd = "";
+        let theTempNumber = parseInt(theNumber);
+        for (x = 0; x < 4; x++) {
+            if (theTempNumber.toString().length < 4) {
+                //add a preceding space
+                theSpacesToAdd = "&nbsp;" + theSpacesToAdd;
+                theTempNumber = " " + theTempNumber;
+            };
+        };
+        theNumberToReturn = theSpacesToAdd + theNumberToReturn
+        return (theNumberToReturn);
     };
 
     function updateSection(theCharacter, theLocation, appendOrReplace) {
@@ -173,7 +188,6 @@ $(document).ready(function () {
         // only accept clicks on character avatars
         if (event.target.id !== "") {
             var theEventTarget = event.target.id;
-            console.log("event.target.id " + event.target.id + " / theEventTarget " + theEventTarget);
             if (clickCheckString.includes(theEventTarget)) {
                 if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
                     //set z-index and animate the enemy off to the right
