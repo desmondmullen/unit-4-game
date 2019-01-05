@@ -61,7 +61,7 @@ em {
 }
 
 #display {
-    height: 180px;
+    height: 170px;
 }
 
 #attack-stats {
@@ -92,7 +92,7 @@ em {
     position: relative;  
     width: 200px;
     height: 150px;
-    margin: 20px 10px;
+    margin: 10px 10px;
     border: 5px solid white;
 }
 
@@ -134,14 +134,14 @@ em {
     position: relative;
     font-size: x-large;
     font-family: "Courier New", Courier, monospace;
-    text-shadow: 3px 3px black, -3px -3px black, -3px 3px black, 3px -3px black;
+    text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
     font-weight: bold;
     color: lightgray;
     top: -90px;
 }
 
 .choose-enemy{
-    margin: 20px;
+    margin: 10px 20px;
     border: 5px solid #FF0000; /*red*/
 }
 
@@ -159,7 +159,7 @@ em {
     width: 190px;
     height: 140px;
     border: 0px;
-    margin: 25px 25px;
+    margin: 15px 25px;
     -webkit-animation-name: greenPulse;
     -webkit-animation-duration: 2s;
     -webkit-animation-iteration-count: infinite;
@@ -270,7 +270,7 @@ em {
         font-size: medium;
     }
     #display {
-    height: 135px;
+    height: 125px;
 }
     #defeated-enemies > div{ /*really small margin for iPhone in portrait is below*/
         margin: 20px 3px;
@@ -278,17 +278,22 @@ em {
     .display-character {
         width: 100px;
         height: 100px;
-        margin: 10px 10px;
+        margin: 10px 10px 5px 10px;
     }
+    .attack{
+    margin: 15px 25px;
+}
     .attack-stats-left, .attack-stats-right {
-        width: 110px; /*must be same as display-character plus (margin times two)*/
-    padding-left: 15px;
+        width: 100px; /*must be same as display-character plus (margin times two)*/
+margin: 0 25px;
+        padding-left: 5px;
+        /* border: 2px solid red; */
     }
     .character-info {
         font-size: small;
     }
     .choose-enemy{ /*really small margin for iPhone in portrait is below*/
-        margin: 20px 3px;
+        margin: 10px 3px;
     }
     #heading {
         margin-top: 3vh;

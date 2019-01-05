@@ -170,48 +170,47 @@ $(document).ready(function () {
 
     $("#display").click(function (event) {
         // only accept clicks on character avatars
-        if (event.target.id === "") {
-            var theEventTarget = event.target.parentNode.id;
-        } else {
+        if (event.target.id !== "") {
             var theEventTarget = event.target.id;
-        };
-        if (clickCheckString.includes(theEventTarget)) {
-            if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
-                //animate the enemy off to the right
-                theEnemyToAnimate = "#" + theEventTarget;
-                $(theEnemyToAnimate).animate({ "left": 300, "opacity": 0 }, 400);
-                setTimeout(function () {
-                    //move your fighter to attack area
-                    updateSection(theFighter, "#display", "replace");
-                    //move the chosen enemy to attack area
-                    $("#heading").text("Click your fighter to attack!");
-                    theCurrentEnemy = theEventTarget;
-                    updateSection(theCurrentEnemy, "#display", "append");
-                    animateAttack(theFighter, theCurrentEnemy);
-                    assembleAttackStatsString("grows2"); //when you first choose enemy - before the first attack
-                }, 210);
-            } else {
-                if ($("#heading").text() == "Click your fighter to attack!") {
-                    doAttack();
-                    if (eval("characters." + theCurrentEnemy).healthPoints < 1) { //if you win that round
-                        clearTheEnemy("win"); //clears the enemy and the game continues
-                    } else { //if you lose
-                        if (eval("characters." + theFighter).healthPoints < 1) {
-                            clearTheEnemy("loss");
-                            processTheGameEnd("loss");
-                        }
+            console.log("event.target.id " + event.target.id + " / theEventTarget " + theEventTarget);
+            if (clickCheckString.includes(theEventTarget)) {
+                if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
+                    //animate the enemy off to the right
+                    theEnemyToAnimate = "#" + theEventTarget;
+                    $(theEnemyToAnimate).animate({ "left": 300, "opacity": 0 }, 400);
+                    setTimeout(function () {
+                        //move your fighter to attack area
+                        updateSection(theFighter, "#display", "replace");
+                        //move the chosen enemy to attack area
+                        $("#heading").text("Click your fighter to attack!");
+                        theCurrentEnemy = theEventTarget;
+                        updateSection(theCurrentEnemy, "#display", "append");
+                        animateAttack(theFighter, theCurrentEnemy);
+                        assembleAttackStatsString("grows2"); //when you first choose enemy - before the first attack
+                    }, 210);
+                } else {
+                    if ($("#heading").text() == "Click your fighter to attack!") {
+                        doAttack();
+                        if (eval("characters." + theCurrentEnemy).healthPoints < 1) { //if you win that round
+                            clearTheEnemy("win"); //clears the enemy and the game continues
+                        } else { //if you lose
+                            if (eval("characters." + theFighter).healthPoints < 1) {
+                                clearTheEnemy("loss");
+                                processTheGameEnd("loss");
+                            }
+                        };
                     };
                 };
-            };
-            if ($("#heading").text() == "Choose your fighter") {
-                if (event.target.id === "") {
-                    theFighter = event.target.parentNode.id;
-                } else {
-                    theFighter = event.target.id;
+                if ($("#heading").text() == "Choose your fighter") {
+                    if (event.target.id === "") {
+                        theFighter = event.target.parentNode.id;
+                    } else {
+                        theFighter = event.target.id;
+                    };
+                    $("#display > div").attr({ "class": "choose-enemy display-character" });
+                    resetChooseEnemy();
+                    $("#heading").text("Choose an enemy to fight");
                 };
-                $("#display > div").attr({ "class": "choose-enemy display-character" });
-                resetChooseEnemy();
-                $("#heading").text("Choose an enemy to fight");
             };
         };
     });
