@@ -297,7 +297,7 @@ em {
         padding: 0px;
         /* Position the tooltip */
         position: absolute;
-        bottom: -20px;
+        bottom: -30px;
         left: 0;
         z-index: 1;
     }
