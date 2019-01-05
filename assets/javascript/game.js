@@ -2,6 +2,7 @@ $(document).ready(function () {
     var theFighter = "";
     var theCurrentEnemy = "";
     var clickCheckString = "";
+    var zIndexNumber = 0;
 
     characters = {
         luke: {
@@ -175,8 +176,10 @@ $(document).ready(function () {
             console.log("event.target.id " + event.target.id + " / theEventTarget " + theEventTarget);
             if (clickCheckString.includes(theEventTarget)) {
                 if ($("#heading").text() == "Choose the next enemy to fight" || $("#heading").text() == "Choose an enemy to fight") {
-                    //animate the enemy off to the right
+                    //set z-index and animate the enemy off to the right
                     theEnemyToAnimate = "#" + theEventTarget;
+                    zIndexNumber = zIndexNumber + 99;
+                    $(theEnemyToAnimate).css('z-index', zIndexNumber);
                     $(theEnemyToAnimate).animate({ "left": 300, "opacity": 0 }, 400);
                     setTimeout(function () {
                         //move your fighter to attack area

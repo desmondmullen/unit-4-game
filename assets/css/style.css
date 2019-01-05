@@ -236,7 +236,7 @@ em {
 }
 
 #defeated-enemies > div{
-    margin: 20px;
+    margin: 10px;
     border: 5px solid gray;
 }
 
@@ -273,7 +273,7 @@ em {
     height: 125px;
 }
     #defeated-enemies > div{ /*really small margin for iPhone in portrait is below*/
-        margin: 20px 3px;
+        margin: 10px 3px;
     }
     .display-character {
         width: 100px;
@@ -319,9 +319,9 @@ em {
 }
 @media only screen and (max-width: 400px) {/*really small margins for better layout on mobile in portrait*/
         #defeated-enemies > div{
-        margin: 20px 1px;
+        margin: 10px 1px;
     }
     .choose-enemy{
-        margin: 20px 1px;
+        margin: 10px 1px;
     }
 }
