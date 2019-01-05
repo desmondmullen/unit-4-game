@@ -330,12 +330,18 @@ a { /* copyright is the only link*/
     #vader {
         background-position: -35px;
     }
-#stormtrooper {
+    #stormtrooper {
         background-position: 0 -7px;
-}
+    }
     #compactor {
         background-position: -35px;
     }
+    #copyright {
+        font-size: xx-small;
+        padding: 5px;
+    }
+}
+
 }
 @media only screen and (max-width: 400px) {/*really small margins for better layout on mobile in portrait*/
         #defeated-enemies > div{
