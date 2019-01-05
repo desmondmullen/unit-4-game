@@ -252,7 +252,17 @@ em {
 #compactor {
     background-image: url("../images/compactor.jpg");
 }
-
+#copyright {
+    width: 100%;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    color: #d1d1d1;
+    padding: 10px;
+}
+a { /* copyright is the only link*/
+    color: #d1d1d1;
+}
 @-ms-viewport{
     width: device-width;
 }
