@@ -281,8 +281,8 @@ em {
         margin: 10px 10px 5px 10px;
     }
     .attack{
-    margin: 15px 25px;
-}
+        margin: 15px 25px;
+    }
     .attack-stats-left, .attack-stats-right {
         width: 100px; /*must be same as display-character plus (margin times two)*/
         margin: 0 25px;
@@ -290,6 +290,16 @@ em {
     }
     .character-info {
         font-size: small;
+    }
+    .tooltip .tooltiptext {
+        width: 100%;
+        font-size: small;
+        padding: 0px;
+        /* Position the tooltip */
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        z-index: 1;
     }
     .choose-enemy{ /*really small margin for iPhone in portrait is below*/
         margin: 10px 3px;

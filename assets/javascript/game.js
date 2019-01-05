@@ -71,10 +71,11 @@ $(document).ready(function () {
     };
 
     function assembleToolTipText(theCharacter) {
+        theCharacterGrabString = eval("characters." + theCharacter);
         if (theCharacter === theFighter) {
-            return "\nHealth: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack: " + eval("characters." + theCharacter + ".counterAttackPower");
+            return "\nHealth:" + processNumberToStandardLengthString(theCharacterGrabString.healthPoints) + "\nAttack:" + processNumberToStandardLengthString(theCharacterGrabString.counterAttackPower);
         } else {
-            return "\nHealth: " + eval("characters." + theCharacter + ".healthPoints") + "\nAttack: " + eval("characters." + theCharacter + ".attackPower");
+            return "\nHealth:" + processNumberToStandardLengthString(theCharacterGrabString.healthPoints) + "\nAttack:" + processNumberToStandardLengthString(theCharacterGrabString.attackPower);
         };
     };
 
@@ -99,11 +100,10 @@ $(document).ready(function () {
         };
         if (includeText === "grows3") { //don't do this at end of game
             theAttackStatsString = theAttackStatsString + "Your Attack: " + theFighterGrabString.counterAttackPower + " (grows with each attack)<br><span class=\"hover-for-stats-notice text-pulse\">(Hover over an enemy's name to see Health and Attack)</span>";
-        } else { //after enemy is selected, we reformat as a table
+        } else { // (grows2) after enemy is selected, we reformat as a table
             theAttackStatsString = "<section class=\"attack-stats-left\">Health: " + processNumberToStandardLengthString(theFighterGrabString.healthPoints) + "<br>Attack: " + processNumberToStandardLengthString(theFighterGrabString.counterAttackPower) + "</section>"
             theAttackStatsStringRight = "<section class=\"attack-stats-right\">Health: " + processNumberToStandardLengthString(theCurrentEnemyGrabString.healthPoints) + "<br>Attack: " + processNumberToStandardLengthString(theCurrentEnemyGrabString.attackPower) + "</section>"
         }
-        console.log(includeText);
         setTimeout(function () {
             $("#attack-stats").html(theAttackStatsString);
             $("#attack-stats").append(theAttackStatsStringRight);
@@ -115,7 +115,7 @@ $(document).ready(function () {
         theNumberToReturn = parseInt(theNumber);
         let theSpacesToAdd = "";
         let theTempNumber = parseInt(theNumber);
-        for (x = 0; x < 4; x++) {
+        for (n = 0; n < 4; n++) {
             if (theTempNumber.toString().length < 4) {
                 //add a preceding space
                 theSpacesToAdd = "&nbsp;" + theSpacesToAdd;
