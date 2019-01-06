@@ -304,7 +304,7 @@ a { /* copyright is the only link*/
         margin: 10px 10px 5px 10px;
     }
     .smaller-heading-text {
-        margin: 10px;
+        margin: 10px 0;
         font-size: medium;
     }
     .attack{
