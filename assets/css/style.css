@@ -294,7 +294,7 @@ a { /* copyright is the only link*/
     }
     #display {
     height: 125px;
-}
+    }
     #defeated-enemies > div{ /*really small margin for iPhone in portrait is below*/
         margin: 10px 3px;
     }
