@@ -113,7 +113,7 @@ $(document).ready(function () {
         }, 500);
     };
 
-    function processNumberToStandardLengthString(theNumber) {
+    function processNumberToStandardLengthString(theNumber) { // makes the stats displays align nicely
         theNumberToReturn = parseInt(theNumber);
         let theSpacesToAdd = "";
         let theTempNumber = parseInt(theNumber);
@@ -186,10 +186,9 @@ $(document).ready(function () {
 
     };
 
-    $("#display").click(function (event) {
+    $("#display").click(function (event) { //only accept clicks on character avatars
         $("#close-instructions").attr({ "style": "display: none" });
         $("#show-instructions").attr({ "style": "display: none" });
-        // only accept clicks on character avatars
         if (event.target.id !== "") {
             var theEventTarget = event.target.id;
             if (clickCheckString.includes(theEventTarget)) {
@@ -240,12 +239,12 @@ $(document).ready(function () {
     });
 
     function resetChooseEnemy(emptyDisplayOrNot) {
-        if (emptyDisplayOrNot === "no") { //we only get "no" when the player wins
+        if (emptyDisplayOrNot === "no") { //we only get "no" when the player wins. this takes care of a problem when this empties at end of game
             $("#heading").html("&nbsp");
             $("#attack-stats").html("&nbsp");
         } else {
             $("#heading").text("Choose the next enemy to fight");
-            $("#display").empty(); // this takes care of a problem when this empties at end of game
+            $("#display").empty();
             assembleAttackStatsString("grows3"); //when first choosing enemy and after defeating an enemy
         };
         for (x = 0; x < Object.keys(characters).length; x++) {
@@ -260,7 +259,6 @@ $(document).ready(function () {
             };
         };
         $("#display > div").attr({ "class": "choose-enemy display-character" });
-        // assembleAttackStatsString("grows3"); //when first choosing enemy and after defeating an enemy
     };
 
     function clearTheEnemy(winOrLoss) {
@@ -269,14 +267,14 @@ $(document).ready(function () {
             updateSectionWithFadeIn(theCurrentEnemy, "#defeated-enemies", "append");
         };
         $("#defeated-enemies > div").attr({ "style": "opacity: 1" });
-        // make this happen only the first time, but *not* at the end game (in case no one was defeated)
+        // make this happen only the first time, but *not* at the end game (in cases where no one was defeated, there's no use to see this)
         if ($("#defeated-enemies > div").length === 0 && winOrLoss !== "loss") {
             setTimeout(function () {
                 $("#defeated-enemies-heading").text("Defeated enemies").attr({ "style": "opacity: 0" });
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
             }, 1000);
         };
-        if ($("#defeated-enemies > div").length === 2) {// if all the enemies have been defeated then
+        if ($("#defeated-enemies > div").length === 2) {//if all the enemies have been defeated then
             setTimeout(function () {
                 resetChooseEnemy("no");
                 if (eval("characters." + theFighter).healthPoints < 1) {
@@ -316,9 +314,6 @@ $(document).ready(function () {
             $("#attack-stats").animate({ opacity: "0" }, 500);
         }, 1000);
         setTimeout(function () { // this timeout lets the last enemy get into the defeated enemies section before the fighter and phrase fade in
-            // assembleAttackStatsString("end");
-            // $("#attack-stats").html(assembleAttackStatsString("end"));
-            // updateSectionWithFadeIn(theFighter, "#display", "replace");
             if (gameIsOver === "loss") {
                 var theHeading = "<em>You have been defeated!</em>";
                 var thePhrase = eval("characters." + theFighter + ".losingPhrase");
@@ -336,7 +331,6 @@ $(document).ready(function () {
             };
             $(".attack").animate({ opacity: "1" }, 1000);
             $(".display-final-quote").animate({ opacity: "1" }, 1000);
-            // eval(theItemToAppend).animate({ opacity: "1" }, 1000);
         }, 2000);
         setTimeout(function () {
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);

@@ -1,0 +1,317 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-image: url("../images/background.jpg");
+    background-position: -140px 0px;
+    font-family: 'Bungee Inline', cursive;
+    font-size: large;
+}
+
+h1 {
+    width: 70%;
+    font-size: xx-large;
+    text-align: center;
+    color: #FFC00D;
+    display: block;
+}
+
+section {
+    text-align: center;
+    width: 70%;
+    padding: 20px;
+}
+
+.player-section { /*data inputs for players 1-4*/
+    font-family: "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: medium;
+    width: 30vw;
+    margin-left: 20vw;
+    align-content: center;
+    background-color: darkslategray;
+    color: #d1d1d1; /*white*/
+}
+
+.text-input, .number-input {
+    font-family: "Courier New", Courier, monospace;
+    font-size: medium;
+text-align: left;
+    background-color: #d1d1d1; /*white*/
+    color: black;
+    margin: 0 auto;
+    padding: 0px 5px;
+    /* border: 0 0 0 2px; */
+    border-bottom-color: black;
+}
+
+.number-input {
+text-align: right;
+}
+
+
+button {
+    text-align: center;
+    padding: 5px 10px;
+    font-size: x-large;
+    font-weight: bold;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    background-color: #FF0000; /*red*/
+    box-shadow: 5px 5px 2px 2px black;
+}
+
+em {
+    font-style: italic;
+}
+
+#logo {
+    background-image: url("../images/starwars.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 40px 0 20px 0;
+    height: 171px;
+    width: 70%;
+}
+
+#title {
+    /* margin: 40px 0 0 0; */
+    font-size: x-large;
+    color: #d1d1d1; /*white*/
+    text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
+}
+
+#heading {
+    margin-top: 5vh;
+    color: #FFC00D;
+    text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
+}
+
+.smaller-heading-text {
+    margin: 20px 0;
+    font-size: large;
+    text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
+}
+
+#display {
+    height: 170px;
+}
+
+.instructions-display {
+    font-family: "Courier New", Courier, monospace;
+    font-size: x-large;
+    background-color: black;
+    color: #d1d1d1; /*white*/
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 10px;
+    z-index: 99999;
+}
+#show-instructions, #close-instructions {
+margin-top: 20px;
+}
+#attack-stats {
+    height: 60px;
+    font-size: x-large;
+    font-weight: bold;
+    font-family: "Courier New", Courier, monospace;
+    color: lightgray;
+    text-shadow: 3px 3px black, -3px -3px black, -3px 3px black, 3px -3px black;
+}
+
+.attack-stats-left, .attack-stats-right {
+    width: 200px; /*must be same as display-character*/
+    margin: 0 20px; /*left and right must be same as display-character and include border-times-two*/
+    text-align: left;
+    display: inline-block;  
+    position: relative;
+    padding-left: 15px;
+}
+
+.hover-for-stats-notice {
+    font-style: italic;
+    color: greenyellow;
+}
+
+.display-character {
+    display: inline-block;  
+    position: relative;  
+    width: 200px;
+    height: 150px;
+    margin: 10px 10px;
+    border: 5px solid white;
+}
+
+.character-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    color: #FFC00D;
+    background-color: black;
+    padding: 2px;
+    width: 100%;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 80%;
+    /* margin: 0 auto; */
+    background-color: #d1d1d1; /*white*/
+    font-size: large;
+    font-weight: bold;
+    font-family: "Courier New", Courier, monospace;
+    color: black;
+    text-align: center;
+    padding: 5px;
+
+    /* Position the tooltip */
+    position: absolute;
+    bottom: -50px;
+    left: 10%;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.display-final-quote {
+    display: inline;
+    top: -90px;
+    text-align: left;
+    position: relative;
+    font-size: x-large;
+    font-family: "Courier New", Courier, monospace;
+    text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
+    font-weight: bold;
+    color: lightgray;
+}
+
+.choose-enemy{
+    margin: 10px 20px;
+    border: 5px solid #FF0000; /*red*/
+}
+
+.left-side-fighter {
+    left: -300px;
+    opacity: 0;
+}
+
+.right-side-enemy {
+    left: +300px;
+    opacity: 0;
+}
+
+.attack{
+    width: 190px;
+    height: 140px;
+    border: 0px;
+    margin: 15px 25px;
+    -webkit-animation-name: greenPulse;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-name: greenPulse;
+    -moz-animation-duration: 2s;
+    -moz-animation-iteration-count: infinite;
+    animation-name: greenPulse;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes greenPulse {
+    from {
+        -webkit-box-shadow: 0 0 5px 5px #91bd09;
+        -moz-box-shadow: 0 0 5px 5px #91bd09;
+        box-shadow: 0 0 5px 5px #91bd09;
+    }
+    50% {
+        -webkit-box-shadow: 0 0 5px 10px greenyellow;
+        -moz-box-shadow: 0 0 5px 10px greenyellow;
+        box-shadow: 0 0 5px 10px greenyellow;
+    }
+    to {
+        -webkit-box-shadow: 0 0 5px 5px #91bd09;
+        -moz-box-shadow: 0 0 5px 5px #91bd09;
+        box-shadow: 0 0 5px 5px #91bd09;
+    }
+}
+
+.text-pulse{
+    -webkit-animation-name: textPulse;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: 2;
+    -moz-animation-name: textPulse;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: 2;
+    animation-name: textPulse;
+    animation-duration: 1s;
+    animation-iteration-count: 2;
+}
+
+.button-pulse{
+    -webkit-animation-name: textPulse;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: 2;
+    -moz-animation-name: textPulse;
+    -moz-animation-duration: 2s;
+    -moz-animation-iteration-count: 2;
+    animation-name: textPulse;
+    animation-duration: 2s;
+    animation-iteration-count: 2;
+}
+
+@-webkit-keyframes textPulse {
+    from {
+        -webkit-opacity: 0.7;
+        -moz-opacity: 0.7;
+        opacity: 0.7;
+    }
+    50% {
+        -webkit-opacity: 0;
+        -moz-opacity: 0;
+        opacity: 0;
+    }
+    to {
+        -webkit-opacity: 1;
+        -moz-opacity: 1;
+        opacity: 1;
+    }
+}
+
+#defeated-enemies-heading {
+    text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
+}
+
+#defeated-enemies > div{
+    margin: 10px;
+    border: 5px solid gray;
+}
+
+#luke {
+    background-image: url("../images/luke.jpg");
+}
+#vader {
+    background-image: url("../images/vader.jpg");
+}
+#stormtrooper {
+    background-image: url("../images/stormtrooper.jpg");
+}
+#compactor {
+    background-image: url("../images/compactor.jpg");
+}
+#copyright {
+    width: 100%;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    color: #d1d1d1;
+    padding: 10px;
+}
+a { /* copyright is the only link*/
+    color: #d1d1d1;
+}
+@-ms-viewport{
+    width: device-width;
+}
