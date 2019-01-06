@@ -354,4 +354,5 @@ $(document).ready(function () {
     });
 
     initializeGame();
+
 });

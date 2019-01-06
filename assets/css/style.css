@@ -320,8 +320,10 @@ a { /* copyright is the only link*/
         margin-top: 3vh;
     }
     .display-final-quote {
-        top: -50px;
+        top: -30px;
         font-size: medium;
+        display: inline-block;
+        width: 50%;
     }
     #attack-stats {
         font-size: small;
