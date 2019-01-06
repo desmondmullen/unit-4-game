@@ -2,8 +2,8 @@
     box-sizing: border-box;
 }
 body {
-    background-image: url("../images/background.jpg");
-    background-position: -140px 0px;
+    /* background-image: url("../images/background.jpg");
+    background-position: -140px 0px; */
     font-family: 'Bungee Inline', cursive;
     font-size: large;
 }
@@ -36,13 +36,17 @@ section {
 .text-input, .number-input {
     font-family: "Courier New", Courier, monospace;
     font-size: medium;
-text-align: left;
+    text-align: left;
     background-color: #d1d1d1; /*white*/
     color: black;
     margin: 0 auto;
     padding: 0px 5px;
     /* border: 0 0 0 2px; */
     border-bottom-color: black;
+}
+
+#results {
+    width: 90%;
 }
 
 .number-input {
@@ -66,20 +70,9 @@ em {
     font-style: italic;
 }
 
-#logo {
-    background-image: url("../images/starwars.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 40px 0 20px 0;
-    height: 171px;
-    width: 70%;
-}
-
 #title {
     /* margin: 40px 0 0 0; */
     font-size: x-large;
-    color: #d1d1d1; /*white*/
-    text-shadow: 4px 4px black, -4px -4px black, -4px 4px black, 4px -4px black;
 }
 
 #heading {

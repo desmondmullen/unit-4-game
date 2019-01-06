@@ -74,14 +74,19 @@ $(document).ready(function () {
 
         theFighterAttack = theFighterAttack + eval("characters." + theFighter + ".attackPower");
         // subtract fighter's attack from enemy hp
-        // console.log(theEnemyHealth + " / " + theFighterAttack + " / " + (theEnemyHealth - theFighterAttack));
-        console.log("enemy " + y + "'s attack: " + eval("characters." + theEnemy + ".attackPower"));
+        thePreFightEnemyHealth = theEnemyHealth;
+        theEnemyHealth = theEnemyHealth - theFighterAttack //post-fight
+        console.log("enemy " + y + "'s attack: " + theEnemyAttack);
         console.log("fighter's post-fight hp: " + theFighterHealth);
-        console.log("enemy " + y + "'s pre-fight hp: " + theEnemyHealth);
+        console.log("enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
         console.log("fighter's attack: " + theFighterAttack);
-        theEnemyHealth = theEnemyHealth - theFighterAttack
         console.log("enemy " + y + "'s post-fight hp: " + theEnemyHealth);
-        console.log("--------------------------");
+        $("#results").append("<br>enemy " + y + "'s attack: " + theEnemyAttack);
+        $("#results").append("<br>fighter's post-fight hp: " + theFighterHealth);
+        $("#results").append("<br>enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
+        $("#results").append("<br>fighter's attack: " + theFighterAttack);
+        $("#results").append("<br>enemy " + y + "'s post-fight hp: " + theEnemyHealth);
+        $("#results").append("<br>--------------------------");
         // return theFighterHealth;
     };
 
@@ -97,28 +102,26 @@ $(document).ready(function () {
         console.log("fighter's initial hp: " + theFighterHealth);
         console.log("fighter's initial attack: " + theFighterAttack);
         console.log("*****************************");
+        $("#results").html("fighter's initial hp: " + theFighterHealth);
+        $("#results").append("<br>fighter's initial attack: " + theFighterAttack);
+        $("#results").append("<br>*****************************");
         for (let n = 0; n < 3; n++) { // there are 3 enemies
             let theEnemy = theScenario.substring(0, 1); // enemy is the first character of theScenario
             theEnemyHealth = eval("characters." + (Object.keys(characters)[theEnemy - 1] + ".healthPoints"));
             // console.log("enemy's initial hp: " + theEnemyHealth);
             // console.log(Object.keys(characters)[theEnemy - 1] + "'s initial health: " + theEnemyHealth);
             theScenario = theScenario.substring(1); // delete the first character of theScenario
-            let enemyStillAlive = true;
-            while (enemyStillAlive) { // while enemyStillAlive is true
+            while (theEnemyHealth > 0) { // while enemyStillAlive is true
                 runOneRound(theFighter, theEnemy);
-                // if enemy's health < 1 then set enemyStillAlive to false
-                if (theFighterHealth < 1) {
-                    enemyStillAlive = false;
-                }
             }
         }
         // record whether the fighter and/or the enemy are still alive
     }
 
-    // $("").click(function (event) {
-    // });
+    $("#run-scenarios").click(function (event) {
+        runThisScenario();
+    });
 
     initializePage();
-    runThisScenario();
 
 });
