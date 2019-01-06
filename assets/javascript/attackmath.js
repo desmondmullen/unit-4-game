@@ -50,19 +50,11 @@ $(document).ready(function () {
     };
 
     function initializePage() {
-        if (1 === 2) { // nullifying the following auto-load of DM's characters object
-            // if (typeof characters != "undefined") {
-            for (let theCount = 0; theCount < Object.keys(characters).length; theCount++) {
-                let theCharacter = Object.keys(characters)[theCount];
-                initializeFields(theCharacter, theCount);
-            };
-        } else {
-            for (let n = 0; n < 3; n++) {
-                $("#player" + (x + 1) + "-name").attr({ "value": " " });
-                $("#player" + (x + 1) + "-health").attr({ "value": "" });
-                $("#player" + (x + 1) + "-attack").attr({ "value": "" });
-            }
-        };
+        // if (typeof characters != "undefined") {
+        // for (let theCount = 0; theCount < Object.keys(characters).length; theCount++) {
+        //     let theCharacter = Object.keys(characters)[theCount];
+        //     initializeFields(theCharacter, theCount);
+        // };
     };
 
     function initializeFields(theCharacter, x) {
@@ -70,6 +62,37 @@ $(document).ready(function () {
         $("#player" + (x + 1) + "-health").attr({ "value": eval("characters." + theCharacter + ".healthPoints") });
         $("#player" + (x + 1) + "-attack").attr({ "value": eval("characters." + theCharacter + ".attackPower") });
     };
+
+    function loadDataIntoVariables() {
+        // for (let n = 0; n < 3; n++) {
+        var player1name = document.getElementById('player1-name').value;
+        var player1health = document.getElementById('player1-health').value;
+        var player1attack = document.getElementById('player1-attack').value;
+        var player2name = document.getElementById('player2-name').value;
+        var player2health = document.getElementById('player2-health').value;
+        var player2attack = document.getElementById('player2-attack').value;
+        var player3name = document.getElementById('player3-name').value;
+        var player3health = document.getElementById('player3-health').value;
+        var player3attack = document.getElementById('player3-attack').value;
+        var player4name = document.getElementById('player4-name').value;
+        var player4health = document.getElementById('player4-health').value;
+        var player4attack = document.getElementById('player4-attack').value;
+
+        console.log(player1name);
+        console.log(player1health);
+        console.log(player1attack);
+        console.log(player2name);
+        console.log(player2health);
+        console.log(player2attack);
+        console.log(player3name);
+        console.log(player3health);
+        console.log(player3attack);
+        console.log(player4name);
+        console.log(player4health);
+        console.log(player4attack);
+        // }
+
+    }
 
     function runOneRound(x, y) {
         let theFighter = Object.keys(characters)[x - 1];
@@ -98,6 +121,8 @@ $(document).ready(function () {
     };
 
     function runThisScenario() {
+        loadDataIntoVariables()
+
         let theScenario = "1234"; // the first of a list of scenarios
         let theFighter = theScenario.substring(0, 1); // fighter is the first character of theScenario
         theScenario = theScenario.substring(1); // delete the first character of theScenario
