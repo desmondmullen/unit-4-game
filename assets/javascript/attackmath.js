@@ -50,11 +50,18 @@ $(document).ready(function () {
     };
 
     function initializePage() {
-        if (typeof characters != "undefined") {
+        if (1 === 2) { // nullifying the following auto-load of DM's characters object
+            // if (typeof characters != "undefined") {
             for (let theCount = 0; theCount < Object.keys(characters).length; theCount++) {
                 let theCharacter = Object.keys(characters)[theCount];
                 initializeFields(theCharacter, theCount);
             };
+        } else {
+            for (let n = 0; n < 3; n++) {
+                $("#player" + (x + 1) + "-name").attr({ "value": " " });
+                $("#player" + (x + 1) + "-health").attr({ "value": "" });
+                $("#player" + (x + 1) + "-attack").attr({ "value": "" });
+            }
         };
     };
 
