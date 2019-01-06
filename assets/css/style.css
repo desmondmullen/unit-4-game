@@ -21,7 +21,6 @@ section {
     width: 70%;
 }
 
-/* the only button is "Play Again" */
 button {
     text-align: center;
     padding: 10px 20px;
@@ -62,6 +61,13 @@ em {
 
 #display {
     height: 170px;
+}
+
+.instructions-display {
+    font-family: "Courier New", Courier, monospace;
+    color: #d1d1d1; /*white*/
+    padding: 10px;
+    z-index: 99999;
 }
 
 #attack-stats {
@@ -325,6 +331,17 @@ a { /* copyright is the only link*/
         display: inline-block;
         width: 50%;
     }
+
+    button {
+    padding: 5px 10px;
+    font-size: medium;
+    margin-top: 10px;
+    box-shadow: 3px 3px 2px 2px black;
+    }
+    #show-instructions, #close-instructions {
+    margin-top: 60px;
+    }
+
     #attack-stats {
         font-size: small;
     }

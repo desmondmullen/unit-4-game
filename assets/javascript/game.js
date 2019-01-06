@@ -69,6 +69,7 @@ $(document).ready(function () {
             updateSection(Object.keys(characters)[x], "#display", "append");
         };
         $("#heading").text("Choose your fighter");
+        $("#show-instructions").attr({ "style": "display: inline" });
     };
 
     function assembleToolTipText(theCharacter) {
@@ -186,6 +187,8 @@ $(document).ready(function () {
     };
 
     $("#display").click(function (event) {
+        $("#close-instructions").attr({ "style": "display: none" });
+        $("#show-instructions").attr({ "style": "display: none" });
         // only accept clicks on character avatars
         if (event.target.id !== "") {
             var theEventTarget = event.target.id;
@@ -352,6 +355,25 @@ $(document).ready(function () {
     $("#play-again").click(function (event) {
         resetGame();
     });
+
+    $("#show-instructions").click(function (event) {
+        displayInstructions();
+        $("#show-instructions").attr({ "style": "display: none" });
+    });
+
+    $("#close-instructions").click(function (event) {
+        resetGame();
+    });
+
+    function displayInstructions() {
+        initializeGame();
+        $("#play-again").attr({ "style": "display: none" });
+        $("#heading").text("How to play");
+        $("#display").html($("<section>").attr({
+            "class": "instructions-display", "style": "color: #d1d1d1"
+        }).text("here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play "));
+        $("#close-instructions").attr({ "style": "display: inline" });
+    };
 
     initializeGame();
 
