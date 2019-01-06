@@ -213,13 +213,15 @@ $(document).ready(function () {
                     if ($("#heading").text() == "Click your fighter to attack!") {
                         doAttack();
                         if (eval("characters." + theCurrentEnemy).healthPoints < 1) { //if you win that round
-                            clearTheEnemy("win"); //clears the enemy and the game continues
-                        } else { //if you lose
-                            if (eval("characters." + theFighter).healthPoints < 1) {
-                                clearTheEnemy("loss");
-                                processTheGameEnd("loss");
-                                gameIsOver = "loss";
-                            }
+                            if (eval("characters." + theFighter).healthPoints > 0) {
+                                clearTheEnemy("win"); //clears the enemy and the game continues
+                            };
+                        };
+                        //if you lose
+                        if (eval("characters." + theFighter).healthPoints < 1) {
+                            clearTheEnemy("loss");
+                            processTheGameEnd("loss");
+                            gameIsOver = "loss";
                         };
                     };
                 };
@@ -327,12 +329,14 @@ $(document).ready(function () {
             $("#" + theCurrentEnemy).attr({ "class": "display-character", "style": "display: none" });
             $("#heading").html(theHeading).attr({ "style": "opacity: 0" });
             theItemToAppend = ($("<section>").attr({ "class": "display-final-quote", "style": "opacity: 0" }).html(thePhrase));
-            // theItemToAppend = ($("<span>").attr({ "class": "display-final-quote", "style": "opacity: 0" }).html(thePhrase));
             $("#heading").animate({ opacity: "1" }, 1000);
             $(".winner").animate({ opacity: "1" }, 1000);
-            $("#display").append(theItemToAppend);
+            if ($(".display-final-quote").text() === "") {
+                $("#display").append(theItemToAppend);
+            };
             $(".attack").animate({ opacity: "1" }, 1000);
-            eval(theItemToAppend).animate({ opacity: "1" }, 1000);
+            $(".display-final-quote").animate({ opacity: "1" }, 1000);
+            // eval(theItemToAppend).animate({ opacity: "1" }, 1000);
         }, 2000);
         setTimeout(function () {
             $("#defeated-enemies").animate({ opacity: "0" }, 1500);
@@ -343,9 +347,6 @@ $(document).ready(function () {
                 $("#defeated-enemies-heading").animate({ opacity: "1" }, 1500);
             }, 2000);
             setTimeout(function () {
-                if (window.matchMedia("(max-width: 670px)").matches) {
-                    // $("#attack-stats").attr({ "style": "display: none" });
-                };
                 $("#defeated-enemies").attr({ "style": "display: none" });
                 $("#play-again").attr({ "style": "opacity: 1" });
             }, 3000);
