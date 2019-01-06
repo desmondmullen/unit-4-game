@@ -75,14 +75,14 @@ $(document).ready(function () {
         theFighterAttack = theFighterAttack + eval("characters." + theFighter + ".attackPower");
         // subtract fighter's attack from enemy hp
         // console.log(theEnemyHealth + " / " + theFighterAttack + " / " + (theEnemyHealth - theFighterAttack));
-        theEnemyHealth = theEnemyHealth - theFighterAttack
-        console.log("enemy's attack: " + eval("characters." + theEnemy + ".attackPower"));
+        console.log("enemy " + y + "'s attack: " + eval("characters." + theEnemy + ".attackPower"));
         console.log("fighter's post-fight hp: " + theFighterHealth);
-        console.log("enemy's initial hp: " + eval("characters." + theEnemy + ".healthPoints"));
+        console.log("enemy " + y + "'s pre-fight hp: " + theEnemyHealth);
         console.log("fighter's attack: " + theFighterAttack);
-        console.log("enemy's new hp: " + theEnemyHealth);
+        theEnemyHealth = theEnemyHealth - theFighterAttack
+        console.log("enemy " + y + "'s post-fight hp: " + theEnemyHealth);
         console.log("--------------------------");
-        return theFighterHealth;
+        // return theFighterHealth;
     };
 
     function runThisScenario() {
@@ -107,7 +107,9 @@ $(document).ready(function () {
             while (enemyStillAlive) { // while enemyStillAlive is true
                 runOneRound(theFighter, theEnemy);
                 // if enemy's health < 1 then set enemyStillAlive to false
-                enemyStillAlive = false;
+                if (theFighterHealth < 1) {
+                    enemyStillAlive = false;
+                }
             }
         }
         // record whether the fighter and/or the enemy are still alive
