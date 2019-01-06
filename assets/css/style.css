@@ -23,11 +23,10 @@ section {
 
 button {
     text-align: center;
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-size: x-large;
     font-weight: bold;
     color: white;
-    margin-top: 20px;
     border: 0;
     border-radius: 10px;
     background-color: #FF0000; /*red*/
@@ -54,7 +53,7 @@ em {
 }
 
 .smaller-heading-text {
-    margin-top: 20px;
+    margin: 20px 0;
     font-size: large;
     text-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
 }
@@ -65,11 +64,17 @@ em {
 
 .instructions-display {
     font-family: "Courier New", Courier, monospace;
+    font-size: x-large;
+    background-color: black;
     color: #d1d1d1; /*white*/
+    margin: 0 auto;
+    margin-top: 10px;
     padding: 10px;
     z-index: 99999;
 }
-
+#show-instructions, #close-instructions {
+margin-top: 20px;
+}
 #attack-stats {
     height: 60px;
     font-size: x-large;
@@ -298,6 +303,10 @@ a { /* copyright is the only link*/
         height: 100px;
         margin: 10px 10px 5px 10px;
     }
+    .smaller-heading-text {
+        margin: 10px;
+        font-size: medium;
+    }
     .attack{
         margin: 15px 25px;
     }
@@ -331,17 +340,20 @@ a { /* copyright is the only link*/
         display: inline-block;
         width: 50%;
     }
-
     button {
-    padding: 5px 10px;
     font-size: medium;
     margin-top: 10px;
     box-shadow: 3px 3px 2px 2px black;
     }
-    #show-instructions, #close-instructions {
-    margin-top: 60px;
+    #play-again {
+        margin: 0;
     }
-
+    #show-instructions {
+    margin-top: 120px;
+    }
+    .instructions-display {
+        font-size: medium;
+    }
     #attack-stats {
         font-size: small;
     }
@@ -363,9 +375,8 @@ a { /* copyright is the only link*/
     }
 }
 
-}
 @media only screen and (max-width: 400px) {/*really small margins for better layout on mobile in portrait*/
-        #defeated-enemies > div{
+    #defeated-enemies > div{
         margin: 10px 1px;
     }
     .choose-enemy{

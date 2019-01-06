@@ -344,7 +344,7 @@ $(document).ready(function () {
             }, 2000);
             setTimeout(function () {
                 if (window.matchMedia("(max-width: 670px)").matches) {
-                    $("#attack-stats").attr({ "style": "display: none" });
+                    // $("#attack-stats").attr({ "style": "display: none" });
                 };
                 $("#defeated-enemies").attr({ "style": "display: none" });
                 $("#play-again").attr({ "style": "opacity: 1" });
