@@ -372,7 +372,7 @@ $(document).ready(function () {
         $("#heading").text("How to play");
         $("#display").html($("<section>").attr({
             "class": "instructions-display", "style": "color: #d1d1d1"
-        }).text("here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play here's how to play "));
+        }).html("Choose a fighter who will then fight - one at a time - the other three characters. With each attack, your skills increase, so if you start off fighting the less-dangerous opponents then you <em>might</em> be able to defeat the more-dangerous ones later."));
         $("#close-instructions").attr({ "style": "display: inline" });
     };
 
