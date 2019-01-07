@@ -106,17 +106,10 @@ $(document).ready(function () {
             scenarios[scenarioCount].shift// delete that scenario from the array
             let theFighter = parseInt(theScenario.substring(0, 1)); // the fighter is the first char of the scenario
             theScenario = theScenario.substring(1); // delete the first character of theScenario
-            // console.log("scenario count: " + scenarioCount);
-            if (scenarioCount === 0) {
-                theFighterHealth = eval("characters." + Object.keys(characters)[theFighter - 1]).preFightHealth;
-                theFighterInitialHealth = theFighterHealth;
-                theFighterAttack = eval("characters." + Object.keys(characters)[theFighter - 1]).attack;
-                theFighterInitialAttack = theFighterAttack;
-            } else {
-                theFighterHealth = theFighterInitialHealth;
-                theFighterAttack = theFighterInitialAttack;
-            };
-            // thePreFightFighterAttack = parseInt(eval("characters." + theEnemy + ".preFightAttack"));
+            theFighterHealth = eval("characters." + Object.keys(characters)[theFighter - 1]).preFightHealth;
+            theFighterInitialHealth = theFighterHealth;
+            theFighterAttack = eval("characters." + Object.keys(characters)[theFighter - 1]).preFightAttack;
+            theFighterInitialAttack = theFighterAttack;
             console.log("=== Scenario " + theScenarioTitle + "===");
             console.log("fighter's initial hp: " + theFighterInitialHealth);
             console.log("fighter's initial attack: " + theFighterInitialAttack);
