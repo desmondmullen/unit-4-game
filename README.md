@@ -1,4 +1,4 @@
-#Star Wars RPG, UNC Full Stack Bootcamp jQuery assignment, January 2018
+# Star Wars RPG, UNC Full Stack Bootcamp jQuery assignment, January 2018
 
 For this - our first jQuery assignment - I chose the "Challenge" option. The instructions for the assignment can be found in my github repository for this game. It may be of interest to look at the instructions, I'm pleased that I was able to take this game far beyond the requirements. I was first introduced to JavaScript about three weeks ago but I have been fortunate to have a good head start on the language having been fluent in its antecedents HyperTalk and AppleScript 20-30 years ago.
 
