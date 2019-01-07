@@ -75,11 +75,12 @@ $(document).ready(function () {
         thePreFightFighterAttack = parseInt(theFighterAttack);
         theFighterAttack = (parseInt(theFighterAttack) + parseInt(theFighterInitialAttack));
         // subtract fighter's attack from enemy hp
-        theEnemyHealth = parseInt(theEnemyHealth) - parseInt(thePreFightFighterAttack) //post-fight
+        theTempPreFightEnemyHealth = theEnemyHealth;
+        theEnemyHealth = parseInt(theEnemyHealth) - parseInt(thePreFightFighterAttack);//post-fight
         console.log("fighter's pre-fight hp: " + thePreFightFighterHealth);
         console.log("enemy " + y + "'s attack: " + theEnemyAttack);
         console.log("fighter's post-fight hp: " + theFighterHealth);
-        console.log("enemy " + y + "'s pre-fight hp: " + z);
+        console.log("enemy " + y + "'s pre-fight hp: " + theTempPreFightEnemyHealth);
         console.log("fighter's attack: " + thePreFightFighterAttack);
         console.log("enemy " + y + "'s post-fight hp: " + theEnemyHealth);
         console.log("fighter's post-fight attack: " + theFighterAttack);
@@ -87,7 +88,7 @@ $(document).ready(function () {
         $("#results").append("<br>fighter's pre-fight hp: " + thePreFightFighterHealth);
         $("#results").append("<br>enemy " + y + "'s attack: " + theEnemyAttack);
         $("#results").append("<br><font color=\"red-text\"><b>fighter's post-fight hp: " + theFighterHealth + "</b></font>");
-        $("#results").append("<br>enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
+        $("#results").append("<br>enemy " + y + "'s pre-fight hp: " + theTempPreFightEnemyHealth);
         $("#results").append("<br>fighter's attack: " + thePreFightFighterAttack);
         $("#results").append("<br>enemy " + y + "'s post-fight hp: " + theEnemyHealth);
         $("#results").append("<br>fighter's post-fight attack: " + theFighterAttack);
