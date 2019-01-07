@@ -17,9 +17,6 @@ $(document).ready(function () {
     var theEnemyHealth = 0;
     var theFighterInitialAttack = 0;
 
-    // if (window.matchMedia("(max-width: 670px)").matches) {
-    // };
-
     function resetPage() {
         location = location;
     };
@@ -84,15 +81,11 @@ $(document).ready(function () {
         $("#results").append("<br>enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
         $("#results").append("<br>fighter's attack: " + thePreFightFighterAttack);
         $("#results").append("<br>enemy " + y + "'s post-fight hp: " + theEnemyHealth);
-        // $("#results").append("<br><font color=\"blue-text\">enemy " + y + "'s post-fight hp: " + theEnemyHealth + "</font>");
         $("#results").append("<br>fighter's post-fight attack: " + theFighterAttack);
         $("#results").append("<br>**************<br>");
         eval("characters." + theFighter).health = theFighterHealth;
         eval("characters." + theFighter).attack = theFighterAttack;
         eval("characters." + theEnemy).health = theEnemyHealth;
-        // console.log(eval("characters." + theFighter + ".health"));
-        // console.log(eval("characters." + theFighter + ".attack"));
-        // console.log(eval("characters." + theEnemy + ".health"));
     };
 
     function runThisScenario() {
@@ -104,22 +97,25 @@ $(document).ready(function () {
             scenarios[scenarioCount].shift// delete that scenario from the array
             let theFighter = parseInt(theScenario.substring(0, 1)); // the fighter is the first char of the scenario
             theScenario = theScenario.substring(1); // delete the first character of theScenario
-            theFighterHealth = eval("characters." + Object.keys(characters)[theFighter - 1]).health;
-            theFighterAttack = eval("characters." + Object.keys(characters)[theFighter - 1]).attack;
-            theFighterInitialAttack = theFighterAttack;
+            if (scenarioCount === 0) {
+                theFighterHealth = eval("characters." + Object.keys(characters)[theFighter - 1]).health;
+                theFighterInitialHealth = theFighterHealth;
+                theFighterAttack = eval("characters." + Object.keys(characters)[theFighter - 1]).attack;
+                theFighterInitialAttack = theFighterAttack;
+            }
             console.log("=== Scenario " + theScenarioTitle + "===");
-            console.log("fighter's initial hp: " + theFighterHealth);
-            console.log("fighter's initial attack: " + theFighterAttack);
+            console.log("fighter's initial hp: " + theFighterInitialHealth);
+            console.log("fighter's initial attack: " + theFighterInitialAttack);
             console.log(" ");
             $("#results").append("<br> <b>== Scenario " + theScenarioTitle + " ==</b>");
             $("#results").append("<br>fighter's initial hp: " + theFighterHealth);
             $("#results").append("<br>fighter's initial attack: " + theFighterAttack);
             $("#results").append("<br>");
             for (let n = 0; n < 3; n++) { // there are 3 enemies
+                console.log(" >> round " + n + " <<");
+                $("#results").append("<br> ---- round " + n + " ----");
                 let theEnemy = theScenario.substring(0, 1); // enemy is the first character of theScenario
                 theEnemyHealth = eval("characters." + (Object.keys(characters)[theEnemy - 1] + ".health"));
-                // console.log("enemy's initial hp: " + theEnemyHealth);
-                // console.log(Object.keys(characters)[theEnemy - 1] + "'s initial health: " + theEnemyHealth);
                 theScenario = theScenario.substring(1); // delete the first character of theScenario
                 while (theEnemyHealth > 0) { // while enemyStillAlive is true
                     runOneRound(theFighter, theEnemy);
