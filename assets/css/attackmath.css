@@ -42,6 +42,10 @@ section {
     font-color: red;
 }
 
+.blue-text {
+    font-color: blue;
+}
+
 .number-input {
 text-align: right;
 }
