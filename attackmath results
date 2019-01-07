@@ -5,7 +5,7 @@
         },
         vader: {
             healthPoints: 140,
-            attackPower: 40,
+            attackPower: 55,
         },
         stormtrooper: {
             healthPoints: 80,
