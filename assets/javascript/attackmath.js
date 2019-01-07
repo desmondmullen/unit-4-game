@@ -54,7 +54,6 @@ $(document).ready(function () {
         eval(characters.four).name = player4name;
         eval(characters.four).health = player4health;
         eval(characters.four).attack = player4attack;
-        // console.log(eval(characters.one).health);
     };
 
     function runOneRound(x, y) {
@@ -84,6 +83,7 @@ $(document).ready(function () {
     };
 
     function runThisScenario() {
+        $("#results").empty();
         loadDataIntoVariables()
         for (let scenarioCount = 0; scenarioCount < scenarios.length; scenarioCount++) {
             let theScenario = (scenarios[scenarioCount]).toString(); // get the scenario
