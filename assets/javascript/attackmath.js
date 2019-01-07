@@ -1,40 +1,12 @@
 $(document).ready(function () {
     characters = {
-        luke: {
-            name: "Luke Skywalker",
-            smallScreenName: "Luke Skywalker",
-            healthPoints: 115,
-            attackPower: 40,
-            counterAttackPower: 0,
-            winningPhrase: "\"I’ll never turn to the dark side.\"",
-            losingPhrase: "\"I have a very bad feeling about this.\"",
+        one: {
         },
-        vader: {
-            name: "Darth Vader",
-            smallScreenName: "Darth Vader",
-            healthPoints: 160,
-            attackPower: 50,
-            counterAttackPower: 0,
-            winningPhrase: "\"Your powers are weak, old man.\"",
-            losingPhrase: "\"The Force is strong with this one.\"",
+        two: {
         },
-        stormtrooper: {
-            name: "Stormtrooper",
-            smallScreenName: "Storm- trooper",
-            healthPoints: 80,
-            attackPower: 30,
-            counterAttackPower: 0,
-            winningPhrase: "\"Inform Lord Vader we have prisoners.\"",
-            losingPhrase: "\"These aren't the droids we're looking for.\"",
+        three: {
         },
-        compactor: {
-            name: "Trash Compactor",
-            smallScreenName: "Trash Compactor",
-            healthPoints: 70,
-            attackPower: 50,
-            counterAttackPower: 0,
-            winningPhrase: "[nom nom nom]",
-            losingPhrase: "[sputter pffft]",
+        four: {
         }
     };
 
@@ -49,22 +21,13 @@ $(document).ready(function () {
         location = location;
     };
 
-    function initializePage() {
-        // if (typeof characters != "undefined") {
-        // for (let theCount = 0; theCount < Object.keys(characters).length; theCount++) {
-        //     let theCharacter = Object.keys(characters)[theCount];
-        //     initializeFields(theCharacter, theCount);
-        // };
-    };
-
     function initializeFields(theCharacter, x) {
         $("#player" + (x + 1) + "-name").attr({ "value": eval("characters." + theCharacter + ".name") });
-        $("#player" + (x + 1) + "-health").attr({ "value": eval("characters." + theCharacter + ".healthPoints") });
-        $("#player" + (x + 1) + "-attack").attr({ "value": eval("characters." + theCharacter + ".attackPower") });
+        $("#player" + (x + 1) + "-health").attr({ "value": eval("characters." + theCharacter + ".health") });
+        $("#player" + (x + 1) + "-attack").attr({ "value": eval("characters." + theCharacter + ".attack") });
     };
 
     function loadDataIntoVariables() {
-        // for (let n = 0; n < 3; n++) {
         var player1name = document.getElementById('player1-name').value;
         var player1health = document.getElementById('player1-health').value;
         var player1attack = document.getElementById('player1-attack').value;
@@ -77,32 +40,30 @@ $(document).ready(function () {
         var player4name = document.getElementById('player4-name').value;
         var player4health = document.getElementById('player4-health').value;
         var player4attack = document.getElementById('player4-attack').value;
-
-        console.log(player1name);
-        console.log(player1health);
-        console.log(player1attack);
-        console.log(player2name);
-        console.log(player2health);
-        console.log(player2attack);
-        console.log(player3name);
-        console.log(player3health);
-        console.log(player3attack);
-        console.log(player4name);
-        console.log(player4health);
-        console.log(player4attack);
-        // }
-
-    }
+        eval(characters.one).name = player1name;
+        eval(characters.one).health = player1health;
+        eval(characters.one).attack = player1attack;
+        eval(characters.two).name = player2name;
+        eval(characters.two).health = player2health;
+        eval(characters.two).attack = player2attack;
+        eval(characters.three).name = player3name;
+        eval(characters.three).health = player3health;
+        eval(characters.three).attack = player3attack;
+        eval(characters.four).name = player4name;
+        eval(characters.four).health = player4health;
+        eval(characters.four).attack = player4attack;
+        // console.log(eval(characters.one).health);
+    };
 
     function runOneRound(x, y) {
         let theFighter = Object.keys(characters)[x - 1];
         let theEnemy = Object.keys(characters)[y - 1];
         // subtract enemy's attack from fighter's hp
-        let theEnemyAttack = eval("characters." + theEnemy + ".attackPower")
-        theFighterHealth = theFighterHealth - theEnemyAttack
+        let theEnemyAttack = parseInt(eval("characters." + theEnemy + ".attack"));
+        theFighterHealth = theFighterHealth - theEnemyAttack;
         // set fighter's attack to itself plus the base
 
-        theFighterAttack = theFighterAttack + eval("characters." + theFighter + ".attackPower");
+        theFighterAttack = parseInt(theFighterAttack) + parseInt(eval("characters." + theFighter + ".attack"));
         // subtract fighter's attack from enemy hp
         thePreFightEnemyHealth = theEnemyHealth;
         theEnemyHealth = theEnemyHealth - theFighterAttack //post-fight
@@ -111,6 +72,7 @@ $(document).ready(function () {
         console.log("enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
         console.log("fighter's attack: " + theFighterAttack);
         console.log("enemy " + y + "'s post-fight hp: " + theEnemyHealth);
+        console.log("<br>--------------------------");
         $("#results").append("<br>enemy " + y + "'s attack: " + theEnemyAttack);
         $("#results").append("<br>fighter's post-fight hp: " + theFighterHealth);
         $("#results").append("<br>enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
@@ -122,38 +84,33 @@ $(document).ready(function () {
 
     function runThisScenario() {
         loadDataIntoVariables()
-
-        let theScenario = "1234"; // the first of a list of scenarios
-        let theFighter = theScenario.substring(0, 1); // fighter is the first character of theScenario
-        theScenario = theScenario.substring(1); // delete the first character of theScenario
-        theFighterHealth = eval("characters." + (Object.keys(characters)[theFighter - 1]
-            + ".healthPoints"));
-        theFighterAttack = eval("characters." + (Object.keys(characters)[theFighter - 1]
-            + ".attackPower"));
-        // console.log("check: " + theFighterAttack);
-        console.log("fighter's initial hp: " + theFighterHealth);
-        console.log("fighter's initial attack: " + theFighterAttack);
-        console.log("*****************************");
-        $("#results").html("fighter's initial hp: " + theFighterHealth);
-        $("#results").append("<br>fighter's initial attack: " + theFighterAttack);
-        $("#results").append("<br>*****************************");
-        for (let n = 0; n < 3; n++) { // there are 3 enemies
-            let theEnemy = theScenario.substring(0, 1); // enemy is the first character of theScenario
-            theEnemyHealth = eval("characters." + (Object.keys(characters)[theEnemy - 1] + ".healthPoints"));
-            // console.log("enemy's initial hp: " + theEnemyHealth);
-            // console.log(Object.keys(characters)[theEnemy - 1] + "'s initial health: " + theEnemyHealth);
+        setTimeout(function () {
+            let theScenario = "1234"; // the first of a list of scenarios
+            let theFighter = parseInt(theScenario.substring(0, 1)); // fighter is the first character of theScenario
             theScenario = theScenario.substring(1); // delete the first character of theScenario
-            while (theEnemyHealth > 0) { // while enemyStillAlive is true
-                runOneRound(theFighter, theEnemy);
+            theFighterHealth = eval("characters." + Object.keys(characters)[theFighter - 1]).health;
+            theFighterAttack = eval("characters." + Object.keys(characters)[theFighter - 1]).attack;
+            console.log("fighter's initial hp: " + theFighterHealth);
+            console.log("fighter's initial attack: " + theFighterAttack);
+            console.log("*****************************");
+            $("#results").html("fighter's initial hp: " + theFighterHealth);
+            $("#results").append("<br>fighter's initial attack: " + theFighterAttack);
+            $("#results").append("<br>*****************************");
+            for (let n = 0; n < 3; n++) { // there are 3 enemies
+                let theEnemy = theScenario.substring(0, 1); // enemy is the first character of theScenario
+                theEnemyHealth = eval("characters." + (Object.keys(characters)[theEnemy - 1] + ".health"));
+                // console.log("enemy's initial hp: " + theEnemyHealth);
+                // console.log(Object.keys(characters)[theEnemy - 1] + "'s initial health: " + theEnemyHealth);
+                theScenario = theScenario.substring(1); // delete the first character of theScenario
+                while (theEnemyHealth > 0) { // while enemyStillAlive is true
+                    runOneRound(theFighter, theEnemy);
+                }
             }
-        }
-        // record whether the fighter and/or the enemy are still alive
+        }, 500);
     }
 
     $("#run-scenarios").click(function (event) {
         runThisScenario();
     });
-
-    initializePage();
 
 });
