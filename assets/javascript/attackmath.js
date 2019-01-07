@@ -80,10 +80,11 @@ $(document).ready(function () {
         console.log(" ");
         $("#results").append("<br>fighter's pre-fight hp: " + thePreFightFighterHealth);
         $("#results").append("<br>enemy " + y + "'s attack: " + theEnemyAttack);
-        $("#results").append("<br><font color=\"red-text\">fighter's post-fight hp: " + theFighterHealth + "</font>");
+        $("#results").append("<br><font color=\"red-text\"><b>fighter's post-fight hp: " + theFighterHealth + "</b></font>");
         $("#results").append("<br>enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
         $("#results").append("<br>fighter's attack: " + thePreFightFighterAttack);
-        $("#results").append("<br><font color=\"blue-text\">enemy " + y + "'s post-fight hp: " + theEnemyHealth + "</font>");
+        $("#results").append("<br>enemy " + y + "'s post-fight hp: " + theEnemyHealth);
+        // $("#results").append("<br><font color=\"blue-text\">enemy " + y + "'s post-fight hp: " + theEnemyHealth + "</font>");
         $("#results").append("<br>fighter's post-fight attack: " + theFighterAttack);
         $("#results").append("<br>**************<br>");
         eval("characters." + theFighter).health = theFighterHealth;

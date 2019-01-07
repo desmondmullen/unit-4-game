@@ -42,8 +42,8 @@ section {
     font-color: red;
 }
 
-.blue-text {
-    font-color: blue;
+b {
+    font-weight: bold;
 }
 
 .number-input {
