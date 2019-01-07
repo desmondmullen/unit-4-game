@@ -9,7 +9,7 @@ $(document).ready(function () {
         luke: {
             name: "Luke Skywalker",
             smallScreenName: "Luke Skywalker",
-            healthPoints: 115,
+            healthPoints: 125,
             attackPower: 40,
             counterAttackPower: 0,
             winningPhrase: "\"I’ll never turn to the dark side.\"",

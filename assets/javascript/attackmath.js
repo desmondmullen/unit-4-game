@@ -15,6 +15,7 @@ $(document).ready(function () {
     var theFighterHealth = 0;
     var theFighterAttack = 0;
     var theEnemyHealth = 0;
+    var theFighterInitialAttack = 0;
 
     // if (window.matchMedia("(max-width: 670px)").matches) {
     // };
@@ -60,26 +61,37 @@ $(document).ready(function () {
         let theFighter = Object.keys(characters)[x - 1];
         let theEnemy = Object.keys(characters)[y - 1];
         // subtract enemy's attack from fighter's hp
-        let theEnemyAttack = parseInt(eval("characters." + theEnemy + ".attack"));
+        let theEnemyAttack = (parseInt(eval("characters." + theEnemy + ".attack")));
+        thePreFightFighterHealth = theFighterHealth;
         theFighterHealth = theFighterHealth - theEnemyAttack;
         // set fighter's attack to itself plus the base
-
-        theFighterAttack = parseInt(theFighterAttack) + parseInt(eval("characters." + theFighter + ".attack"));
+        thePreFightFighterAttack = parseInt(theFighterAttack);
+        theFighterAttack = (parseInt(theFighterAttack) + parseInt(theFighterInitialAttack));
         // subtract fighter's attack from enemy hp
         thePreFightEnemyHealth = theEnemyHealth;
-        theEnemyHealth = theEnemyHealth - theFighterAttack //post-fight
+        theEnemyHealth = parseInt(theEnemyHealth) - parseInt(thePreFightFighterAttack) //post-fight
+        console.log("fighter's pre-fight hp: " + thePreFightFighterHealth);
         console.log("enemy " + y + "'s attack: " + theEnemyAttack);
         console.log("fighter's post-fight hp: " + theFighterHealth);
         console.log("enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
-        console.log("fighter's attack: " + theFighterAttack);
+        console.log("fighter's attack: " + thePreFightFighterAttack);
         console.log("enemy " + y + "'s post-fight hp: " + theEnemyHealth);
+        console.log("fighter's post-fight attack: " + theFighterAttack);
         console.log(" ");
+        $("#results").append("<br>fighter's pre-fight hp: " + thePreFightFighterHealth);
         $("#results").append("<br>enemy " + y + "'s attack: " + theEnemyAttack);
         $("#results").append("<br><font color=\"red-text\">fighter's post-fight hp: " + theFighterHealth + "</font>");
         $("#results").append("<br>enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
-        $("#results").append("<br>fighter's attack: " + theFighterAttack);
+        $("#results").append("<br>fighter's attack: " + thePreFightFighterAttack);
         $("#results").append("<br>enemy " + y + "'s post-fight hp: " + theEnemyHealth);
+        $("#results").append("<br>fighter's post-fight attack: " + theFighterAttack);
         $("#results").append("<br>**************<br>");
+        eval("characters." + theFighter).health = theFighterHealth;
+        eval("characters." + theFighter).attack = theFighterAttack;
+        eval("characters." + theEnemy).health = theEnemyHealth;
+        console.log(eval("characters." + theFighter + ".health"));
+        console.log(eval("characters." + theFighter + ".attack"));
+        console.log(eval("characters." + theEnemy + ".health"));
     };
 
     function runThisScenario() {
@@ -93,6 +105,7 @@ $(document).ready(function () {
             theScenario = theScenario.substring(1); // delete the first character of theScenario
             theFighterHealth = eval("characters." + Object.keys(characters)[theFighter - 1]).health;
             theFighterAttack = eval("characters." + Object.keys(characters)[theFighter - 1]).attack;
+            theFighterInitialAttack = theFighterAttack;
             console.log("=== Scenario " + theScenarioTitle + "===");
             console.log("fighter's initial hp: " + theFighterHealth);
             console.log("fighter's initial attack: " + theFighterAttack);
