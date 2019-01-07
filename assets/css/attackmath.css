@@ -38,6 +38,10 @@ section {
     width: 90%;
 }
 
+.red-text {
+    font-color: red;
+}
+
 .number-input {
 text-align: right;
 }

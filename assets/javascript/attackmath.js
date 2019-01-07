@@ -75,11 +75,11 @@ $(document).ready(function () {
         console.log("enemy " + y + "'s post-fight hp: " + theEnemyHealth);
         console.log(" ");
         $("#results").append("<br>enemy " + y + "'s attack: " + theEnemyAttack);
-        $("#results").append("<br>fighter's post-fight hp: " + theFighterHealth);
+        $("#results").append("<br><font color=\"red-text\">fighter's post-fight hp: " + theFighterHealth + "</font>");
         $("#results").append("<br>enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
         $("#results").append("<br>fighter's attack: " + theFighterAttack);
         $("#results").append("<br>enemy " + y + "'s post-fight hp: " + theEnemyHealth);
-        $("#results").append("<br>***************************<br>");
+        $("#results").append("<br>**************<br>");
     };
 
     function runThisScenario() {
@@ -97,7 +97,7 @@ $(document).ready(function () {
             console.log("fighter's initial hp: " + theFighterHealth);
             console.log("fighter's initial attack: " + theFighterAttack);
             console.log(" ");
-            $("#results").append("<br> ====== Scenario " + theScenarioTitle + " ======");
+            $("#results").append("<br> == Scenario " + theScenarioTitle + " ==");
             $("#results").append("<br>fighter's initial hp: " + theFighterHealth);
             $("#results").append("<br>fighter's initial attack: " + theFighterAttack);
             $("#results").append("<br>");
