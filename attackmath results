@@ -1,10 +1,11 @@
         luke: {
-            healthPoints: 115,
-            attackPower: 40,
+            healthPoints: 155,
+            attackPower: 45,
+            1342
         },
         vader: {
-            healthPoints: 160,
-            attackPower: 50,
+            healthPoints: 140,
+            attackPower: 40,
         },
         stormtrooper: {
             healthPoints: 80,

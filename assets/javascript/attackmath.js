@@ -45,29 +45,34 @@ $(document).ready(function () {
         eval(characters.one).health = player1health;
         eval(characters.one).preFightHealth = player1health;
         eval(characters.one).attack = player1attack;
+        eval(characters.one).preFightAttack = player1attack;
         eval(characters.two).name = player2name;
         eval(characters.two).health = player2health;
         eval(characters.two).preFightHealth = player2health;
         eval(characters.two).attack = player2attack;
+        eval(characters.two).preFightAttack = player2attack;
         eval(characters.three).name = player3name;
         eval(characters.three).health = player3health;
         eval(characters.three).preFightHealth = player3health;
         eval(characters.three).attack = player3attack;
+        eval(characters.three).preFightAttack = player3attack;
         eval(characters.four).name = player4name;
         eval(characters.four).health = player4health;
         eval(characters.four).preFightHealth = player4health;
         eval(characters.four).attack = player4attack;
+        eval(characters.four).preFightAttack = player4attack;
     };
 
     function runOneRound(x, y, z) {
         let theFighter = Object.keys(characters)[x - 1];
         let theEnemy = Object.keys(characters)[y - 1];
         // subtract enemy's attack from fighter's hp
-        let theEnemyAttack = (parseInt(eval("characters." + theEnemy + ".attack")));
-        thePreFightFighterHealth = theFighterHealth;
+        // let theEnemyAttack = (parseInt(eval("characters." + theEnemy + ".attack")));
+        theEnemyAttack = parseInt(eval("characters." + theEnemy + ".preFightAttack"));
+        theTempPreFightFighterHealth = parseInt(theFighterHealth);
         theFighterHealth = parseInt(theFighterHealth) - parseInt(theEnemyAttack);
         // set fighter's attack to itself plus the base
-        thePreFightFighterAttack = parseInt(theFighterAttack);
+        // thePreFightFighterAttack = parseInt(eval("characters." + theEnemy + ".preFightAttack"));
         theFighterAttack = (parseInt(theFighterAttack) + parseInt(theFighterInitialAttack));
         // subtract fighter's attack from enemy hp
         theEnemyHealth = parseInt(theEnemyHealth) - parseInt(thePreFightFighterAttack) //post-fight
@@ -79,7 +84,7 @@ $(document).ready(function () {
         console.log("enemy " + y + "'s post-fight hp: " + theEnemyHealth);
         console.log("fighter's post-fight attack: " + theFighterAttack);
         console.log(" ");
-        $("#results").append("<br>fighter's pre-fight hp: " + thePreFightFighterHealth);
+        $("#results").append("<br>fighter's pre-fight hp: " + theTempPreFightFighterHealth);
         $("#results").append("<br>enemy " + y + "'s attack: " + theEnemyAttack);
         $("#results").append("<br><font color=\"red-text\"><b>fighter's post-fight hp: " + theFighterHealth + "</b></font>");
         $("#results").append("<br>enemy " + y + "'s pre-fight hp: " + thePreFightEnemyHealth);
@@ -103,7 +108,7 @@ $(document).ready(function () {
             theScenario = theScenario.substring(1); // delete the first character of theScenario
             // console.log("scenario count: " + scenarioCount);
             if (scenarioCount === 0) {
-                theFighterHealth = eval("characters." + Object.keys(characters)[theFighter - 1]).health;
+                theFighterHealth = eval("characters." + Object.keys(characters)[theFighter - 1]).preFightHealth;
                 theFighterInitialHealth = theFighterHealth;
                 theFighterAttack = eval("characters." + Object.keys(characters)[theFighter - 1]).attack;
                 theFighterInitialAttack = theFighterAttack;
@@ -111,6 +116,7 @@ $(document).ready(function () {
                 theFighterHealth = theFighterInitialHealth;
                 theFighterAttack = theFighterInitialAttack;
             };
+            // thePreFightFighterAttack = parseInt(eval("characters." + theEnemy + ".preFightAttack"));
             console.log("=== Scenario " + theScenarioTitle + "===");
             console.log("fighter's initial hp: " + theFighterInitialHealth);
             console.log("fighter's initial attack: " + theFighterInitialAttack);
@@ -119,10 +125,14 @@ $(document).ready(function () {
             $("#results").append("<br>fighter's initial hp: " + theFighterHealth);
             $("#results").append("<br>fighter's initial attack: " + theFighterAttack);
             $("#results").append("<br>");
+            thePreFightFighterAttack = parseInt(eval("characters." + Object.keys(characters)[theFighter - 1] + ".preFightAttack"));
+            thePreFightFighterHealth = parseInt(eval("characters." + Object.keys(characters)[theFighter - 1] + ".preFightHealth"));
             for (let n = 0; n < 3; n++) { // there are 3 enemies
                 console.log(" >> round " + n + " <<");
                 $("#results").append("<br> ---- round " + n + " ----");
                 let theEnemy = theScenario.substring(0, 1); // enemy is the first character of theScenario
+                // thePreFightFighterAttack = parseInt(eval("characters." + Object.keys(characters)[theFighter - 1] + ".preFightAttack"));
+                // thePreFightFighterHealth = parseInt(eval("characters." + Object.keys(characters)[theFighter - 1] + ".preFightHealth"));
                 thePreFightEnemyHealth = (parseInt(eval("characters." + Object.keys(characters)[theEnemy - 1] + ".preFightHealth")));
                 theEnemyHealth = thePreFightEnemyHealth
                 theScenario = theScenario.substring(1); // delete the first character of theScenario
